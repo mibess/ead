@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+/* Light glow on top center */
+.top-glow{ position:absolute; left:50%; transform:translateX(-50%); top:5vh; width:420px; height:420px; filter:blur(60px); opacity:.45; background: radial-gradient(closest-side, rgba(96,165,250,.55), rgba(96,165,250,0)); border-radius:9999px; }
+
+/* create a spinner */
+.spinner {
+  border: 4px solid rgba(255, 255, 255, 0.1);
+  border-top: 4px solid rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

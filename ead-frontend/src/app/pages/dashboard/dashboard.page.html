@@ -1,0 +1,190 @@
+<main class="min-h-screen bg-linear-to-br from-slate-900 via-slate-950 to-black text-slate-100 antialiased space-bg">
+  <!-- Layout wrapper -->
+  <div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <aside class="hidden lg:flex w-64 flex-col gap-4 p-6 bg-white/5 backdrop-blur-2xl ring-1 ring-white/10 shadow-glass">
+      <div class="flex items-center gap-3">
+        <div class="h-10 w-10 grid place-items-center rounded-xl bg-linear-to-br from-primary to-primary/40 ring-1 ring-white/20">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 3l7 4v10l-7 4-7-4V7l7-4z" stroke="white" stroke-width="1.4" opacity=".9"/>
+            <circle cx="12" cy="12" r="2.2" fill="white" opacity=".9"/>
+          </svg>
+        </div>
+        <span class="font-semibold text-lg">EAD</span>
+      </div>
+      <nav class="mt-2 space-y-1 text-sm">
+        <a class="flex items-center gap-3 px-3 py-2 rounded-xl bg-white/10 ring-1 ring-white/10" href="#">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M3 12l9-9 9 9v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9z"/></svg>
+          Overview
+        </a>
+        <a class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-white/10 ring-1 ring-white/10/0 hover:ring-white/10" href="#courses">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16v4H4zM4 10h10v10H4zM16 10h4v10h-4z"/></svg>
+          Courses
+        </a>
+        <a class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-white/10" href="#progress">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h4v8H3zM10 3h4v18h-4zM17 9h4v12h-4z"/></svg>
+          Progress
+        </a>
+        <a class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-white/10" href="#settings">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 8a4 4 0 100 8 4 4 0 000-8zm8.94 3a7.95 7.95 0 00-.35-1l2.12-1.65-2-3.46-2.49.5a8.26 8.26 0 00-1.7-1l-.39-2.52h-4l-.39 2.52a8.26 8.26 0 00-1.7 1l-2.49-.5-2 3.46L3.41 10a7.95 7.95 0 00-.35 1l-2.06.98v4l2.06.98c.1.34.22.67.35 1l-1.72 1.34 2 3.46 2.49-.5c.53.39 1.09.73 1.7 1l.39 2.52h4l.39-2.52c.61-.27 1.17-.61 1.7-1l2.49.5 2-3.46-1.72-1.34c.13-.33.25-.66.35-1l2.06-.98v-4L20.94 11z"/></svg>
+          Settings
+        </a>
+      </nav>
+      <div class="mt-auto">
+        <button class="w-full flex items-center justify-center gap-2 rounded-xl bg-linear-to-br from-primary to-primary.dark py-2.5 font-medium ring-1 ring-white/10">New Course</button>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <div class="flex-1 p-6 lg:p-10">
+      <!-- Topbar -->
+      <header class="mb-6 flex items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <button class="lg:hidden rounded-xl ring-1 ring-white/10 bg-white/10 p-2">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M3 6h18v2H3zM3 11h18v2H3zM3 16h18v2H3z"/></svg>
+          </button>
+          <h1 class="text-2xl font-semibold tracking-tight">Dashboard</h1>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="relative">
+            <input class="w-60 rounded-xl bg-white/5 px-3 py-2 pr-10 text-sm outline-none ring-1 ring-white/10 focus:ring-2 focus:ring-primary/50" placeholder="Search courses" />
+            <svg class="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-300" viewBox="0 0 24 24" fill="currentColor"><path d="M10 2a8 8 0 105.29 14.29l4.71 4.7 1.41-1.41-4.7-4.71A8 8 0 0010 2zm0 2a6 6 0 110 12A6 6 0 0110 4z"/></svg>
+          </div>
+          <button class="rounded-xl ring-1 ring-white/10 bg-white/10 p-2">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22a2 2 0 002-2H10a2 2 0 002 2zm6-6V11a6 6 0 10-12 0v5l-2 2v1h16v-1l-2-2z"/></svg>
+          </button>
+          <img class="h-9 w-9 rounded-full ring-1 ring-white/20 object-cover" src="https://i.pravatar.cc/100?img=5" alt="avatar" />
+          <!-- create a google icon button to sign out -->
+          <button (click)="logout()" class="rounded-xl ring-1 ring-white/10 bg-white/10 p-2 cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#F3F3F3"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- KPI Cards -->
+      <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+        <div class="rounded-2xl bg-white/5 p-5 ring-1 ring-white/10 shadow-glass">
+          <p class="text-slate-300 text-sm">Active Courses</p>
+          <div class="mt-2 flex items-baseline gap-2">
+            <span class="text-3xl font-semibold">8</span>
+            <span class="text-xs text-emerald-400">+2 this week</span>
+          </div>
+        </div>
+        <div class="rounded-2xl bg-white/5 p-5 ring-1 ring-white/10 shadow-glass">
+          <p class="text-slate-300 text-sm">Hours Learned</p>
+          <div class="mt-2 flex items-baseline gap-2">
+            <span class="text-3xl font-semibold">24.5</span>
+            <span class="text-xs text-emerald-400">+4.1</span>
+          </div>
+        </div>
+        <div class="rounded-2xl bg-white/5 p-5 ring-1 ring-white/10 shadow-glass">
+          <p class="text-slate-300 text-sm">Completed</p>
+          <div class="mt-2 flex items-baseline gap-2">
+            <span class="text-3xl font-semibold">12</span>
+            <span class="text-xs text-slate-400">out of 30</span>
+          </div>
+        </div>
+        <div class="rounded-2xl bg-white/5 p-5 ring-1 ring-white/10 shadow-glass">
+          <p class="text-slate-300 text-sm">Streak</p>
+          <div class="mt-2 flex items-baseline gap-2">
+            <span class="text-3xl font-semibold">7</span>
+            <span class="text-xs text-amber-300">days</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Content Grid -->
+      <section class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+        <!-- Progress / chart placeholder -->
+        <div class="xl:col-span-2 rounded-2xl bg-white/5 ring-1 ring-white/10 shadow-glass p-6">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-semibold">Weekly Learning Progress</h2>
+            <span class="text-xs text-slate-400">Last 7 days</span>
+          </div>
+          <!-- Simple bars (CSS only) -->
+          <div class="grid grid-cols-7 gap-3 items-end h-40">
+            <div class="rounded-xl bg-primary/40 ring-1 ring-white/10" style="height: 30%"></div>
+            <div class="rounded-xl bg-primary/50 ring-1 ring-white/10" style="height: 55%"></div>
+            <div class="rounded-xl bg-primary/60 ring-1 ring-white/10" style="height: 70%"></div>
+            <div class="rounded-xl bg-primary/70 ring-1 ring-white/10" style="height: 80%"></div>
+            <div class="rounded-xl bg-primary/60 ring-1 ring-white/10" style="height: 65%"></div>
+            <div class="rounded-xl bg-primary/50 ring-1 ring-white/10" style="height: 45%"></div>
+            <div class="rounded-xl bg-primary/40 ring-1 ring-white/10" style="height: 35%"></div>
+          </div>
+        </div>
+
+        <!-- Upcoming lessons -->
+        <div class="rounded-2xl bg-white/5 ring-1 ring-white/10 shadow-glass p-6" id="courses">
+          <h2 class="text-lg font-semibold mb-4">Upcoming lessons</h2>
+          <ul class="space-y-3 text-sm">
+            <li class="flex items-center justify-between rounded-xl bg-white/5 ring-1 ring-white/10 p-3">
+              <span>Angular Fundamentals – Module 2</span>
+              <span class="text-xs text-slate-300">Today 17:00</span>
+            </li>
+            <li class="flex items-center justify-between rounded-xl bg-white/5 ring-1 ring-white/10 p-3">
+              <span>Spring Boot REST – Authentication</span>
+              <span class="text-xs text-slate-300">Wed 19:30</span>
+            </li>
+            <li class="flex items-center justify-between rounded-xl bg-white/5 ring-1 ring-white/10 p-3">
+              <span>Database Design – PostgreSQL</span>
+              <span class="text-xs text-slate-300">Fri 09:00</span>
+            </li>
+          </ul>
+          <button class="mt-4 w-full rounded-xl bg-white/10 ring-1 ring-white/10 py-2 hover:bg-white/15">View calendar</button>
+        </div>
+      </section>
+
+      <!-- Table -->
+      <section class="mt-6 rounded-2xl bg-white/5 ring-1 ring-white/10 shadow-glass overflow-hidden">
+        <div class="px-6 py-4 flex items-center justify-between">
+          <h2 class="text-lg font-semibold">Recent activity</h2>
+          <a class="text-sm text-slate-300 hover:text-white" href="#">See all</a>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="min-w-full text-left text-sm">
+            <thead class="bg-white/10">
+              <tr>
+                <th class="px-6 py-3 font-medium">Course</th>
+                <th class="px-6 py-3 font-medium">Module</th>
+                <th class="px-6 py-3 font-medium">Progress</th>
+                <th class="px-6 py-3 font-medium">Updated</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-t border-white/10">
+                <td class="px-6 py-3">Angular 19 Essentials</td>
+                <td class="px-6 py-3">Components</td>
+                <td class="px-6 py-3">
+                  <div class="w-44 h-2 rounded-full bg-white/10">
+                    <div class="h-2 rounded-full bg-primary" style="width:70%"></div>
+                  </div>
+                </td>
+                <td class="px-6 py-3 text-slate-300">2h ago</td>
+              </tr>
+              <tr class="border-t border-white/10">
+                <td class="px-6 py-3">Spring Boot API</td>
+                <td class="px-6 py-3">Security</td>
+                <td class="px-6 py-3">
+                  <div class="w-44 h-2 rounded-full bg-white/10">
+                    <div class="h-2 rounded-full bg-primary" style="width:45%"></div>
+                  </div>
+                </td>
+                <td class="px-6 py-3 text-slate-300">Yesterday</td>
+              </tr>
+              <tr class="border-t border-white/10">
+                <td class="px-6 py-3">PostgreSQL & SQL</td>
+                <td class="px-6 py-3">Indexes</td>
+                <td class="px-6 py-3">
+                  <div class="w-44 h-2 rounded-full bg-white/10">
+                    <div class="h-2 rounded-full bg-primary" style="width:20%"></div>
+                  </div>
+                </td>
+                <td class="px-6 py-3 text-slate-300">3 days ago</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
