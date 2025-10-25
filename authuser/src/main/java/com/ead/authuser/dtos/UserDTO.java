@@ -19,7 +19,6 @@ public class UserDTO {
         public static interface ImagePut {}
     }
 
-
     private UUID userId;
 
     @JsonView(UserView.RegistrationPost.class)
