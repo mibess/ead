@@ -43,7 +43,7 @@
           <button class="lg:hidden rounded-xl ring-1 ring-white/10 bg-white/10 p-2">
             <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M3 6h18v2H3zM3 11h18v2H3zM3 16h18v2H3z"/></svg>
           </button>
-          <h1 class="text-2xl font-semibold tracking-tight">Dashboard</h1>
+          <h1 class="text-2xl font-semibold tracking-tight">Dashboard de {{ userLoggedIn.name }}</h1>
         </div>
         <div class="flex items-center gap-3">
           <div class="relative">
@@ -53,7 +53,9 @@
           <button class="rounded-xl ring-1 ring-white/10 bg-white/10 p-2">
             <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22a2 2 0 002-2H10a2 2 0 002 2zm6-6V11a6 6 0 10-12 0v5l-2 2v1h16v-1l-2-2z"/></svg>
           </button>
-          <img class="h-9 w-9 rounded-full ring-1 ring-white/20 object-cover" src="https://i.pravatar.cc/100?img=5" alt="avatar" />
+          <a routerLink="/users/settings" class="h-9 w-9">
+            <img class="rounded-full ring-1 ring-white/20 object-cover" src="https://i.pravatar.cc/100?img=5" alt="avatar" />
+          </a>
           <!-- create a google icon button to sign out -->
           <button (click)="logout()" class="rounded-xl ring-1 ring-white/10 bg-white/10 p-2 cursor-pointer">
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#F3F3F3"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/></svg>

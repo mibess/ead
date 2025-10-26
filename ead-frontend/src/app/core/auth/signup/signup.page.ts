@@ -1,8 +1,8 @@
 import { AuthService } from './../../../services/auth.service';
 import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { UserSignupRequest } from '../../../interface/user.interface';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UserSignupRequest } from '../../../pages/users/user.interface';
 
 @Component({
   selector: 'app-signup.page',

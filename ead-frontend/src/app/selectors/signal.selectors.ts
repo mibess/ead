@@ -1,6 +1,5 @@
 import { computed, Injectable, signal } from '@angular/core';
 
-
 export interface SignupState {
   loading: boolean;
   error: string | null;

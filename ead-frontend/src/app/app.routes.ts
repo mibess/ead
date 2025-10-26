@@ -5,7 +5,7 @@ import { SignupPage } from './core/auth/signup/signup.page';
 import { HomePage } from './pages/home/home.page/home.page';
 
 import { DASHBOARD_ROUTES } from './pages/dashboard/dashboard.routes';
-import { USERS_ROUTES } from './pages/users/users.routes';
+import { USER_ROUTES } from './pages/users/user.routes';
 
 export const routes: Routes = [
   /* public routes */
@@ -14,5 +14,5 @@ export const routes: Routes = [
   { path : 'signup', component: SignupPage },
   /* protected routes */
   { path : 'dashboard', children: DASHBOARD_ROUTES },
-  { path : 'users', children: USERS_ROUTES }
+  { path : 'users', children: USER_ROUTES }
 ];
