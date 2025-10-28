@@ -1,9 +1,14 @@
 import { computed, Injectable, signal } from "@angular/core";
-import { UserLoggedIn } from "./user.interface";
+import { UserLoggedIn, UserResponse } from "./user.interface";
 
 export interface UserState {
   loading: boolean;
   userLoggedIn: UserLoggedIn | null;
+}
+
+export interface UserSettingState {
+  loading: boolean;
+  userSettings: UserResponse | null;
 }
 
 @Injectable({
@@ -15,6 +20,13 @@ export class UsersSelectors {
     userLoggedIn: null
   });
 
+  public userSettingState = signal<UserSettingState>({
+    loading: false,
+    userSettings: null
+  });
+
   public readonly loading = computed(() => this.userState().loading);
   public readonly userLoggedIn = computed(() => this.userState().userLoggedIn);
+
+  public readonly userSettings = computed(() => this.userSettingState().userSettings);
 }
