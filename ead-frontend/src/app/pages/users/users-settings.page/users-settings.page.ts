@@ -15,12 +15,12 @@ export class UsersSettingsPage implements OnInit {
   public readonly usersSelectors = inject(UsersSelectors);
 
   userSettingsFormGroup = new FormGroup({
-    username: new FormControl(''),
-    fullName: new FormControl(''),
-    email: new FormControl(''),
-    phoneNumber: new FormControl(''),
-    cpf: new FormControl(''),
-    imageUrl: new FormControl('')
+    username: new FormControl({ value: '', disabled: true }, { nonNullable: true }), // <-- After
+    fullName: new FormControl('', { nonNullable: true }),
+    email: new FormControl('', { nonNullable: true }),
+    phoneNumber: new FormControl('', { nonNullable: true }),
+    cpf: new FormControl('', { nonNullable: true }),
+    imageUrl: new FormControl('', { nonNullable: true })
   });
 
   constructor() {
