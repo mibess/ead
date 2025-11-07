@@ -15,4 +15,8 @@ export class UserApi {
   public getUserById(userId: string): Observable<UserResponse> {
     return this.http.get<UserResponse>(`${this.apiBaseUrl}/${userId}`);
   }
+
+  public updateUser(updatedSettings: UserResponse): Observable<UserResponse> {
+    return this.http.put<UserResponse>(`${this.apiBaseUrl}/${updatedSettings.userId}`, updatedSettings);
+  }
 }

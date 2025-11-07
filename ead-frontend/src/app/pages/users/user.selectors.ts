@@ -25,8 +25,6 @@ export class UsersSelectors {
     userSettings: null
   });
 
-  public readonly loading = computed(() => this.userState().loading);
   public readonly userLoggedIn = computed(() => this.userState().userLoggedIn);
-
   public readonly userSettings = computed(() => this.userSettingState().userSettings);
 }
