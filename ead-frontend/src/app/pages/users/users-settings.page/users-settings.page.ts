@@ -7,7 +7,7 @@ import { UserResponse } from '../user.interface';
 
 @Component({
   selector: 'app-users-settings.page',
-  imports: [ RouterModule, FormsModule, ReactiveFormsModule ],
+  imports: [RouterModule, FormsModule, ReactiveFormsModule],
   templateUrl: './users-settings.page.html',
   styleUrl: './users-settings.page.css',
 })
@@ -68,6 +68,6 @@ export class UsersSettingsPage implements OnInit {
         alert('Failed to update user settings. Please try again later.');
       }
     });
-    }
+  }
 
 }

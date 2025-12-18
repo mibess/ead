@@ -16,17 +16,17 @@ export class AuthService {
   public readonly signalSelectors = inject(SignalSelectors);
   public readonly userSelectors = inject(UsersSelectors);
 
-  public signup(userSignupRequest: UserSignupRequest) : void {
+  public signup(userSignupRequest: UserSignupRequest): void {
     this.signalSelectors.signupState.update(state => ({ ...state, loading: true }));
     this.userSelectors.userState.update(state => ({ ...state, loading: true }));
 
     this.authApi.signup(userSignupRequest).subscribe({
       next: (response) => {
-        this.signalSelectors.signupState.update(state => ({ ...state, loading: false }));
+        this.signalSelectors.signupState.update(state => ({ ...state, loading: false, error: null }));
 
         const userResponse = response as UserResponse;
 
-        const userLoggedIn : UserLoggedIn = {
+        const userLoggedIn: UserLoggedIn = {
           id: userResponse.userId,
           name: userResponse.fullName,
           email: userResponse.email
@@ -38,8 +38,8 @@ export class AuthService {
 
         this.router.navigate(['/dashboard']);
       },
-      error: (error) => {
-        this.signalSelectors.signupState.update(() => ({ loading: false, error: error.message }) );
+      error: (e) => {
+        this.signalSelectors.signupState.update(state => ({ ...state, loading: false, error: e.error }));
       }
     });
   }
