@@ -4,10 +4,12 @@ import { UserService } from '../user.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UsersSelectors } from '../user.selectors';
 import { UserResponse } from '../user.interface';
+import { ButtonComponent } from "../../../shared/button.component/button.component";
+import { Input } from '../../../shared/input/input';
 
 @Component({
   selector: 'app-users-settings.page',
-  imports: [RouterModule, FormsModule, ReactiveFormsModule],
+  imports: [RouterModule, FormsModule, ReactiveFormsModule, ButtonComponent, Input],
   templateUrl: './users-settings.page.html',
   styleUrl: './users-settings.page.css',
 })
