@@ -10,6 +10,7 @@ import { BackgroundEffectsComponent } from "../../../shared/background-effects/b
 
 @Component({
   selector: 'app-users-settings.page',
+  standalone: true,
   imports: [RouterModule, FormsModule, ReactiveFormsModule, ButtonComponent, Input, BackgroundEffectsComponent],
   templateUrl: './users-settings.page.html',
   styleUrl: './users-settings.page.css',
