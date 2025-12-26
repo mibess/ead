@@ -6,10 +6,11 @@ import { UsersSelectors } from '../user.selectors';
 import { UserResponse } from '../user.interface';
 import { ButtonComponent } from "../../../shared/button.component/button.component";
 import { Input } from '../../../shared/input/input';
+import { BackgroundEffectsComponent } from "../../../shared/background-effects/background-effects.component";
 
 @Component({
   selector: 'app-users-settings.page',
-  imports: [RouterModule, FormsModule, ReactiveFormsModule, ButtonComponent, Input],
+  imports: [RouterModule, FormsModule, ReactiveFormsModule, ButtonComponent, Input, BackgroundEffectsComponent],
   templateUrl: './users-settings.page.html',
   styleUrl: './users-settings.page.css',
 })

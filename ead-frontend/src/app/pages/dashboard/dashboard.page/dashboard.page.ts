@@ -1,9 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { BackgroundEffectsComponent } from "../../../shared/background-effects/background-effects.component";
 
 @Component({
   selector: 'app-dashboard.page',
-  imports: [ RouterModule ],
+  standalone: true,
+  imports: [RouterModule, BackgroundEffectsComponent],
   templateUrl: './dashboard.page.html',
   styleUrl: './dashboard.page.css',
 })
