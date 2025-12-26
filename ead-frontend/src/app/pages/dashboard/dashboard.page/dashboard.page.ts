@@ -13,6 +13,15 @@ export class DashboardPage {
   private readonly route = inject(Router);
 
   public userLoggedIn = JSON.parse(localStorage.getItem('userLoggedIn') || '{}');
+  public isSidebarOpen = false;
+
+  public toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
+
+  public closeSidebar() {
+    this.isSidebarOpen = false;
+  }
 
   public logout() {
     localStorage.removeItem('userLoggedIn');
