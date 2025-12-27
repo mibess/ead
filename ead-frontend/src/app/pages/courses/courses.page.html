@@ -1,0 +1,119 @@
+<main
+    class="relative min-h-screen font-sans overflow-hidden bg-slate-900 selection:bg-indigo-500/30 text-slate-100 antialiased">
+
+    <app-background-effects />
+
+    <!-- Topbar -->
+    <header class="sticky top-0 z-40 backdrop-blur-xl bg-slate-900/40 border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a routerLink="/dashboard"
+                class="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors cursor-pointer group">
+                <div class="p-1 rounded-lg border border-white/10 bg-white/5 group-hover:bg-white/10 transition-colors">
+                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15 18l-6-6 6-6" />
+                    </svg>
+                </div>
+                <span>Back to dashboard</span>
+            </a>
+            <div class="flex items-center gap-2">
+                <img src="/logos/eplataform-logo-white.svg" alt="EAD Logo" class="h-8 w-auto" />
+            </div>
+        </div>
+    </header>
+
+    <main class="relative z-10 max-w-7xl mx-auto p-6 lg:p-10">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+            <div>
+                <h1 class="text-3xl font-bold tracking-tight text-white mb-2">Explore Courses</h1>
+                <p class="text-slate-400">Discover new skills and advance your career with our comprehensive curriculum.
+                </p>
+            </div>
+
+            <!-- Search/Filter could go here -->
+            <div class="relative">
+                <input type="text" placeholder="Search courses..."
+                    class="w-full md:w-64 rounded-xl bg-white/5 px-4 py-2.5 pr-10 text-sm outline-none border border-white/10 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all placeholder:text-slate-500 text-slate-200" />
+                <svg class="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </div>
+        </div>
+
+        @if (courses().length === 0) {
+        <div class="grid place-items-center py-20">
+            <svg class="h-10 w-10 animate-spin text-indigo-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                </path>
+            </svg>
+        </div>
+        } @else {
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            @for (course of courses(); track course.id) {
+            <article
+                class="group relative flex flex-col rounded-3xl bg-white/5 border border-white/10 overflow-hidden hover:border-indigo-500/30 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 shadow-xl">
+                <!-- Course Image -->
+                <div class="relative aspect-video overflow-hidden">
+                    <img [src]="course.imageUrl" [alt]="course.title"
+                        class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent">
+                    </div>
+
+                    <!-- Badge -->
+                    <div
+                        class="absolute top-3 right-3 px-2 py-1 rounded-lg bg-slate-900/60 backdrop-blur-md border border-white/10 text-xs font-medium text-white">
+                        {{ course.duration }}
+                    </div>
+                </div>
+
+                <div class="flex-1 p-5 flex flex-col">
+                    <div class="flex items-center gap-2 mb-3 text-xs font-medium text-indigo-400">
+                        <span class="px-2 py-0.5 rounded-full bg-indigo-500/10 border border-indigo-500/20">{{
+                            course.modulesCount }} Modules</span>
+                        <span class="flex items-center gap-1 text-amber-400">
+                            <svg class="h-3 w-3 fill-current" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                            </svg>
+                            {{ course.rating }}
+                        </span>
+                    </div>
+
+                    <h3
+                        class="text-lg font-bold text-white mb-2 line-clamp-1 group-hover:text-indigo-400 transition-colors">
+                        {{ course.title }}
+                    </h3>
+
+                    <p class="text-sm text-slate-400 mb-4 line-clamp-2">{{ course.description }}</p>
+
+                    <div class="mt-auto flex items-center justify-between pt-4 border-t border-white/5">
+                        <div class="flex items-center gap-2">
+                            <div class="h-6 w-6 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 p-px">
+                                <div
+                                    class="h-full w-full rounded-full bg-slate-800 flex items-center justify-center text-[10px] font-bold text-white uppercase">
+                                    {{ course.instructor.charAt(0) }}
+                                </div>
+                            </div>
+                            <span class="text-xs text-slate-300">{{ course.instructor }}</span>
+                        </div>
+
+                        <span class="text-xs text-slate-500 flex items-center gap-1">
+                            <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                            {{ course.studentsCount }}
+                        </span>
+                    </div>
+                </div>
+            </article>
+            }
+        </div>
+        }
+    </main>
+</main>

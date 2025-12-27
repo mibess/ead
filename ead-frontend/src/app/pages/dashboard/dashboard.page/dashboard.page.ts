@@ -1,6 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { BackgroundEffectsComponent } from "../../../shared/background-effects/background-effects.component";
+import { Course, CourseService } from '../../../services/course.service';
 
 @Component({
   selector: 'app-dashboard.page',
@@ -11,9 +12,18 @@ import { BackgroundEffectsComponent } from "../../../shared/background-effects/b
 })
 export class DashboardPage {
   private readonly route = inject(Router);
+  private readonly courseService = inject(CourseService);
 
   public userLoggedIn = JSON.parse(localStorage.getItem('userLoggedIn') || '{}');
   public isSidebarOpen = false;
+
+  public recommendedCourses = signal<Course[]>([]);
+
+  constructor() {
+    this.courseService.getMockCourses(5).subscribe(courses => {
+      this.recommendedCourses.set(courses);
+    });
+  }
 
   public toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen;
