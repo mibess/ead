@@ -2,11 +2,12 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { Course, CourseService } from '../../services/course.service';
 import { BackgroundEffectsComponent } from '../../shared/background-effects/background-effects.component';
 import { RouterModule } from '@angular/router';
+import { HeaderPageComponent } from "../../shared/header-page/header-page.component";
 
 @Component({
   selector: 'app-courses',
   standalone: true,
-  imports: [BackgroundEffectsComponent, RouterModule],
+  imports: [BackgroundEffectsComponent, RouterModule, HeaderPageComponent],
   templateUrl: './courses.page.html',
   styleUrl: './courses.page.css'
 })

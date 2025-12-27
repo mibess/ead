@@ -7,11 +7,12 @@ import { UserResponse } from '../user.interface';
 import { ButtonComponent } from "../../../shared/button.component/button.component";
 import { Input } from '../../../shared/input/input';
 import { BackgroundEffectsComponent } from "../../../shared/background-effects/background-effects.component";
+import { HeaderPageComponent } from "../../../shared/header-page/header-page.component";
 
 @Component({
   selector: 'app-users-settings.page',
   standalone: true,
-  imports: [RouterModule, FormsModule, ReactiveFormsModule, ButtonComponent, Input, BackgroundEffectsComponent],
+  imports: [RouterModule, FormsModule, ReactiveFormsModule, ButtonComponent, Input, BackgroundEffectsComponent, HeaderPageComponent],
   templateUrl: './users-settings.page.html',
   styleUrl: './users-settings.page.css',
 })
