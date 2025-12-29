@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -49,7 +50,8 @@ public class UserController {
     @PutMapping("/{userId}")
     public ResponseEntity<Object> updateUser(
             @PathVariable UUID userId,
-            @RequestBody @JsonView(UserDTO.UserView.UserPut.class) UserDTO userDTO) {
+            @RequestBody @Validated(UserDTO.UserView.UserPut.class)
+            @JsonView(UserDTO.UserView.UserPut.class) UserDTO userDTO) {
 
         Optional<UserModel> userModelOptional = userService.findById(userId);
 
@@ -69,7 +71,8 @@ public class UserController {
     @PutMapping("/{userId}/password")
     public ResponseEntity<Object> updatePassword(
             @PathVariable UUID userId,
-            @RequestBody @JsonView(UserDTO.UserView.PasswordPut.class) UserDTO userDTO) {
+            @RequestBody @Validated(UserDTO.UserView.UserPut.class)
+            @JsonView(UserDTO.UserView.PasswordPut.class) UserDTO userDTO) {
 
         Optional<UserModel> userModelOptional = userService.findById(userId);
 
@@ -92,7 +95,8 @@ public class UserController {
     @PutMapping("/{userId}/image")
     public ResponseEntity<Object> updateImage(
             @PathVariable UUID userId,
-            @RequestBody @JsonView(UserDTO.UserView.ImagePut.class) UserDTO userDTO) {
+            @RequestBody @Validated(UserDTO.UserView.ImagePut.class)
+            @JsonView(UserDTO.UserView.ImagePut.class) UserDTO userDTO) {
 
         Optional<UserModel> userModelOptional = userService.findById(userId);
 
