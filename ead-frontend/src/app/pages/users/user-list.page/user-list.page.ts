@@ -15,23 +15,54 @@ export class UserListPage {
   public readonly userService = inject(UserService);
   public readonly usersSelectors = inject(UsersSelectors);
 
-  public readonly users = this.usersSelectors.users;
+  // Pagination signals
+  public readonly currentPage = signal<number>(0);
+  public readonly pageSize = signal<number>(5);
+
+  public readonly usersPage = this.usersSelectors.users;
   public readonly loading = computed(() => this.usersSelectors.userResponseState().loading);
   public readonly viewMode = signal<'card' | 'list'>('list');
 
   constructor() {
     effect(() => {
-      this.usersSelectors.userResponseState.set({
-        loading: true,
-        users: null
-      });
+      this.loadUsers();
+    });
+  }
 
-      this.userService.getAll().subscribe((users) => {
-        this.usersSelectors.userResponseState.set({
-          loading: false,
-          users: users
-        });
+  private loadUsers(): void {
+    // for now I will not use the selector to set the loading state
+    // this.usersSelectors.userResponseState.set({
+    //   loading: true,
+    //   users: null
+    // });
+
+    this.userService.getAll({
+      page: this.currentPage(),
+      size: this.pageSize(),
+      sort: ['userId,asc'] // Default sort
+    }).subscribe((page) => {
+      this.usersSelectors.userResponseState.set({
+        loading: false,
+        users: page
       });
     });
+  }
+
+  public nextPage(): void {
+    const page = this.usersPage();
+    if (page && !page.last) {
+      this.currentPage.update(p => p + 1);
+    }
+  }
+
+  public prevPage(): void {
+    const page = this.usersPage();
+    if (page && !page.first) {
+      this.currentPage.update(p => p - 1);
+    }
+  }
+
+  public goToPage(pageIndex: number): void {
+    this.currentPage.set(pageIndex);
   }
 }

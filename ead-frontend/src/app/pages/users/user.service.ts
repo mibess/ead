@@ -3,6 +3,7 @@ import { UserApi } from './user.api';
 import { UsersSelectors } from './user.selectors';
 import { UserResponse } from './user.interface';
 import { delay, Observable, tap } from 'rxjs';
+import { Page, Pageable } from '../../helpers/pageable.helper';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,8 @@ export class UserService {
   private readonly usersSelectors = inject(UsersSelectors);
 
 
-  public getAll(): Observable<UserResponse[]> {
-    return this.userApi.getAll();
+  public getAll(pageable: Pageable): Observable<Page<UserResponse>> {
+    return this.userApi.getAll(pageable);
   }
 
   public getUser(userId: string): void {

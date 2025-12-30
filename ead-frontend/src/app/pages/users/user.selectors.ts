@@ -1,5 +1,6 @@
 import { computed, Injectable, signal } from "@angular/core";
 import { UserLoggedIn, UserResponse } from "./user.interface";
+import { Page } from "../../helpers/pageable.helper";
 
 export interface UserState {
   loading: boolean;
@@ -13,7 +14,7 @@ export interface UserSettingState {
 
 export interface UserResponseState {
   loading: boolean;
-  users: UserResponse[] | null;
+  users: Page<UserResponse> | null;
 }
 
 @Injectable({
