@@ -40,7 +40,8 @@ export class AuthService {
         this.router.navigate(['/dashboard']);
       },
       error: (e) => {
-        this.signalSelectors.signupState.update(state => ({ ...state, loading: false, error: e.error }));
+        console.log(e);
+        this.signalSelectors.signupState.update(state => ({ ...state, loading: false, error: e.error.error }));
       }
     });
   }

@@ -11,6 +11,11 @@ export interface UserSettingState {
   userSettings: UserResponse | null;
 }
 
+export interface UserResponseState {
+  loading: boolean;
+  users: UserResponse[] | null;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -25,6 +30,12 @@ export class UsersSelectors {
     userSettings: null
   });
 
+  public userResponseState = signal<UserResponseState>({
+    loading: false,
+    users: null
+  });
+
   public readonly userLoggedIn = computed(() => this.userState().userLoggedIn);
   public readonly userSettings = computed(() => this.userSettingState().userSettings);
+  public readonly users = computed(() => this.userResponseState().users);
 }

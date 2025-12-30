@@ -11,7 +11,12 @@ export class UserService {
   private readonly userApi = inject(UserApi);
   private readonly usersSelectors = inject(UsersSelectors);
 
-  public getUser(userId: string) : void {
+
+  public getAll(): Observable<UserResponse[]> {
+    return this.userApi.getAll();
+  }
+
+  public getUser(userId: string): void {
     this.usersSelectors.userSettingState.update(state => ({ ...state, loading: true }));
 
     this.userApi.getUserById(userId).subscribe(user => {

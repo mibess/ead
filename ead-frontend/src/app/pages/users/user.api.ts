@@ -9,8 +9,12 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class UserApi {
-  private readonly apiBaseUrl : string = environment.API_BASE_URL + '/users';
+  private readonly apiBaseUrl: string = environment.API_BASE_URL + '/users';
   private readonly http = inject(HttpClient);
+
+  public getAll(): Observable<UserResponse[]> {
+    return this.http.get<UserResponse[]>(`${this.apiBaseUrl}`);
+  }
 
   public getUserById(userId: string): Observable<UserResponse> {
     return this.http.get<UserResponse>(`${this.apiBaseUrl}/${userId}`);
