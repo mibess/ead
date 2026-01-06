@@ -24,6 +24,7 @@ export class UserListPage {
   public readonly viewMode = signal<'card' | 'list'>('list');
 
   public readonly openMenuId = signal<string | null>(null);
+
   public readonly selectedUser = computed(() => {
     const userId = this.openMenuId();
     if (!userId) return null;

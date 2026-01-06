@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { UserApi } from './user.api';
 import { UsersSelectors } from './user.selectors';
-import { UserResponse } from './user.interface';
+import { UserResponse, UserUpdatePasswordRequest } from './user.interface';
 import { delay, finalize, Observable, tap } from 'rxjs';
 import { Page, Pageable } from '../../helpers/pageable.helper';
 
@@ -55,6 +55,17 @@ export class UserService {
     return this.userApi.deleteUser(userId).pipe(
       finalize(() => {
         this.usersSelectors.userResponseState.update(state => ({ ...state, loading: false }));
+      })
+    );
+  }
+
+  public updatePassword(userId: string, userUpdatePasswordRequest: UserUpdatePasswordRequest): Observable<string> {
+    this.usersSelectors.userUpdatePasswordState.update(state => ({ ...state, loading: true }));
+
+    return this.userApi.updatePassword(userId, userUpdatePasswordRequest).pipe(
+      delay(5000),
+      tap(() => {
+        this.usersSelectors.userUpdatePasswordState.update(state => ({ ...state, loading: false }));
       })
     );
   }

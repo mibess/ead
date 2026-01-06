@@ -6,8 +6,13 @@ import { UserListPage } from "./user-list.page/user-list.page";
 export const USER_ROUTES: Routes = [
   {
     path: '',
-    component: UserListPage,
+    component: UsersPage,
     children: [
+      {
+        path: '',
+        redirectTo: 'list',
+        pathMatch: 'full'
+      },
       {
         path: 'settings',
         component: UsersSettingsPage

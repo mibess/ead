@@ -28,4 +28,9 @@ export interface UserLoggedIn {
   email: string;
 }
 
+export interface UserUpdatePasswordRequest {
+  password: string;
+  oldPassword: string;
+}
+
 

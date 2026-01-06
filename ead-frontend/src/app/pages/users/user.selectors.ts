@@ -17,6 +17,11 @@ export interface UserResponseState {
   users: Page<UserResponse> | null;
 }
 
+export interface UserUpdatePasswordState {
+  loading: boolean;
+  response: string | null;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -34,6 +39,11 @@ export class UsersSelectors {
   public userResponseState = signal<UserResponseState>({
     loading: false,
     users: null
+  });
+
+  public userUpdatePasswordState = signal<UserUpdatePasswordState>({
+    loading: false,
+    response: null
   });
 
   public readonly userLoggedIn = computed(() => this.userState().userLoggedIn);

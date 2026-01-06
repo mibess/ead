@@ -80,7 +80,7 @@ public class UserController {
     @PutMapping("/{userId}/password")
     public ResponseEntity<Object> updatePassword(
             @PathVariable UUID userId,
-            @RequestBody @Validated(UserDTO.UserView.UserPut.class)
+            @RequestBody @Validated(UserDTO.UserView.PasswordPut.class)
             @JsonView(UserDTO.UserView.PasswordPut.class) UserDTO userDTO) {
 
         Optional<UserModel> userModelOptional = userService.findById(userId);
