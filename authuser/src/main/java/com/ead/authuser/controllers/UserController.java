@@ -53,7 +53,7 @@ public class UserController {
         }
 
         userService.delete(userModelOptional.get());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User deleted successfully.");
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("User deleted successfully.");
     }
 
     @PutMapping("/{userId}")

@@ -34,4 +34,8 @@ export class UserApi {
   public updateUser(updatedSettings: UserResponse): Observable<UserResponse> {
     return this.http.put<UserResponse>(`${this.apiBaseUrl}/${updatedSettings.userId}`, updatedSettings);
   }
+
+  public deleteUser(userId: string): Observable<string> {
+    return this.http.delete(`${this.apiBaseUrl}/${userId}`, { responseType: 'text' });
+  }
 }

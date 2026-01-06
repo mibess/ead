@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { UserApi } from './user.api';
 import { UsersSelectors } from './user.selectors';
 import { UserResponse } from './user.interface';
-import { delay, Observable, tap } from 'rxjs';
+import { delay, finalize, Observable, tap } from 'rxjs';
 import { Page, Pageable } from '../../helpers/pageable.helper';
 
 @Injectable({
@@ -11,7 +11,6 @@ import { Page, Pageable } from '../../helpers/pageable.helper';
 export class UserService {
   private readonly userApi = inject(UserApi);
   private readonly usersSelectors = inject(UsersSelectors);
-
 
   public getAll(pageable: Pageable): Observable<Page<UserResponse>> {
     return this.userApi.getAll(pageable);
@@ -46,6 +45,16 @@ export class UserService {
 
         // Good practice to update localStorage *after* API success
         localStorage.setItem('userSettings', JSON.stringify(user));
+      })
+    );
+  }
+
+  public deleteUser(userId: string): Observable<string> {
+    this.usersSelectors.userResponseState.update(state => ({ ...state, loading: true }));
+
+    return this.userApi.deleteUser(userId).pipe(
+      finalize(() => {
+        this.usersSelectors.userResponseState.update(state => ({ ...state, loading: false }));
       })
     );
   }
