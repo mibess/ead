@@ -1,9 +1,10 @@
 import { inject, Injectable } from '@angular/core';
 import { UserApi } from './user.api';
 import { UsersSelectors } from './user.selectors';
-import { UserResponse, UserUpdatePasswordRequest } from './user.interface';
+import { UserResponse, UserUpdateAvatarRequest, UserUpdatePasswordRequest } from './user.interface';
 import { delay, finalize, Observable, tap } from 'rxjs';
 import { Page, Pageable } from '../../helpers/pageable.helper';
+import { UserStorageService } from '../../storage/user-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ import { Page, Pageable } from '../../helpers/pageable.helper';
 export class UserService {
   private readonly userApi = inject(UserApi);
   private readonly usersSelectors = inject(UsersSelectors);
+  private readonly userStorageService = inject(UserStorageService);
 
   public getAll(pageable: Pageable): Observable<Page<UserResponse>> {
     return this.userApi.getAll(pageable);
@@ -27,15 +29,11 @@ export class UserService {
     });
   }
 
-  public updateUserSettings(updatedSettings: UserResponse): Observable<UserResponse> { // <-- Return Observable
+  public updateUserSettings(updatedSettings: UserResponse): Observable<UserResponse> {
     this.usersSelectors.userSettingState.update(state => ({ ...state, loading: true }));
 
-    // We return the API call directly
     return this.userApi.updateUser(updatedSettings).pipe(
-      delay(5000), // <-- This is the RxJS version of your setTimeout
-
-      // 'tap' lets us perform side effects (like state updates)
-      // when the data comes back from the API.
+      delay(5000),
       tap(user => {
         this.usersSelectors.userSettingState.update(state => ({
           ...state,
@@ -43,8 +41,7 @@ export class UserService {
           userSettings: user
         }));
 
-        // Good practice to update localStorage *after* API success
-        localStorage.setItem('userSettings', JSON.stringify(user));
+        this.userStorageService.setUserLoggedIn(user);
       })
     );
   }
@@ -68,5 +65,9 @@ export class UserService {
         this.usersSelectors.userUpdatePasswordState.update(state => ({ ...state, loading: false }));
       })
     );
+  }
+
+  public updateAvatar(userId: string, userUpdateAvatarRequest: UserUpdateAvatarRequest): Observable<UserResponse> {
+    return this.userApi.updateAvatar(userId, userUpdateAvatarRequest);
   }
 }

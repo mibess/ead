@@ -1,13 +1,14 @@
-import { Component, effect, inject, OnInit } from '@angular/core';
+import { Component, effect, inject, OnInit, signal } from '@angular/core';
 import { RouterModule } from "@angular/router";
 import { UserService } from '../user.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UsersSelectors } from '../user.selectors';
-import { UserResponse, UserUpdatePasswordRequest } from '../user.interface';
+import { UserResponse, UserUpdateAvatarRequest, UserUpdatePasswordRequest } from '../user.interface';
 import { ButtonComponent } from "../../../shared/button.component/button.component";
 import { Input } from '../../../shared/input/input';
 import { BackgroundEffectsComponent } from "../../../shared/background-effects/background-effects.component";
 import { HeaderPageComponent } from "../../../shared/header-page/header-page.component";
+import { UserStorageService } from '../../../storage/user-storage.service';
 
 @Component({
   selector: 'app-users-settings.page',
@@ -19,6 +20,10 @@ import { HeaderPageComponent } from "../../../shared/header-page/header-page.com
 export class UsersSettingsPage implements OnInit {
   public readonly userService = inject(UserService);
   public readonly usersSelectors = inject(UsersSelectors);
+  public readonly userStorageService = inject(UserStorageService);
+  public readonly userSession = this.usersSelectors.userSession();
+
+  public updateImageLoading = signal(false);
 
   userSettingsFormGroup = new FormGroup({
     username: new FormControl({ value: '', disabled: true }, { nonNullable: true }),
@@ -99,6 +104,45 @@ export class UsersSettingsPage implements OnInit {
 
       error: (err) => {
         console.error('Update failed:', err);
+        alert('Failed to update user settings. Please try again later.');
+      }
+    });
+  }
+
+  public uploadAvatar(event: Event): void {
+    this.updateImageLoading.set(true);
+    const target = event.target as HTMLInputElement;
+    const file = target.files?.[0];
+
+    // if (file) {
+    //   const reader = new FileReader();
+    //   reader.onload = (e) => {
+    //     const result = e.target?.result as string;
+    //     this.userSettingsFormGroup.patchValue({ imageUrl: result });
+    //   };
+    //   reader.readAsDataURL(file);
+    // }
+
+    const numeber_random_max = 70;
+    const numeber_random_min = 1;
+    const numeber_random = Math.floor(Math.random() * (numeber_random_max - numeber_random_min + 1)) + numeber_random_min;
+
+    const imageUrl = `https://i.pravatar.cc/100?img=${numeber_random}`;
+
+    const userUpdateAvatarRequest: UserUpdateAvatarRequest = {
+      imageUrl
+    };
+
+    this.userService.updateAvatar(this.usersSelectors.userSettings()?.userId || '', userUpdateAvatarRequest).subscribe({
+      next: (response) => {
+        this.userSettingsFormGroup.patchValue({ imageUrl: response.imageUrl });
+        this.userStorageService.setUserLoggedIn(response);
+        this.updateImageLoading.set(false);
+      },
+
+      error: (err) => {
+        console.error('Update failed:', err);
+        this.updateImageLoading.set(false);
         alert('Failed to update user settings. Please try again later.');
       }
     });

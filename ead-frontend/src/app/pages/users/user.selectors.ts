@@ -5,6 +5,7 @@ import { Page } from "../../helpers/pageable.helper";
 export interface UserState {
   loading: boolean;
   userLoggedIn: UserLoggedIn | null;
+  userSession: UserResponse | null;
 }
 
 export interface UserSettingState {
@@ -28,7 +29,8 @@ export interface UserUpdatePasswordState {
 export class UsersSelectors {
   public userState = signal<UserState>({
     loading: false,
-    userLoggedIn: null
+    userLoggedIn: null,
+    userSession: null
   });
 
   public userSettingState = signal<UserSettingState>({
@@ -47,6 +49,7 @@ export class UsersSelectors {
   });
 
   public readonly userLoggedIn = computed(() => this.userState().userLoggedIn);
+  public readonly userSession = computed(() => this.userState().userSession);
   public readonly userSettings = computed(() => this.userSettingState().userSettings);
   public readonly users = computed(() => this.userResponseState().users);
 }

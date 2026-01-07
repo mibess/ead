@@ -1,4 +1,4 @@
-import { UserResponse, UserUpdatePasswordRequest } from './user.interface';
+import { UserResponse, UserUpdateAvatarRequest, UserUpdatePasswordRequest } from './user.interface';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
@@ -41,5 +41,9 @@ export class UserApi {
 
   public updatePassword(userId: string, userUpdatePasswordRequest: UserUpdatePasswordRequest): Observable<string> {
     return this.http.put(`${this.apiBaseUrl}/${userId}/password`, userUpdatePasswordRequest, { responseType: 'text' });
+  }
+
+  public updateAvatar(userId: string, userUpdateAvatarRequest: UserUpdateAvatarRequest): Observable<UserResponse> {
+    return this.http.put<UserResponse>(`${this.apiBaseUrl}/${userId}/image`, userUpdateAvatarRequest);
   }
 }

@@ -33,4 +33,7 @@ export interface UserUpdatePasswordRequest {
   oldPassword: string;
 }
 
+export interface UserUpdateAvatarRequest {
+  imageUrl: string;
+}
 

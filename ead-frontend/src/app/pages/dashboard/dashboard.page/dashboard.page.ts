@@ -2,6 +2,8 @@ import { Component, inject, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { BackgroundEffectsComponent } from "../../../shared/background-effects/background-effects.component";
 import { Course, CourseService } from '../../../services/course.service';
+import { UserStorageService } from '../../../storage/user-storage.service';
+import { UsersSelectors } from '../../users/user.selectors';
 
 @Component({
   selector: 'app-dashboard.page',
@@ -12,9 +14,15 @@ import { Course, CourseService } from '../../../services/course.service';
 })
 export class DashboardPage {
   private readonly route = inject(Router);
-  private readonly courseService = inject(CourseService);
 
-  public userLoggedIn = JSON.parse(localStorage.getItem('userLoggedIn') || '{}');
+  private readonly courseService = inject(CourseService);
+  private readonly userStorageService = inject(UserStorageService);
+
+  public userSelectors = inject(UsersSelectors);
+
+  public userLoggedIn = this.userStorageService.getUserLoggedIn();
+  public userSession = this.userSelectors.userSession();
+
   public isSidebarOpen = false;
 
   public recommendedCourses = signal<Course[]>([]);
@@ -34,7 +42,7 @@ export class DashboardPage {
   }
 
   public logout() {
-    localStorage.removeItem('userLoggedIn');
+    this.userStorageService.removeUserLoggedIn();
     this.route.navigate(['/']);
   }
 }

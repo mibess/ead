@@ -21,15 +21,27 @@
               <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 p-[1px]">
                 <div class="w-full h-full rounded-full bg-slate-900 back"></div>
               </div>
+              @if (updateImageLoading()){
+              <div class="flex items-center justify-center h-20 w-20 rounded-full bg-slate-900">
+                <svg class="h-8 w-8 animate-spin text-indigo-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                  viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                  </path>
+                </svg>
+              </div>
+              } @else {
               <img id="avatarPreview" class="relative h-20 w-20 rounded-full border-2 border-transparent object-cover"
-                src="https://i.pravatar.cc/100?img=5" alt="avatar" />
+                src="{{ userSettingsFormGroup.value.imageUrl }}" alt="avatar" />
+              }
             </div>
             <div>
               <label class="block text-sm font-medium text-slate-300 mb-2">Profile photo</label>
               <div class="flex items-center gap-3">
                 <label
                   class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium cursor-pointer hover:bg-indigo-500/20 transition-all">
-                  <input id="avatarInput" type="file" accept="image/*" class="hidden" />
+                  <input id="avatarInput" type="file" accept="image/*" class="hidden" (change)="uploadAvatar($event)" />
                   Upload new photo
                 </label>
                 <button type="button" class="text-sm text-slate-400 hover:text-white transition-colors">Remove</button>
