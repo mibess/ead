@@ -1,20 +1,24 @@
 package com.ead.authuser.controllers;
 
 import com.ead.authuser.dtos.UserDTO;
+import com.ead.authuser.filters.UserFilterDto;
 import com.ead.authuser.models.UserModel;
 import com.ead.authuser.services.UserService;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.RequiredArgsConstructor;
+import net.kaczmarzyk.spring.data.jpa.domain.Equal;
+import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
+import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -25,13 +29,30 @@ import java.util.UUID;
 public class UserController {
     private final UserService userService;
 
+    // Make the same thing but I'm studying
     @GetMapping
     public ResponseEntity<Page<UserModel>> getAllUsers(
+            @And({
+                    @Spec(path = "userType",   spec = Equal.class),
+                    @Spec(path = "userStatus", spec = Equal.class),
+                    @Spec(path = "email",      spec = Equal.class)
+            }) Specification<UserModel> spec,
+            @PageableDefault(page = 0, size = 5, sort = "userId", direction = Sort.Direction.ASC)
+            Pageable pageable
+    ) {
+        Page<UserModel> userModelPage = userService.findAll(spec, pageable);
+        return ResponseEntity.ok().body(userModelPage);
+    }
+
+    // Make the same thing but I'm studying
+    @GetMapping("/v2")
+    public ResponseEntity<Page<UserModel>> getAllUsers(
+            UserFilterDto userfilter,
             @PageableDefault(page = 0, size = 5, sort = "userId", direction = Sort.Direction.ASC)
             Pageable pageable
     ) {
 
-        Page<UserModel> userModelPage = userService.findAll(pageable);
+        Page<UserModel> userModelPage = userService.findAll(userfilter, pageable);
         return ResponseEntity.ok().body(userModelPage);
     }
 
