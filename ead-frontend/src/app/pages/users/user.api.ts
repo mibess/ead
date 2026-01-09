@@ -1,4 +1,4 @@
-import { UserResponse, UserUpdateAvatarRequest, UserUpdatePasswordRequest } from './user.interface';
+import { UserFilter, UserResponse, UserUpdateAvatarRequest, UserUpdatePasswordRequest } from './user.interface';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
@@ -13,7 +13,7 @@ export class UserApi {
   private readonly apiBaseUrl: string = environment.API_BASE_URL + '/users';
   private readonly http = inject(HttpClient);
 
-  public getAll(pageable: Pageable): Observable<Page<UserResponse>> {
+  public getAll(pageable: Pageable, filter?: UserFilter): Observable<Page<UserResponse>> {
     let params = new HttpParams()
       .set('page', pageable.page.toString())
       .set('size', pageable.size.toString());
@@ -22,6 +22,18 @@ export class UserApi {
       pageable.sort.forEach((sortItem: string) => {
         params = params.append('sort', sortItem);
       });
+    }
+
+    if (filter) {
+      if (filter.userStatus) {
+        params = params.append('userStatus', filter.userStatus);
+      }
+      if (filter.userType) {
+        params = params.append('userType', filter.userType);
+      }
+      if (filter.email) {
+        params = params.append('email', filter.email);
+      }
     }
 
     return this.http.get<Page<UserResponse>>(`${this.apiBaseUrl}`, { params });

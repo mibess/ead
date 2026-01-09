@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { UserApi } from './user.api';
 import { UsersSelectors } from './user.selectors';
-import { UserResponse, UserUpdateAvatarRequest, UserUpdatePasswordRequest } from './user.interface';
+import { UserFilter, UserResponse, UserUpdateAvatarRequest, UserUpdatePasswordRequest } from './user.interface';
 import { delay, finalize, Observable, tap } from 'rxjs';
 import { Page, Pageable } from '../../helpers/pageable.helper';
 import { UserStorageService } from '../../storage/user-storage.service';
@@ -14,8 +14,8 @@ export class UserService {
   private readonly usersSelectors = inject(UsersSelectors);
   private readonly userStorageService = inject(UserStorageService);
 
-  public getAll(pageable: Pageable): Observable<Page<UserResponse>> {
-    return this.userApi.getAll(pageable);
+  public getAll(pageable: Pageable, filter?: UserFilter): Observable<Page<UserResponse>> {
+    return this.userApi.getAll(pageable, filter);
   }
 
   public getUser(userId: string): void {

@@ -37,3 +37,20 @@ export interface UserUpdateAvatarRequest {
   imageUrl: string;
 }
 
+
+export enum UserType {
+  ADMIN = 'ADMIN',
+  STUDENT = 'STUDENT',
+  INSTRUCTOR = 'INSTRUCTOR'
+}
+
+export enum UserStatus {
+  ACTIVE = 'ACTIVE',
+  INACTIVE = 'INACTIVE'
+}
+
+export interface UserFilter {
+  userStatus?: UserStatus;
+  userType?: UserType;
+  email?: string;
+}

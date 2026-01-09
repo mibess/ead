@@ -3,6 +3,7 @@ import { UserService } from '../user.service';
 import { UsersSelectors } from '../user.selectors';
 import { HeaderPageComponent } from '../../../shared/header-page/header-page.component';
 import { BackgroundEffectsComponent } from '../../../shared/background-effects/background-effects.component';
+import { UserFilter, UserStatus, UserType } from '../user.interface';
 
 @Component({
   selector: 'app-user-list.page',
@@ -31,6 +32,17 @@ export class UserListPage {
     return this.usersPage()?.content.find(u => u.userId === userId) || null;
   });
 
+  // Filter signals
+  public readonly searchTerm = signal<string>('');
+  public readonly filterUserType = signal<UserType | ''>('');
+  public readonly filterUserStatus = signal<UserStatus | ''>('');
+
+  // Expose enums to template
+  public readonly UserType = UserType;
+  public readonly UserStatus = UserStatus;
+  public readonly userTypes = Object.values(UserType);
+  public readonly userStatuses = Object.values(UserStatus);
+
   constructor() {
     effect(() => {
       this.loadUsers();
@@ -38,22 +50,65 @@ export class UserListPage {
   }
 
   private loadUsers(): void {
-    // for now I will not use the selector to set the loading state
-    // this.usersSelectors.userResponseState.set({
-    //   loading: true,
-    //   users: null
-    // });
+    this.usersSelectors.userResponseState.update(state => ({
+      ...state,
+      loading: true
+    }));
 
-    this.userService.getAll({
+    const pageable = {
       page: this.currentPage(),
       size: this.pageSize(),
-      sort: ['userId,asc'] // Default sort
-    }).subscribe((page) => {
-      this.usersSelectors.userResponseState.set({
-        loading: false,
-        users: page
-      });
+      sort: ['userId,asc']
+    };
+
+    const filter: UserFilter = {};
+    const term = this.searchTerm();
+    const type = this.filterUserType();
+    const status = this.filterUserStatus();
+
+    if (term) {
+      filter.email = term;
+    }
+    if (type) {
+      filter.userType = type;
+    }
+    if (status) {
+      filter.userStatus = status;
+    }
+
+    this.userService.getAll(pageable, filter).subscribe({
+      next: (page) => {
+        this.usersSelectors.userResponseState.set({
+          loading: false,
+          users: page
+        });
+      },
+      error: (error) => {
+        console.error('Error loading users', error);
+        this.usersSelectors.userResponseState.update(state => ({
+          ...state,
+          loading: false
+        }));
+      }
     });
+  }
+
+  public onSearch(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    this.searchTerm.set(target.value);
+    this.currentPage.set(0); // Reset to first page on search
+  }
+
+  public onTypeChange(event: Event): void {
+    const target = event.target as HTMLSelectElement;
+    this.filterUserType.set(target.value as UserType | '');
+    this.currentPage.set(0);
+  }
+
+  public onStatusChange(event: Event): void {
+    const target = event.target as HTMLSelectElement;
+    this.filterUserStatus.set(target.value as UserStatus | '');
+    this.currentPage.set(0);
   }
 
   public nextPage(): void {

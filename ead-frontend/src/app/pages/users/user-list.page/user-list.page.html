@@ -79,7 +79,35 @@
                 </div>
 
                 <div class="relative">
-                    <input type="text" placeholder="Search users..."
+                    <select (change)="onStatusChange($event)"
+                        class="w-full md:w-40 appearance-none rounded-xl bg-white/5 px-4 py-2.5 text-sm outline-none border border-white/10 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all text-slate-200 cursor-pointer">
+                        <option value="" class="bg-slate-800">All Status</option>
+                        @for (status of userStatuses; track status) {
+                        <option [value]="status" class="bg-slate-800">{{ status }}</option>
+                        }
+                    </select>
+                    <svg class="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 pointer-events-none"
+                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+
+                <div class="relative">
+                    <select (change)="onTypeChange($event)"
+                        class="w-full md:w-40 appearance-none rounded-xl bg-white/5 px-4 py-2.5 text-sm outline-none border border-white/10 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all text-slate-200 cursor-pointer">
+                        <option value="" class="bg-slate-800">All Types</option>
+                        @for (type of userTypes; track type) {
+                        <option [value]="type" class="bg-slate-800">{{ type }}</option>
+                        }
+                    </select>
+                    <svg class="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 pointer-events-none"
+                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+
+                <div class="relative">
+                    <input type="text" placeholder="Search users by email..." (input)="onSearch($event)"
                         class="w-full md:w-64 rounded-xl bg-white/5 px-4 py-2.5 pr-10 text-sm outline-none border border-white/10 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all placeholder:text-slate-500 text-slate-200" />
                     <svg class="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2">
