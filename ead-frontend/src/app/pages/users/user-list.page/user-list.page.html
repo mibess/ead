@@ -30,6 +30,7 @@
         </div>
 
         <div class="space-y-2">
+            @if (user.userId !== usersSelectors.userState().userLoggedIn?.id) {
             <button (click)="deleteUser(user.userId)"
                 class="w-full p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 hover:bg-red-500/20 transition-all flex items-center gap-3 group cursor-pointer">
                 <div class="p-2 rounded-lg bg-red-500/20 group-hover:bg-red-500/30 transition-colors">
@@ -43,6 +44,7 @@
                     <div class="text-xs text-red-400/60">Permanently remove this user</div>
                 </div>
             </button>
+            }
         </div>
         }
     </aside>
@@ -82,7 +84,7 @@
                     <select (change)="onStatusChange($event)"
                         class="w-full md:w-40 appearance-none rounded-xl bg-white/5 px-4 py-2.5 text-sm outline-none border border-white/10 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all text-slate-200 cursor-pointer">
                         <option value="" class="bg-slate-800">All Status</option>
-                        @for (status of userStatuses; track status) {
+                        @for (status of userStatus; track status) {
                         <option [value]="status" class="bg-slate-800">{{ status }}</option>
                         }
                     </select>

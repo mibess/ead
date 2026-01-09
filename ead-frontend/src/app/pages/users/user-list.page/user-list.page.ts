@@ -45,7 +45,7 @@ export class UserListPage {
   public readonly UserType = UserType;
   public readonly UserStatus = UserStatus;
   public readonly userTypes = Object.values(UserType);
-  public readonly userStatuses = Object.values(UserStatus);
+  public readonly userStatus = Object.values(UserStatus);
 
   constructor() {
     effect(() => {

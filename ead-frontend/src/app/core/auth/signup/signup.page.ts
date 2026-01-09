@@ -38,7 +38,7 @@ export class SignupPage {
   cpf = new FormControl(''); // Optional/Skippable at this stage
   password = new FormControl('', [Validators.required]);
   confirmPassword = new FormControl('', [Validators.required]);
-  imageUrl = new FormControl('');
+  imageUrl = new FormControl(''); // default image
 
   public nextStep(): void {
     if (this.currentStep() === 1 && this.username.invalid) {

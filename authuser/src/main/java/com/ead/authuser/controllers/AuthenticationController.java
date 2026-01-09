@@ -40,6 +40,8 @@ public class AuthenticationController {
         userModel.setUserStatus(UserStatus.ACTIVE);
         userModel.setUserType(UserType.STUDENT);
 
+        userModel.setImageUrl("https://i.pravatar.cc/100?img=2"); // initial image default
+
         userService.save(userModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(userModel);
     }
