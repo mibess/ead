@@ -99,7 +99,7 @@
             </div>
             <img
               class="relative rounded-full border-2 border-transparent object-cover group-hover:scale-105 transition-transform"
-              src="{{ userSession?.imageUrl }}" alt="avatar" />
+              src="{{ userSelectors.userSession()?.imageUrl }}" alt="avatar" />
           </a>
           <!-- logout -->
           <button (click)="logout()"

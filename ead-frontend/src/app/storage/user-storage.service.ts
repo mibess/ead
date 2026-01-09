@@ -37,4 +37,10 @@ export class UserStorageService {
       userSession: null
     }));
   }
+
+  public getUserSession(): UserResponse | null {
+    const userSession = this.userSelectors.userState().userSession;
+    return userSession;
+  }
+
 }
