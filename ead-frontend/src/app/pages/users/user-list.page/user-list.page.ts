@@ -4,6 +4,8 @@ import { UsersSelectors } from '../user.selectors';
 import { HeaderPageComponent } from '../../../shared/header-page/header-page.component';
 import { BackgroundEffectsComponent } from '../../../shared/background-effects/background-effects.component';
 import { UserFilter, UserStatus, UserType } from '../user.interface';
+import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-user-list.page',
@@ -37,6 +39,8 @@ export class UserListPage {
   public readonly filterUserType = signal<UserType | ''>('');
   public readonly filterUserStatus = signal<UserStatus | ''>('');
 
+  private readonly searchSubject = new Subject<string>();
+
   // Expose enums to template
   public readonly UserType = UserType;
   public readonly UserStatus = UserStatus;
@@ -47,13 +51,21 @@ export class UserListPage {
     effect(() => {
       this.loadUsers();
     });
+
+    this.searchSubject.pipe(
+      debounceTime(2000),
+      distinctUntilChanged(),
+      takeUntilDestroyed()
+    ).subscribe(term => {
+      this.searchTerm.set(term);
+      this.currentPage.set(0); // Reset to first page on search
+
+      this.loadingUsers(false);
+    });
   }
 
   private loadUsers(): void {
-    this.usersSelectors.userResponseState.update(state => ({
-      ...state,
-      loading: true
-    }));
+    this.loadingUsers(true);
 
     const pageable = {
       page: this.currentPage(),
@@ -85,18 +97,17 @@ export class UserListPage {
       },
       error: (error) => {
         console.error('Error loading users', error);
-        this.usersSelectors.userResponseState.update(state => ({
-          ...state,
-          loading: false
-        }));
+        this.loadingUsers(false);
       }
     });
   }
 
   public onSearch(event: Event): void {
     const target = event.target as HTMLInputElement;
-    this.searchTerm.set(target.value);
-    this.currentPage.set(0); // Reset to first page on search
+
+    this.searchSubject.next(target.value);
+
+    this.loadingUsers(true);
   }
 
   public onTypeChange(event: Event): void {
@@ -158,5 +169,12 @@ export class UserListPage {
 
   public alertTest(userId: string) {
     alert('Test ' + userId);
+  }
+
+  private loadingUsers(loading: boolean) {
+    this.usersSelectors.userResponseState.update(state => ({
+      ...state,
+      loading
+    }));
   }
 }
