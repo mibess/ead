@@ -23,6 +23,7 @@ public class LessonModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private UUID lessonId;
 
     @Column(nullable = false, length = 150)
@@ -38,4 +39,7 @@ public class LessonModel implements Serializable {
     @CreationTimestamp
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss", timezone = "UTC")
     private LocalDateTime creationDate;
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private ModuleModel module;
 }
