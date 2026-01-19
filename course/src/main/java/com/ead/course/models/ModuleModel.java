@@ -28,7 +28,7 @@ public class ModuleModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private UUID moduleId;
+    private UUID id;
 
     @Column(nullable = false, length = 150)
     private String title;

@@ -22,11 +22,11 @@ public interface ModuleRepository extends JpaRepository<ModuleModel, UUID> {
 
     // to study
     @Modifying
-    @Query(value = "update tb_modules set course_id = :courseId where id = :moduleId")
+    @Query(value = "update tb_modules set course_id = :courseId where id = :moduleId", nativeQuery = true)
     ModuleModel updateModule(UUID courseId, UUID moduleId);
 
     // to study
     @Modifying
-    @Query(value = "delete from tb_modules where id = :moduleId")
+    @Query(value = "delete from tb_modules where id = :moduleId", nativeQuery = true)
     void delete(UUID moduleId);
 }

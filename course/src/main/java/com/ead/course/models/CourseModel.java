@@ -31,7 +31,7 @@ public class CourseModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private UUID courseId;
+    private UUID id;
 
     @Column(nullable = false, length = 150)
     private String name;

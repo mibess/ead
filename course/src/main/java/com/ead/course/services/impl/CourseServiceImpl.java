@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -23,20 +25,36 @@ public class CourseServiceImpl implements CourseService {
 
     @Transactional
     @Override
+    public CourseModel save(CourseModel course) {
+        return courseRepository.save(course);
+    }
+
+    @Transactional
+    @Override
     public void delete(CourseModel course) {
-        List<ModuleModel> moduleModelList = moduleRepository.findAllByCourseId(course.getCourseId());
+        List<ModuleModel> moduleModelList = moduleRepository.findAllByCourseId(course.getId());
 
-        if (moduleModelList.isEmpty()) {
-            return;
-        }
-
-        for (ModuleModel module : moduleModelList) {
-            List<LessonModel> lessonModelList = lessonRepository.findAllByModuleId(module.getModuleId());
-            if (!lessonModelList.isEmpty()) {
-                lessonRepository.deleteAll(lessonModelList);
+        if (!moduleModelList.isEmpty()) {
+            for (ModuleModel module : moduleModelList) {
+                List<LessonModel> lessonModelList = lessonRepository.findAllByModuleId(module.getId());
+                if (!lessonModelList.isEmpty()) {
+                    lessonRepository.deleteAll(lessonModelList);
+                }
+                moduleRepository.delete(module.getId());
             }
-            moduleRepository.delete(module);
         }
+
+        courseRepository.delete(course);
+    }
+
+    @Override
+    public Optional<CourseModel> findById(UUID courseId) {
+        return courseRepository.findById(courseId);
+    }
+
+    @Override
+    public List<CourseModel> findAll() {
+        return courseRepository.findAll();
     }
 
 }
