@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -17,6 +19,16 @@ public class ModuleServiceImpl implements ModuleService {
 
     private final ModuleRepository moduleRepository;
     private final LessonRepository lessonRepository;
+
+    public List<ModuleModel> getAll(UUID courseId){
+        return moduleRepository.findAllByCourseId(courseId);
+    }
+
+    @Transactional
+    @Override
+    public ModuleModel save(ModuleModel module) {
+        return moduleRepository.save(module);
+    }
 
     @Transactional
     @Override
@@ -27,6 +39,22 @@ public class ModuleServiceImpl implements ModuleService {
         }
 
         moduleRepository.delete(module);
+    }
+
+    @Transactional
+    @Override
+    public void deleteModule(UUID courseId, UUID moduleId) {
+        var model = moduleRepository.findModuleByCourseIdAndId(courseId, moduleId);
+
+        if (!model.isPresent()){
+            return;
+        }
+
+        this.delete(model.get());
+    }
+
+    public Optional<ModuleModel> findModuleIntoCourse(UUID courseId, UUID moduleId){
+        return moduleRepository.findModuleByCourseIdAndId(courseId, moduleId);
     }
 
 

@@ -26,7 +26,6 @@ public class CourseController {
     public ResponseEntity<Object> saveCourse(@RequestBody @Valid CourseDTO courseDTO){
         var courseModel = new CourseModel();
         BeanUtils.copyProperties(courseDTO, courseModel);
-
         return ResponseEntity.status(HttpStatus.CREATED).body(
                 courseService.save(courseModel)
         );

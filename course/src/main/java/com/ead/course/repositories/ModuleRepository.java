@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -15,10 +16,12 @@ public interface ModuleRepository extends JpaRepository<ModuleModel, UUID> {
 //    @EntityGraph(attributePaths = {"course"})
 //    ModuleModel findByTitle(String title);
 
+    Optional<ModuleModel> findModuleByCourseIdAndId(UUID courseId, UUID moduleId);
+
     List<ModuleModel> findAllByCourseId(UUID courseId);
 
-    @Query(value = "select * from tb_modules where course_id = :courseId", nativeQuery = true)
-    List<ModuleModel> findAllModulesIntoCourse(UUID courseId);
+    @Query(value = "select * from tb_modules where course_id = :courseId and id = :moduleId", nativeQuery = true)
+    Optional<ModuleModel> findModulesIntoCourse(UUID courseId, UUID moduleId);
 
     // to study
     @Modifying
