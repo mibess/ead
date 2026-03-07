@@ -57,4 +57,8 @@ public class CourseServiceImpl implements CourseService {
         return courseRepository.findAll();
     }
 
+    @Override
+    public List<CourseModel> findPopularCourses() {
+        return courseRepository.getPopularCourses();
+    }
 }

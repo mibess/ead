@@ -11,4 +11,6 @@ public interface CourseService {
     void delete(CourseModel course);
     Optional<CourseModel> findById(UUID courseId);
     List<CourseModel> findAll();
+
+    List<CourseModel> findPopularCourses();
 }

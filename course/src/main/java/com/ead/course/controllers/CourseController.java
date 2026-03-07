@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -77,6 +78,12 @@ public class CourseController {
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(courseModelOptional.get());
+    }
+
+    @GetMapping("/popular")
+    public ResponseEntity<List<Object>> getPopularCourses() {
+        List<CourseModel> courses = courseService.findPopularCourses();
+        return ResponseEntity.status(HttpStatus.OK).body(Collections.singletonList(courses));
     }
 
 }
