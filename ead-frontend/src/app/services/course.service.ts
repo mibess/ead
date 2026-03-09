@@ -1,5 +1,7 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { CourseResponse } from '../interfaces/courses.interface';
+import { CoursesApi } from '../api/courses.api';
 
 export interface Course {
   id: string;
@@ -17,6 +19,7 @@ export interface Course {
   providedIn: 'root',
 })
 export class CourseService {
+  public coursesApi = inject(CoursesApi);
 
   public getMockCourses(count: number = 10): Observable<Course[]> {
     const courses: Course[] = Array.from({ length: count }, (_, index) => ({
@@ -32,5 +35,13 @@ export class CourseService {
     }));
 
     return of(courses);
+  }
+
+  public getPopularCourses(): Observable<CourseResponse[]> {
+    return this.coursesApi.getPopularCourses();
+  }
+
+  public getCourses(): Observable<CourseResponse[]> {
+    return this.coursesApi.getCourses();
   }
 }

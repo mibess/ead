@@ -3,6 +3,7 @@ import { Course, CourseService } from '../../services/course.service';
 import { BackgroundEffectsComponent } from '../../shared/background-effects/background-effects.component';
 import { RouterModule } from '@angular/router';
 import { HeaderPageComponent } from "../../shared/header-page/header-page.component";
+import { CourseResponse } from '../../interfaces/courses.interface';
 
 @Component({
   selector: 'app-courses',
@@ -14,11 +15,11 @@ import { HeaderPageComponent } from "../../shared/header-page/header-page.compon
 export class CoursesPage implements OnInit {
   private readonly courseService = inject(CourseService);
 
-  public courses = signal<Course[]>([]);
+  public courses = signal<CourseResponse[]>([]);
 
   ngOnInit(): void {
-    this.courseService.getMockCourses(10).subscribe(data => {
-      this.courses.set(data);
+    this.courseService.getCourses().subscribe((courses) => {
+      this.courses.set(courses);
     });
   }
 }

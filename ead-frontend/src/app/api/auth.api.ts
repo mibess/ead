@@ -9,7 +9,7 @@ import { UserSignupRequest, UserSignupResponse } from '../pages/users/user.inter
   providedIn: 'root'
 })
 export class AuthApi {
-  private readonly apiBaseUrl : string = environment.API_BASE_URL + '/auth';
+  private readonly apiBaseUrl: string = environment.API_AUTH_BASE_URL + '/auth';
   private readonly http = inject(HttpClient);
 
   public signup(userSignupRequest: UserSignupRequest): Observable<UserSignupResponse> {

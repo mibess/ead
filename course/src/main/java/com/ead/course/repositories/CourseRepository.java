@@ -13,5 +13,5 @@ public interface CourseRepository extends JpaRepository<CourseModel, UUID> {
 
     @Query("select c from CourseModel c order by c.creationDate desc limit 3")
     List<CourseModel> getPopularCourses();
-    
+
 }

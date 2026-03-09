@@ -94,68 +94,11 @@
   </section>
 
   <!-- Popluar Courses -->
-  <section id="courses" class="py-24 bg-white relative overflow-hidden">
-    <div class="absolute top-0 right-0 w-1/3 h-full bg-slate-50 skew-x-12 translate-x-32 -z-10"></div>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-end mb-12">
-        <div>
-          <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">Popular Courses</h2>
-          <p class="text-slate-600 max-w-xl">Explore our highest-rated courses and start learning today.</p>
-        </div>
-        <a href="#courses" class="hidden md:inline-flex items-center font-medium text-indigo-600 hover:text-indigo-700">
-          View all courses
-          <svg class="w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
-          </svg>
-        </a>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-8">
-        <div *ngFor="let course of courses"
-          class="group bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-indigo-200 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-          <div class="relative h-64 bg-slate-900 overflow-hidden">
-            <img [src]="course.image" [alt]="course.title"
-              class="w-full h-full object-contain p-8 group-hover:scale-110 transition-transform duration-500" />
-            <div
-              class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-slate-900 uppercase tracking-wide">
-              {{ course.category }}
-            </div>
-          </div>
-          <div class="p-6">
-            <div class="flex items-center gap-4 text-sm text-slate-500 mb-4">
-              <div class="flex items-center gap-1">
-                <svg class="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
-                  <path
-                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-                <span class="font-medium text-slate-900">{{ course.rating }}</span>
-              </div>
-              <div>{{ course.students }} students</div>
-            </div>
-            <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors">{{
-              course.title }}</h3>
-            <div class="flex items-center justify-between pt-4 border-t border-slate-100">
-              <span class="text-2xl font-bold text-slate-900">{{ course.price }}</span>
-              <button class="text-indigo-600 font-medium hover:underline">Enroll Now</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="mt-8 text-center md:hidden">
-        <a href="#courses" class="inline-flex items-center font-medium text-indigo-600 hover:text-indigo-700">
-          View all courses
-          <svg class="w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
-          </svg>
-        </a>
-      </div>
-    </div>
-  </section>
+  <app-courses-popular-card />
 
   <!-- Testimonials -->
   <section class="py-24 bg-slate-900 text-white relative overflow-hidden">
-    <div class="absolute inset-0 bg-[url('/assets/grid.svg')] opacity-10"></div>
+    <div class="absolute inset-0 opacity-10"></div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div class="text-center mb-16">
         <h2 class="text-3xl lg:text-4xl font-bold mb-6">Loved by Students</h2>

@@ -10,7 +10,7 @@ import { Page, Pageable } from '../../helpers/pageable.helper';
   providedIn: 'root'
 })
 export class UserApi {
-  private readonly apiBaseUrl: string = environment.API_BASE_URL + '/users';
+  private readonly apiBaseUrl: string = environment.API_AUTH_BASE_URL + '/users';
   private readonly http = inject(HttpClient);
 
   public getAll(pageable: Pageable, filter?: UserFilter): Observable<Page<UserResponse>> {

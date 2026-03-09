@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  ead-postgres:
+    image: postgres:15.5
+    container_name: ead-postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=postgres # Banco default necessário para o container iniciar
+    volumes:
+      # Mapeamento do volume para persistir os dados (o que resolve o seu problema anterior)
+      - ead-postgres-data:/var/lib/postgresql/data
+      # Mapeamento do script SQL para rodar na primeira inicialização do banco
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  ead-postgres-data:

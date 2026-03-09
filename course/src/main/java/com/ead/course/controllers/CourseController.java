@@ -16,8 +16,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/courses")
 @CrossOrigin(origins = "*", maxAge = 3600)
+@RequestMapping("/courses")
 @RequiredArgsConstructor
 public class CourseController {
 
@@ -81,9 +81,9 @@ public class CourseController {
     }
 
     @GetMapping("/popular")
-    public ResponseEntity<List<Object>> getPopularCourses() {
+    public ResponseEntity<List<CourseModel>> getPopularCourses() {
         List<CourseModel> courses = courseService.findPopularCourses();
-        return ResponseEntity.status(HttpStatus.OK).body(Collections.singletonList(courses));
+        return ResponseEntity.status(HttpStatus.OK).body(courses);
     }
 
 }

@@ -2,11 +2,17 @@ import { Component } from '@angular/core';
 import { RouterLink } from "@angular/router";
 import { Header } from "../../../shared/header/header";
 import { CommonModule } from '@angular/common';
+import { CoursesPopularCardComponent } from "../../dashboard/dashboard.component/courses-popular-card/courses-popular-card.component";
 
 @Component({
   selector: 'app-home.page',
   standalone: true,
-  imports: [RouterLink, Header, CommonModule],
+  imports: [
+    RouterLink,
+    Header,
+    CommonModule,
+    CoursesPopularCardComponent
+  ],
   templateUrl: './home.page.html',
   styleUrl: './home.page.css',
 })
