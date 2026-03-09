@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { CourseResponse } from '../interfaces/courses.interface';
+import { CourseRequest, CourseResponse } from '../interfaces/courses.interface';
 import { CoursesApi } from '../api/courses.api';
 
 export interface Course {
@@ -43,5 +43,9 @@ export class CourseService {
 
   public getCourses(): Observable<CourseResponse[]> {
     return this.coursesApi.getCourses();
+  }
+
+  public createCourse(course: CourseRequest): Observable<CourseResponse> {
+    return this.coursesApi.createCourse(course);
   }
 }

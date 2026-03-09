@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { CourseResponse } from '../interfaces/courses.interface';
+import { CourseRequest, CourseResponse } from '../interfaces/courses.interface';
 
 
 @Injectable({
@@ -18,6 +18,10 @@ export class CoursesApi {
 
   public getCourses(): Observable<CourseResponse[]> {
     return this.http.get<CourseResponse[]>(`${this.apiBaseUrl}`);
+  }
+
+  public createCourse(course: CourseRequest): Observable<CourseResponse> {
+    return this.http.post<CourseResponse>(`${this.apiBaseUrl}`, course);
   }
 
 }

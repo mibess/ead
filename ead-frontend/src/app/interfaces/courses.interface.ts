@@ -9,3 +9,12 @@ export interface CourseResponse {
     courseLevel: CourseLevel;
     userInstructor: string;
 }
+
+export interface CourseRequest {
+    name: string;
+    description: string;
+    imageUrl: string;
+    courseStatus: CourseStatus;
+    courseLevel: CourseLevel;
+    userInstructor: string;
+}
