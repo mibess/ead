@@ -38,6 +38,7 @@ export class CoursesEditPage implements OnInit {
   });
 
   public isSubmitting = false;
+  public isDeleting = false;
   public isLoading = signal(true);
   private courseId: string | null = null;
 
@@ -92,6 +93,27 @@ export class CoursesEditPage implements OnInit {
       },
       complete: () => {
         this.isSubmitting = false;
+      }
+    });
+  }
+
+  deleteCourse() {
+    if (!this.courseId || !confirm('Are you sure you want to delete this course?')) {
+      return;
+    }
+
+    this.isDeleting = true;
+    this.courseService.deleteCourse(this.courseId).subscribe({
+      next: () => {
+        this.router.navigate(['/courses']);
+      },
+      error: (err) => {
+        console.error('Error deleting course', err);
+        this.isDeleting = false;
+        // Ideally add toast/notification here
+      },
+      complete: () => {
+        this.isDeleting = false;
       }
     });
   }

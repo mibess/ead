@@ -56,4 +56,8 @@ export class CourseService {
   public updateCourse(id: string, course: CourseRequest): Observable<CourseResponse> {
     return this.coursesApi.updateCourse(id, course);
   }
+
+  public deleteCourse(id: string): Observable<void> {
+    return this.coursesApi.deleteCourse(id);
+  }
 }

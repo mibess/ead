@@ -32,4 +32,8 @@ export class CoursesApi {
     return this.http.put<CourseResponse>(`${this.apiBaseUrl}/${id}`, course);
   }
 
+  public deleteCourse(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiBaseUrl}/${id}`);
+  }
+
 }
