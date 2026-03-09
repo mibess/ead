@@ -48,4 +48,12 @@ export class CourseService {
   public createCourse(course: CourseRequest): Observable<CourseResponse> {
     return this.coursesApi.createCourse(course);
   }
+
+  public getCourseById(id: string): Observable<CourseResponse> {
+    return this.coursesApi.getCourseById(id);
+  }
+
+  public updateCourse(id: string, course: CourseRequest): Observable<CourseResponse> {
+    return this.coursesApi.updateCourse(id, course);
+  }
 }

@@ -24,4 +24,12 @@ export class CoursesApi {
     return this.http.post<CourseResponse>(`${this.apiBaseUrl}`, course);
   }
 
+  public getCourseById(id: string): Observable<CourseResponse> {
+    return this.http.get<CourseResponse>(`${this.apiBaseUrl}/${id}`);
+  }
+
+  public updateCourse(id: string, course: CourseRequest): Observable<CourseResponse> {
+    return this.http.put<CourseResponse>(`${this.apiBaseUrl}/${id}`, course);
+  }
+
 }
