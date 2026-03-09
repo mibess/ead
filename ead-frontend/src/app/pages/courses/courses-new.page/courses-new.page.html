@@ -91,6 +91,63 @@
 
             </div>
 
+            <!-- Modules Section -->
+            <div class="space-y-4 pt-6 mt-6 border-t border-white/10" formArrayName="modules">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 class="text-xl font-semibold text-white">Modules</h2>
+                        <p class="text-sm text-slate-400">Add modules to organize your course content.</p>
+                    </div>
+                    <button type="button" (click)="addModule()" 
+                        class="px-4 py-2 rounded-xl text-sm font-medium text-white bg-indigo-500 hover:bg-indigo-600 transition-colors flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                        Add Module
+                    </button>
+                </div>
+
+                @if (modules.length === 0) {
+                    <div class="text-center py-8 rounded-2xl border border-dashed border-white/20 bg-white/5">
+                        <p class="text-slate-400">No modules added yet. Click "Add Module" to start adding content to your course.</p>
+                    </div>
+                }
+
+                <div class="space-y-4">
+                    @for (moduleCtrl of modules.controls; track moduleCtrl; let i = $index) {
+                        <div [formGroupName]="i" class="p-6 rounded-2xl border border-white/10 bg-slate-900/50 space-y-4 relative">
+                            <button type="button" (click)="removeModule(i)" class="absolute top-4 right-4 p-2 text-slate-400 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-colors">
+                                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
+                            </button>
+                            
+                            <h3 class="text-lg font-medium text-white">Module {{ i + 1 }}</h3>
+
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-slate-300">Module Title</label>
+                                <input type="text" formControlName="title" placeholder="e.g. Introduction to Angular"
+                                    class="w-full rounded-xl bg-slate-900/50 px-4 py-3 text-sm outline-none border border-white/10 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all placeholder:text-slate-600 text-slate-200"
+                                    [class.border-red-500]="moduleCtrl.get('title')?.invalid && moduleCtrl.get('title')?.touched" />
+                                @if (moduleCtrl.get('title')?.invalid && moduleCtrl.get('title')?.touched) {
+                                    <span class="text-xs text-red-400 mt-1 block">Title is required.</span>
+                                }
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-slate-300">Module Description</label>
+                                <textarea formControlName="description" placeholder="What will students learn in this module?" rows="3"
+                                    class="w-full rounded-xl bg-slate-900/50 px-4 py-3 text-sm outline-none border border-white/10 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all placeholder:text-slate-600 text-slate-200 resize-none"
+                                    [class.border-red-500]="moduleCtrl.get('description')?.invalid && moduleCtrl.get('description')?.touched"></textarea>
+                                @if (moduleCtrl.get('description')?.invalid && moduleCtrl.get('description')?.touched) {
+                                    <span class="text-xs text-red-400 mt-1 block">Description is required.</span>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
             <!-- Submit Button -->
             <div class="pt-6 border-t border-white/10 flex justify-end gap-4">
                 <button type="button" routerLink="/courses" 

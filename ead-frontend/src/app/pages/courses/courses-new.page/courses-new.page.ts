@@ -6,7 +6,10 @@ import { Router, RouterModule } from '@angular/router';
 import { BackgroundEffectsComponent } from '../../../shared/background-effects/background-effects.component';
 import { HeaderPageComponent } from '../../../shared/header-page/header-page.component';
 import { CourseLevel, CourseStatus } from '../../../enums/course.enum';
-
+import { ModuleService } from '../../../services/module.service';
+import { ModuleRequest } from '../../../interfaces/modules.interface';
+import { forkJoin, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 @Component({
   selector: 'app-courses-new',
   standalone: true,
@@ -21,6 +24,7 @@ import { CourseLevel, CourseStatus } from '../../../enums/course.enum';
 })
 export class CoursesNewPage {
   private readonly courseService = inject(CourseService);
+  private readonly moduleService = inject(ModuleService);
   private readonly fb = inject(FormBuilder);
   private readonly router = inject(Router);
 
@@ -34,7 +38,25 @@ export class CoursesNewPage {
     courseStatus: [CourseStatus.IN_PROGRESS, [Validators.required]],
     courseLevel: [CourseLevel.BEGINNER, [Validators.required]],
     userInstructor: ['', [Validators.required]],
+    modules: this.fb.array([])
   });
+
+  get modules() {
+    return this.courseForm.get('modules') as import('@angular/forms').FormArray;
+  }
+
+  addModule() {
+    this.modules.push(
+      this.fb.group({
+        title: ['', [Validators.required]],
+        description: ['', [Validators.required]]
+      })
+    );
+  }
+
+  removeModule(index: number) {
+    this.modules.removeAt(index);
+  }
 
   public isSubmitting = false;
 
@@ -45,14 +67,36 @@ export class CoursesNewPage {
     }
 
     this.isSubmitting = true;
-    const request: CourseRequest = this.courseForm.value;
+    const formValue = this.courseForm.value;
+    const request: CourseRequest = {
+      name: formValue.name,
+      description: formValue.description,
+      imageUrl: formValue.imageUrl,
+      courseStatus: formValue.courseStatus,
+      courseLevel: formValue.courseLevel,
+      userInstructor: formValue.userInstructor,
+    };
 
-    this.courseService.createCourse(request).subscribe({
-      next: () => {
-        this.router.navigate(['/courses']);
+    const modulesData: ModuleRequest[] = formValue.modules || [];
+
+    this.courseService.createCourse(request).pipe(
+      switchMap(course => {
+        if (modulesData.length === 0) {
+          // Wrap course in an array to match forkJoin behavior if we wanted to
+          // For consistency in returned type, we might just map it, but since we 
+          // need the course id in the next step, we can just return it.
+          // Since moduleRequests returns an array of responses, let's map to an object
+          return of({ course, modules: [] });
+        }
+        const moduleRequests = modulesData.map(mod => this.moduleService.createModule(course.id, mod));
+        return forkJoin(moduleRequests).pipe(switchMap(modules => of({ course, modules })));
+      })
+    ).subscribe({
+      next: ({ course }) => {
+        this.router.navigate(['/courses', course.id, 'edit']);
       },
       error: (err) => {
-        console.error('Error creating course', err);
+        console.error('Error creating course or modules', err);
         this.isSubmitting = false;
         // Ideally add toast/notification here
       },
