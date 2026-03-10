@@ -8,7 +8,7 @@ import { HeaderPageComponent } from '../../../shared/header-page/header-page.com
 import { CourseLevel, CourseStatus } from '../../../enums/course.enum';
 import { FormArray } from '@angular/forms';
 import { forkJoin, of } from 'rxjs';
-import { switchMap, finalize, debounceTime, filter, tap, catchError } from 'rxjs/operators';
+import { switchMap, finalize, debounceTime, filter, tap, catchError, delay } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ModuleService } from '../../../services/module.service';
 import { ModuleRequest, ModuleResponse } from '../../../interfaces/modules.interface';
@@ -50,9 +50,10 @@ export class CoursesEditPage implements OnInit {
     modules: this.fb.array([]),
   });
 
-  public isSubmitting = false;
-  public isDeleting = false;
+  public isSubmitting = signal(false);
+  public isDeleting = signal(false);
   public isLoading = signal(true);
+  public openDeleteDialog = signal(false);
   private courseId: string | null = null;
   private originalModules: ModuleResponse[] = [];
 
@@ -66,7 +67,7 @@ export class CoursesEditPage implements OnInit {
       title: [module?.title || '', [Validators.required]],
       description: [module?.description || '', [Validators.required]]
     });
-    
+
     this.modules.push(moduleGroup);
 
     // Auto-save logic
@@ -97,7 +98,7 @@ export class CoursesEditPage implements OnInit {
   removeModule(index: number) {
     const moduleGroup = this.modules.at(index);
     const id = moduleGroup.get('id')?.value;
-    
+
     if (id && this.courseId) {
       this.moduleService.deleteModule(this.courseId, id).subscribe({
         next: () => {
@@ -106,7 +107,7 @@ export class CoursesEditPage implements OnInit {
         error: (err) => console.error('Error auto-deleting module', err)
       });
     }
-    
+
     this.modules.removeAt(index);
   }
 
@@ -133,13 +134,13 @@ export class CoursesEditPage implements OnInit {
           courseLevel: course.courseLevel,
           userInstructor: course.userInstructor
         });
-        
+
         this.originalModules = modules || [];
         // Clear existing modules form array
         while (this.modules.length !== 0) {
           this.modules.removeAt(0);
         }
-        
+
         this.originalModules.forEach(mod => this.addModule(mod));
         this.isLoading.set(false);
       },
@@ -156,7 +157,7 @@ export class CoursesEditPage implements OnInit {
       return;
     }
 
-    this.isSubmitting = true;
+    this.isSubmitting.set(true);
     const formValue = this.courseForm.value;
     const request: CourseRequest = {
       name: formValue.name,
@@ -170,7 +171,7 @@ export class CoursesEditPage implements OnInit {
     // Since modules are auto-saved, we only handle any unsaved modules (no ID yet)
     // just in case the user clicks "Save" before the debounce completes.
     const currentModules: any[] = formValue.modules || [];
-    
+
     const modulesToCreate = currentModules
       .filter(m => !m.id && m.title && m.description)
       .map(m => {
@@ -179,6 +180,7 @@ export class CoursesEditPage implements OnInit {
       });
 
     this.courseService.updateCourse(this.courseId, request).pipe(
+      delay(1500),
       switchMap(() => {
         if (modulesToCreate.length === 0) {
           return of(null);
@@ -187,36 +189,45 @@ export class CoursesEditPage implements OnInit {
       })
     ).subscribe({
       next: () => {
-        this.router.navigate(['/courses']);
+        this.router.navigate(['/courses', this.courseId, 'edit']);
+        this.isSubmitting.set(false);
       },
       error: (err) => {
         console.error('Error updating course or modules', err);
-        this.isSubmitting = false;
+        this.isSubmitting.set(false);
         // Ideally add toast/notification here
       },
       complete: () => {
-        this.isSubmitting = false;
+        this.isSubmitting.set(false);
       }
     });
   }
 
   deleteCourse() {
-    if (!this.courseId || !confirm('Are you sure you want to delete this course?')) {
-      return;
-    }
+    if (!this.courseId) return;
+    this.openDeleteDialog.set(true);
+  }
 
-    this.isDeleting = true;
+  closeDeleteDialog() {
+    this.openDeleteDialog.set(false);
+  }
+
+  confirmDeleteCourse() {
+    if (!this.courseId) return;
+
+    this.isDeleting.set(true);
     this.courseService.deleteCourse(this.courseId).subscribe({
       next: () => {
+        this.openDeleteDialog.set(false);
         this.router.navigate(['/courses']);
       },
       error: (err) => {
         console.error('Error deleting course', err);
-        this.isDeleting = false;
+        this.isDeleting.set(false);
         // Ideally add toast/notification here
       },
       complete: () => {
-        this.isDeleting = false;
+        this.isDeleting.set(false);
       }
     });
   }

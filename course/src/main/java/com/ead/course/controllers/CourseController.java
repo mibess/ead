@@ -2,6 +2,7 @@ package com.ead.course.controllers;
 
 import com.ead.course.dto.CourseDTO;
 import com.ead.course.models.CourseModel;
+import com.ead.course.models.ModuleModel;
 import com.ead.course.services.CourseService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -10,10 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -77,7 +75,9 @@ public class CourseController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course not found!");
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body(courseModelOptional.get());
+        var course = courseModelOptional.get();
+
+        return ResponseEntity.status(HttpStatus.OK).body(course);
     }
 
     @GetMapping("/popular")

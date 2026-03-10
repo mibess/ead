@@ -1,9 +1,65 @@
 <main
     class="relative min-h-screen font-sans overflow-hidden bg-slate-900 selection:bg-indigo-500/30 text-slate-100 antialiased">
     <app-background-effects />
+
+    <!-- Sidebar & Backdrop for Delete Course -->
+    @if (openDeleteDialog()) {
+    <div class="fixed inset-0 z-40 bg-slate-900/60 backdrop-blur-sm transition-opacity" (click)="closeDeleteDialog()">
+    </div>
+
+    <aside
+        class="fixed top-0 right-0 z-50 h-screen w-80 bg-slate-800 border-l border-white/10 shadow-2xl transform transition-transform duration-300 ease-in-out p-6 flex flex-col">
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="text-xl font-bold text-white">Course Options</h2>
+            <button (click)="closeDeleteDialog()"
+                class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <div class="flex flex-col items-center mb-8 text-center">
+            <div
+                class="h-24 w-24 rounded-2xl bg-linear-to-tr from-indigo-500 to-purple-500 p-0.5 mb-4 shadow-lg overflow-hidden shrink-0">
+                <img [src]="courseForm.get('imageUrl')?.value || 'https://placehold.co/400x400/1e293b/a8b8d8?text=' + courseForm.get('name')?.value"
+                    [alt]="courseForm.get('name')?.value" class="h-full w-full rounded-2xl object-cover bg-slate-900" />
+            </div>
+            <h3 class="text-lg font-bold text-white mb-1">{{ courseForm.get('name')?.value || 'Untitled Course' }}</h3>
+        </div>
+
+        <div class="space-y-2">
+            <button (click)="confirmDeleteCourse()" [disabled]="isDeleting()"
+                class="w-full p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 hover:bg-red-500/20 transition-all flex items-center gap-3 group cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
+                <div class="p-2 rounded-lg bg-red-500/20 group-hover:bg-red-500/30 transition-colors">
+                    @if (isDeleting()) {
+                    <svg class="h-5 w-5 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                        </circle>
+                        <path class="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                        </path>
+                    </svg>
+                    } @else {
+                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                    }
+                </div>
+                <div class="text-left">
+                    <div class="font-medium text-red-400">Delete Course</div>
+                    <div class="text-xs text-red-400/60 wrap-break-word whitespace-normal leading-tight">Permanently
+                        remove this course</div>
+                </div>
+            </button>
+        </div>
+    </aside>
+    }
+
     <!-- Topbar -->
     <app-header-page />
-
     <main class="relative z-10 max-w-7xl mx-auto p-6 lg:p-10">
         <div class="mb-8 items-center flex gap-4">
             <button routerLink="/courses"
@@ -36,7 +92,8 @@
             <div class="lg:col-span-2 space-y-8">
 
                 <!-- Course Info Card -->
-                <section class="bg-white/5 border border-white/10 rounded-3xl p-6 lg:p-8 shadow-xl backdrop-blur-sm space-y-6">
+                <section
+                    class="bg-white/5 border border-white/10 rounded-3xl p-6 lg:p-8 shadow-xl backdrop-blur-sm space-y-6">
                     <h2 class="text-xl font-semibold text-white">Course Information</h2>
 
                     <div class="space-y-4">
@@ -51,9 +108,11 @@
                             <!-- Instructor -->
                             <div class="space-y-2">
                                 <label class="text-sm font-medium text-slate-300">Instructor Name</label>
-                                <input app-input type="text" formControlName="userInstructor" placeholder="e.g. John Doe"
+                                <input app-input type="text" formControlName="userInstructor"
+                                    placeholder="e.g. John Doe"
                                     [state]="courseForm.get('userInstructor')?.invalid && courseForm.get('userInstructor')?.touched ? 'error' : 'default'" />
-                                @if (courseForm.get('userInstructor')?.invalid && courseForm.get('userInstructor')?.touched) {
+                                @if (courseForm.get('userInstructor')?.invalid &&
+                                courseForm.get('userInstructor')?.touched) {
                                 <span class="text-xs text-red-400 mt-1 block">Instructor name is required.</span>
                                 }
                             </div>
@@ -62,11 +121,13 @@
                         <!-- Description -->
                         <div class="space-y-2">
                             <label class="text-sm font-medium text-slate-300">Description</label>
-                            <textarea formControlName="description" placeholder="Describe the course content..." rows="4"
+                            <textarea formControlName="description" placeholder="Describe the course content..."
+                                rows="4"
                                 class="w-full rounded-xl bg-slate-900/50 px-4 py-3 text-sm outline-none border border-white/10 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all placeholder:text-slate-600 text-slate-200 resize-none"
                                 [class.border-red-500]="courseForm.get('description')?.invalid && courseForm.get('description')?.touched"></textarea>
                             @if (courseForm.get('description')?.invalid && courseForm.get('description')?.touched) {
-                            <span class="text-xs text-red-400 mt-1 block">Description is required and must be at least 10
+                            <span class="text-xs text-red-400 mt-1 block">Description is required and must be at least
+                                10
                                 characters.</span>
                             }
                         </div>
@@ -74,7 +135,8 @@
                         <!-- Image URL -->
                         <div class="space-y-2">
                             <label class="text-sm font-medium text-slate-300">Image URL</label>
-                            <input app-input type="text" formControlName="imageUrl" placeholder="https://example.com/image.png"
+                            <input app-input type="text" formControlName="imageUrl"
+                                placeholder="https://example.com/image.png"
                                 [state]="courseForm.get('imageUrl')?.invalid && courseForm.get('imageUrl')?.touched ? 'error' : 'default'" />
                             @if (courseForm.get('imageUrl')?.invalid && courseForm.get('imageUrl')?.touched) {
                             <span class="text-xs text-red-400 mt-1 block">Image URL is required.</span>
@@ -84,7 +146,9 @@
                 </section>
 
                 <!-- Modules Section -->
-                <section class="bg-white/5 border border-white/10 rounded-3xl p-6 lg:p-8 shadow-xl backdrop-blur-sm space-y-4" formArrayName="modules">
+                <section
+                    class="bg-white/5 border border-white/10 rounded-3xl p-6 lg:p-8 shadow-xl backdrop-blur-sm space-y-4"
+                    formArrayName="modules">
                     <div class="flex justify-between items-center">
                         <div>
                             <h2 class="text-xl font-semibold text-white">Modules</h2>
@@ -92,48 +156,55 @@
                         </div>
                         <button app-button type="button" [fullWidth]="false" size="sm" (click)="addModule()">
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 4v16m8-8H4" />
                             </svg>
                             Add Module
                         </button>
                     </div>
 
                     @if (modules.length === 0) {
-                        <div class="text-center py-8 rounded-2xl border border-dashed border-white/20 bg-white/5 mt-4">
-                            <p class="text-slate-400">No modules added yet. Click "Add Module" to start adding content to your course.</p>
-                        </div>
+                    <div class="text-center py-8 rounded-2xl border border-dashed border-white/20 bg-white/5 mt-4">
+                        <p class="text-slate-400">No modules added yet. Click "Add Module" to start adding content to
+                            your course.</p>
+                    </div>
                     }
 
                     <div class="space-y-4 mt-4">
                         @for (moduleCtrl of modules.controls; track moduleCtrl; let i = $index) {
-                            <div [formGroupName]="i" class="p-6 rounded-2xl border border-white/10 bg-slate-900/50 space-y-4 relative">
-                                <button type="button" (click)="removeModule(i)" class="absolute top-4 right-4 p-2 text-slate-400 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-colors">
-                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                    </svg>
-                                </button>
-                                
-                                <h3 class="text-lg font-medium text-white">Module {{ i + 1 }}</h3>
+                        <div [formGroupName]="i"
+                            class="p-6 rounded-2xl border border-white/10 bg-slate-900/50 space-y-4 relative">
+                            <button type="button" (click)="removeModule(i)"
+                                class="absolute top-4 right-4 p-2 text-slate-400 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-colors">
+                                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
+                            </button>
 
-                                <div class="space-y-2">
-                                    <label class="text-sm font-medium text-slate-300">Module Title</label>
-                                    <input app-input type="text" formControlName="title" placeholder="e.g. Introduction to Angular"
-                                        [state]="moduleCtrl.get('title')?.invalid && moduleCtrl.get('title')?.touched ? 'error' : 'default'" />
-                                    @if (moduleCtrl.get('title')?.invalid && moduleCtrl.get('title')?.touched) {
-                                        <span class="text-xs text-red-400 mt-1 block">Title is required.</span>
-                                    }
-                                </div>
+                            <h3 class="text-lg font-medium text-white">Module {{ i + 1 }}</h3>
 
-                                <div class="space-y-2">
-                                    <label class="text-sm font-medium text-slate-300">Module Description</label>
-                                    <textarea formControlName="description" placeholder="What will students learn in this module?" rows="3"
-                                        class="w-full rounded-xl bg-slate-900/50 px-4 py-3 text-sm outline-none border border-white/10 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all placeholder:text-slate-600 text-slate-200 resize-none"
-                                        [class.border-red-500]="moduleCtrl.get('description')?.invalid && moduleCtrl.get('description')?.touched"></textarea>
-                                    @if (moduleCtrl.get('description')?.invalid && moduleCtrl.get('description')?.touched) {
-                                        <span class="text-xs text-red-400 mt-1 block">Description is required.</span>
-                                    }
-                                </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-slate-300">Module Title</label>
+                                <input app-input type="text" formControlName="title"
+                                    placeholder="e.g. Introduction to Angular"
+                                    [state]="moduleCtrl.get('title')?.invalid && moduleCtrl.get('title')?.touched ? 'error' : 'default'" />
+                                @if (moduleCtrl.get('title')?.invalid && moduleCtrl.get('title')?.touched) {
+                                <span class="text-xs text-red-400 mt-1 block">Title is required.</span>
+                                }
                             </div>
+
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-slate-300">Module Description</label>
+                                <textarea formControlName="description"
+                                    placeholder="What will students learn in this module?" rows="3"
+                                    class="w-full rounded-xl bg-slate-900/50 px-4 py-3 text-sm outline-none border border-white/10 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all placeholder:text-slate-600 text-slate-200 resize-none"
+                                    [class.border-red-500]="moduleCtrl.get('description')?.invalid && moduleCtrl.get('description')?.touched"></textarea>
+                                @if (moduleCtrl.get('description')?.invalid && moduleCtrl.get('description')?.touched) {
+                                <span class="text-xs text-red-400 mt-1 block">Description is required.</span>
+                                }
+                            </div>
+                        </div>
                         }
                     </div>
                 </section>
@@ -143,7 +214,7 @@
             <aside class="space-y-8">
                 <section class="bg-white/5 border border-white/10 rounded-3xl p-6 shadow-xl backdrop-blur-sm space-y-6">
                     <h2 class="text-xl font-semibold text-white">Settings</h2>
-                    
+
                     <div class="space-y-4">
                         <!-- Course Level -->
                         <div class="space-y-2">
@@ -172,8 +243,8 @@
 
                 <section class="bg-white/5 border border-white/10 rounded-3xl p-6 shadow-xl backdrop-blur-sm">
                     <div class="flex flex-col gap-4">
-                        <button app-button type="submit" [disabled]="isDeleting" [loading]="isSubmitting">
-                            @if (isSubmitting) {
+                        <button app-button type="submit" [disabled]="isDeleting()" [loading]="isSubmitting()">
+                            @if (isSubmitting()) {
                             Saving...
                             } @else {
                             Save Changes
@@ -185,18 +256,18 @@
                     </div>
                 </section>
 
-                <section class="flex flex-col gap-3 rounded-3xl bg-red-500/5 border border-red-500/10 shadow-xl backdrop-blur-xl p-6">
+                <section
+                    class="flex flex-col gap-3 rounded-3xl bg-red-500/5 border border-red-500/10 shadow-xl backdrop-blur-xl p-6">
                     <h2 class="text-xl font-semibold text-red-400">Danger zone</h2>
-                    <p class="text-sm text-slate-400 leading-relaxed">Once you delete this course, there is no going back. Please be certain.</p>
-                    <button app-button type="button" color="danger" (click)="deleteCourse()" [disabled]="isSubmitting" [loading]="isDeleting" [icon]="null">
-                        @if (isDeleting) {
-                        Deleting...
-                        } @else {
+                    <p class="text-sm text-slate-400 leading-relaxed">Once you delete this course, there is no going
+                        back. Please be certain.</p>
+                    <button app-button type="button" color="danger" (click)="deleteCourse()" [disabled]="isSubmitting()"
+                        [icon]="null">
                         <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                         </svg>
                         Delete Course
-                        }
                     </button>
                 </section>
             </aside>
