@@ -14,7 +14,7 @@ type ButtonIconPosition = 'start' | 'end';
   styleUrl: './button.component.css',
   host: {
     '[class]': 'buttonClasses()',
-    '[attr.disabled]': "loading() ? true : null"
+    '[attr.disabled]': "(loading() || disabled()) ? true : null"
   }
 })
 export class ButtonComponent {
@@ -24,14 +24,18 @@ export class ButtonComponent {
   loading = input<boolean>(false);
   icon = input<string | null>(null);
   iconPosition = input<ButtonIconPosition>('start');
+  fullWidth = input<boolean>(true);
+  disabled = input<boolean>(false);
 
   buttonClasses = computed(() => {
     const color = this.color();
     const variant = this.variant();
     const size = this.size();
+    const fullWidth = this.fullWidth();
 
     const base = [
-      'w-full flex items-center justify-center py-3.5 px-8 rounded-2xl',
+      fullWidth ? 'w-full' : 'w-auto',
+      'flex items-center justify-center py-3.5 px-8 rounded-2xl',
       'font-semibold',
       'hover:scale-[1.02] active:scale-[0.98] transition-all duration-200',
       'disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer'

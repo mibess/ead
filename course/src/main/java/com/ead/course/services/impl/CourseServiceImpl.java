@@ -40,10 +40,9 @@ public class CourseServiceImpl implements CourseService {
                 if (!lessonModelList.isEmpty()) {
                     lessonRepository.deleteAll(lessonModelList);
                 }
-                moduleRepository.delete(module.getId());
             }
         }
-
+        moduleRepository.deleteAll(course.getModules());
         courseRepository.delete(course);
     }
 

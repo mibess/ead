@@ -12,6 +12,8 @@ import { switchMap, finalize, debounceTime, filter, tap, catchError } from 'rxjs
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ModuleService } from '../../../services/module.service';
 import { ModuleRequest, ModuleResponse } from '../../../interfaces/modules.interface';
+import { Input } from '../../../shared/input/input';
+import { ButtonComponent } from '../../../shared/button.component/button.component';
 
 @Component({
   selector: 'app-courses-edit',
@@ -20,7 +22,9 @@ import { ModuleRequest, ModuleResponse } from '../../../interfaces/modules.inter
     ReactiveFormsModule,
     RouterModule,
     BackgroundEffectsComponent,
-    HeaderPageComponent
+    HeaderPageComponent,
+    Input,
+    ButtonComponent
   ],
   templateUrl: './courses-edit.page.html',
   styleUrl: './courses-edit.page.css',

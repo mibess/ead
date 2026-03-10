@@ -114,7 +114,7 @@
           <!-- Next / Register Button -->
           @if (currentStep() === 5){
           @if (authService.signalSelectors.signupState().loading){
-          <button app-button disabled variant="solid" color="secondary" icon="loading">
+          <button app-button variant="solid" color="secondary" icon="loading">
             <span>Registering</span>
           </button>
           } @else {

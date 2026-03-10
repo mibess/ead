@@ -30,9 +30,8 @@
                             <!-- Course Name -->
                             <div class="space-y-2">
                                 <label class="text-sm font-medium text-slate-300">Course Name</label>
-                                <input type="text" formControlName="name" placeholder="e.g. Master Angular 18"
-                                    class="w-full rounded-xl bg-slate-900/50 px-4 py-3 text-sm outline-none border border-white/10 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all placeholder:text-slate-600 text-slate-200"
-                                    [class.border-red-500]="courseForm.get('name')?.invalid && courseForm.get('name')?.touched" />
+                                <input app-input type="text" formControlName="name" placeholder="e.g. Master Angular 18"
+                                    [state]="courseForm.get('name')?.invalid && courseForm.get('name')?.touched ? 'error' : 'default'" />
                                 @if (courseForm.get('name')?.invalid && courseForm.get('name')?.touched) {
                                     <span class="text-xs text-red-400 mt-1 block">Course name is required and must be at least 3 characters.</span>
                                 }
@@ -41,9 +40,8 @@
                             <!-- Instructor -->
                             <div class="space-y-2">
                                 <label class="text-sm font-medium text-slate-300">Instructor Name</label>
-                                <input type="text" formControlName="userInstructor" placeholder="e.g. John Doe"
-                                    class="w-full rounded-xl bg-slate-900/50 px-4 py-3 text-sm outline-none border border-white/10 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all placeholder:text-slate-600 text-slate-200"
-                                    [class.border-red-500]="courseForm.get('userInstructor')?.invalid && courseForm.get('userInstructor')?.touched" />
+                                <input app-input type="text" formControlName="userInstructor" placeholder="e.g. John Doe"
+                                    [state]="courseForm.get('userInstructor')?.invalid && courseForm.get('userInstructor')?.touched ? 'error' : 'default'" />
                                 @if (courseForm.get('userInstructor')?.invalid && courseForm.get('userInstructor')?.touched) {
                                     <span class="text-xs text-red-400 mt-1 block">Instructor name is required.</span>
                                 }
@@ -64,9 +62,8 @@
                         <!-- Image URL -->
                         <div class="space-y-2">
                             <label class="text-sm font-medium text-slate-300">Image URL</label>
-                            <input type="text" formControlName="imageUrl" placeholder="https://example.com/image.png"
-                                class="w-full rounded-xl bg-slate-900/50 px-4 py-3 text-sm outline-none border border-white/10 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all placeholder:text-slate-600 text-slate-200"
-                                [class.border-red-500]="courseForm.get('imageUrl')?.invalid && courseForm.get('imageUrl')?.touched" />
+                            <input app-input type="text" formControlName="imageUrl" placeholder="https://example.com/image.png"
+                                [state]="courseForm.get('imageUrl')?.invalid && courseForm.get('imageUrl')?.touched ? 'error' : 'default'" />
                             @if (courseForm.get('imageUrl')?.invalid && courseForm.get('imageUrl')?.touched) {
                                 <span class="text-xs text-red-400 mt-1 block">Image URL is required.</span>
                             }
@@ -81,8 +78,7 @@
                             <h2 class="text-xl font-semibold text-white">Modules</h2>
                             <p class="text-sm text-slate-400">Add modules to organize your course content.</p>
                         </div>
-                        <button type="button" (click)="addModule()" 
-                            class="px-4 py-2 rounded-xl text-sm font-medium text-white bg-indigo-500 hover:bg-indigo-600 transition-colors flex items-center gap-2">
+                        <button app-button type="button" [fullWidth]="false" size="sm" (click)="addModule()">
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                             </svg>
@@ -109,9 +105,8 @@
 
                                 <div class="space-y-2">
                                     <label class="text-sm font-medium text-slate-300">Module Title</label>
-                                    <input type="text" formControlName="title" placeholder="e.g. Introduction to Angular"
-                                        class="w-full rounded-xl bg-slate-900/50 px-4 py-3 text-sm outline-none border border-white/10 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all placeholder:text-slate-600 text-slate-200"
-                                        [class.border-red-500]="moduleCtrl.get('title')?.invalid && moduleCtrl.get('title')?.touched" />
+                                    <input app-input type="text" formControlName="title" placeholder="e.g. Introduction to Angular"
+                                        [state]="moduleCtrl.get('title')?.invalid && moduleCtrl.get('title')?.touched ? 'error' : 'default'" />
                                     @if (moduleCtrl.get('title')?.invalid && moduleCtrl.get('title')?.touched) {
                                         <span class="text-xs text-red-400 mt-1 block">Title is required.</span>
                                     }
@@ -164,20 +159,14 @@
 
                 <section class="bg-white/5 border border-white/10 rounded-3xl p-6 shadow-xl backdrop-blur-sm">
                     <div class="flex flex-col gap-4">
-                        <button type="submit" [disabled]="isSubmitting"
-                            class="w-full px-6 py-2.5 rounded-xl text-sm font-medium text-white bg-indigo-500 hover:bg-indigo-600 focus:ring-2 focus:ring-indigo-500/50 focus:outline-none transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center">
+                        <button app-button type="submit" [loading]="isSubmitting">
                             @if (isSubmitting) {
-                                <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                </svg>
                                 Saving...
                             } @else {
                                 Create Course
                             }
                         </button>
-                        <button type="button" routerLink="/courses" 
-                            class="w-full px-6 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-colors">
+                        <button app-button type="button" variant="outline" color="light" routerLink="/courses">
                             Cancel
                         </button>
                     </div>

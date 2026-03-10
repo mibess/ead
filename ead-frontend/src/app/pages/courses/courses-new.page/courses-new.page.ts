@@ -10,6 +10,8 @@ import { ModuleService } from '../../../services/module.service';
 import { ModuleRequest } from '../../../interfaces/modules.interface';
 import { forkJoin, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { Input } from '../../../shared/input/input';
+import { ButtonComponent } from '../../../shared/button.component/button.component';
 @Component({
   selector: 'app-courses-new',
   standalone: true,
@@ -17,7 +19,9 @@ import { switchMap } from 'rxjs/operators';
     ReactiveFormsModule,
     RouterModule,
     BackgroundEffectsComponent,
-    HeaderPageComponent
+    HeaderPageComponent,
+    Input,
+    ButtonComponent
   ],
   templateUrl: './courses-new.page.html',
   styleUrl: './courses-new.page.css',
