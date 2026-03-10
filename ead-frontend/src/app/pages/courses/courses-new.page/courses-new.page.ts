@@ -12,6 +12,8 @@ import { forkJoin, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { Input } from '../../../shared/input/input';
 import { ButtonComponent } from '../../../shared/button.component/button.component';
+import { ToastService } from '../../../services/toast.service';
+
 @Component({
   selector: 'app-courses-new',
   standalone: true,
@@ -31,6 +33,7 @@ export class CoursesNewPage {
   private readonly moduleService = inject(ModuleService);
   private readonly fb = inject(FormBuilder);
   private readonly router = inject(Router);
+  private readonly toastService = inject(ToastService);
 
   public courseLevels = Object.values(CourseLevel);
   public courseStatuses = Object.values(CourseStatus);
@@ -97,12 +100,13 @@ export class CoursesNewPage {
       })
     ).subscribe({
       next: ({ course }) => {
+        this.toastService.showSuccess('Course created successfully');
         this.router.navigate(['/courses', course.id, 'edit']);
       },
       error: (err) => {
         console.error('Error creating course or modules', err);
+        this.toastService.showError('Error creating course. Please try again.');
         this.isSubmitting = false;
-        // Ideally add toast/notification here
       },
       complete: () => {
         this.isSubmitting = false;

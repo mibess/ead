@@ -14,6 +14,7 @@ import { ModuleService } from '../../../services/module.service';
 import { ModuleRequest, ModuleResponse } from '../../../interfaces/modules.interface';
 import { Input } from '../../../shared/input/input';
 import { ButtonComponent } from '../../../shared/button.component/button.component';
+import { ToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'app-courses-edit',
@@ -36,6 +37,7 @@ export class CoursesEditPage implements OnInit {
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly toastService = inject(ToastService);
 
   public courseLevels = Object.values(CourseLevel);
   public courseStatuses = Object.values(CourseStatus);
@@ -102,9 +104,13 @@ export class CoursesEditPage implements OnInit {
     if (id && this.courseId) {
       this.moduleService.deleteModule(this.courseId, id).subscribe({
         next: () => {
+          this.toastService.showSuccess('Module deleted');
           this.originalModules = this.originalModules.filter(m => m.id !== id);
         },
-        error: (err) => console.error('Error auto-deleting module', err)
+        error: (err) => {
+          console.error('Error auto-deleting module', err);
+          this.toastService.showError('Error deleting module');
+        }
       });
     }
 
@@ -189,13 +195,14 @@ export class CoursesEditPage implements OnInit {
       })
     ).subscribe({
       next: () => {
+        this.toastService.showSuccess('Course updated successfully');
         this.router.navigate(['/courses', this.courseId, 'edit']);
         this.isSubmitting.set(false);
       },
       error: (err) => {
         console.error('Error updating course or modules', err);
+        this.toastService.showError('Error updating course. Please try again.');
         this.isSubmitting.set(false);
-        // Ideally add toast/notification here
       },
       complete: () => {
         this.isSubmitting.set(false);
@@ -218,13 +225,14 @@ export class CoursesEditPage implements OnInit {
     this.isDeleting.set(true);
     this.courseService.deleteCourse(this.courseId).subscribe({
       next: () => {
+        this.toastService.showSuccess('Course deleted successfully');
         this.openDeleteDialog.set(false);
         this.router.navigate(['/courses']);
       },
       error: (err) => {
         console.error('Error deleting course', err);
+        this.toastService.showError('Error deleting course. Please try again.');
         this.isDeleting.set(false);
-        // Ideally add toast/notification here
       },
       complete: () => {
         this.isDeleting.set(false);

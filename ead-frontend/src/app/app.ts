@@ -3,10 +3,11 @@ import { RouterModule, RouterOutlet } from '@angular/router';
 import { UserStorageService } from './storage/user-storage.service';
 import { UsersSelectors } from './pages/users/user.selectors';
 import { UserApi } from './pages/users/user.api';
+import { ToastComponent } from './shared/toast/toast.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterModule],
+  imports: [RouterOutlet, RouterModule, ToastComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

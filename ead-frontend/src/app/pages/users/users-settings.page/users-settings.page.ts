@@ -9,6 +9,7 @@ import { Input } from '../../../shared/input/input';
 import { BackgroundEffectsComponent } from "../../../shared/background-effects/background-effects.component";
 import { HeaderPageComponent } from "../../../shared/header-page/header-page.component";
 import { UserStorageService } from '../../../storage/user-storage.service';
+import { ToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'app-users-settings.page',
@@ -21,6 +22,7 @@ export class UsersSettingsPage implements OnInit {
   public readonly userService = inject(UserService);
   public readonly usersSelectors = inject(UsersSelectors);
   public readonly userStorageService = inject(UserStorageService);
+  public readonly toastService = inject(ToastService);
   public readonly userSession = this.usersSelectors.userSession();
 
   public updateImageLoading = signal(false);
@@ -73,22 +75,22 @@ export class UsersSettingsPage implements OnInit {
 
       next: (userResponse) => {
         if (userResponse?.userId) {
-          alert('User settings updated successfully!');
+          this.toastService.showSuccess('User settings updated successfully!');
         } else {
-          alert('Failed to update: Invalid response from server.');
+          this.toastService.showError('Failed to update: Invalid response from server.');
         }
       },
 
       error: (err) => {
         console.error('Update failed:', err);
-        alert('Failed to update user settings. Please try again later.');
+        this.toastService.showError('Failed to update user settings. Please try again later.');
       }
     });
   }
 
   public updatePassword(): void {
     if (!this.passwordFormGroup.valid || !this.validPassword()) {
-      alert('Invalid password');
+      this.toastService.showError('Invalid passwords entered.');
       return;
     }
 
@@ -99,12 +101,12 @@ export class UsersSettingsPage implements OnInit {
 
     this.userService.updatePassword(this.usersSelectors.userSettings()?.userId || '', userUpdatePasswordRequest).subscribe({
       next: (response) => {
-        alert(response);
+        this.toastService.showSuccess('Password updated successfully!');
       },
 
       error: (err) => {
         console.error('Update failed:', err);
-        alert('Failed to update user settings. Please try again later.');
+        this.toastService.showError('Failed to update password. Please try again later.');
       }
     });
   }
@@ -138,12 +140,13 @@ export class UsersSettingsPage implements OnInit {
         this.userSettingsFormGroup.patchValue({ imageUrl: response.imageUrl });
         this.userStorageService.setUserLoggedIn(response);
         this.updateImageLoading.set(false);
+        this.toastService.showSuccess('Avatar updated successfully!');
       },
 
       error: (err) => {
         console.error('Update failed:', err);
         this.updateImageLoading.set(false);
-        alert('Failed to update user settings. Please try again later.');
+        this.toastService.showError('Failed to update user avatar. Please try again later.');
       }
     });
   }
