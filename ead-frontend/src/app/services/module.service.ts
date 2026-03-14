@@ -7,7 +7,7 @@ import { ModuleRequest, ModuleResponse } from '../interfaces/modules.interface';
   providedIn: 'root',
 })
 export class ModuleService {
-  public modulesApi = inject(ModulesApi);
+  private readonly modulesApi = inject(ModulesApi);
 
   public getAllModules(courseId: string): Observable<ModuleResponse[]> {
     return this.modulesApi.getAllModules(courseId);
