@@ -8,9 +8,9 @@ services:
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=123456
-      - POSTGRES_DB=postgres # Banco default necessário para o container iniciar
+      - POSTGRES_USER=ead_db_user
+      - POSTGRES_PASSWORD=07Lx*+z1SOLo@
+      - POSTGRES_DB=ead_db_main # Banco default necessário para o container iniciar
     volumes:
       # Mapeamento do volume para persistir os dados (o que resolve o seu problema anterior)
       - ead-postgres-data:/var/lib/postgresql/data

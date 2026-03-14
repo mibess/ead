@@ -57,5 +57,10 @@ public class ModuleServiceImpl implements ModuleService {
         return moduleRepository.findModuleByCourseIdAndId(courseId, moduleId);
     }
 
+    public Optional<ModuleModel> findById(UUID moduleId){
+        return moduleRepository.findById(moduleId);
+    }
+
+
 
 }

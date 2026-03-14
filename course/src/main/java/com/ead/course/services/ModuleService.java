@@ -16,5 +16,7 @@ public interface ModuleService {
     Optional<ModuleModel> findModuleIntoCourse(UUID courseId, UUID moduleId);
 
     void deleteModule(UUID courseId, UUID moduleId);
+
+    Optional<ModuleModel> findById(UUID moduleId);
 }
 

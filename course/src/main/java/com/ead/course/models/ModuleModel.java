@@ -45,6 +45,7 @@ public class ModuleModel implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private CourseModel course;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "module", fetch = FetchType.LAZY)
     @Fetch(FetchMode.SUBSELECT)
     private Set<LessonModel> lessons;
