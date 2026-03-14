@@ -58,6 +58,62 @@
     </aside>
     }
 
+    <!-- Sidebar & Backdrop for Lesson Form -->
+    @if (isLessonDialogOpen()) {
+    <div class="fixed inset-0 z-40 bg-slate-900/60 backdrop-blur-sm transition-opacity" (click)="closeLessonDialog()">
+    </div>
+
+    <aside
+        class="fixed top-0 right-0 z-50 h-screen w-[400px] bg-slate-800 border-l border-white/10 shadow-2xl transform transition-transform duration-300 ease-in-out p-6 flex flex-col">
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="text-xl font-bold text-white">{{ selectedLessonId() ? 'Edit Lesson' : 'Add Lesson' }}</h2>
+            <button (click)="closeLessonDialog()"
+                class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <form [formGroup]="lessonForm" (ngSubmit)="saveLesson()" class="flex flex-col flex-1">
+            <div class="space-y-6 flex-1">
+                <div class="space-y-2">
+                    <label class="text-sm font-medium text-slate-300">Title</label>
+                    <input app-input type="text" formControlName="title" placeholder="Lesson title"
+                        [state]="lessonForm.get('title')?.invalid && lessonForm.get('title')?.touched ? 'error' : 'default'" />
+                    @if (lessonForm.get('title')?.invalid && lessonForm.get('title')?.touched) {
+                    <span class="text-xs text-red-400 mt-1 block">Title is required.</span>
+                    }
+                </div>
+
+                <div class="space-y-2">
+                    <label class="text-sm font-medium text-slate-300">Description</label>
+                    <textarea formControlName="description" placeholder="Lesson description" rows="4"
+                        class="w-full rounded-xl bg-slate-900/50 px-4 py-3 text-sm outline-none border border-white/10 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all placeholder:text-slate-600 text-slate-200 resize-none"
+                        [class.border-red-500]="lessonForm.get('description')?.invalid && lessonForm.get('description')?.touched"></textarea>
+                    @if (lessonForm.get('description')?.invalid && lessonForm.get('description')?.touched) {
+                    <span class="text-xs text-red-400 mt-1 block">Description is required.</span>
+                    }
+                </div>
+
+                <div class="space-y-2">
+                    <label class="text-sm font-medium text-slate-300">Video URL</label>
+                    <input app-input type="text" formControlName="videoUrl" placeholder="https://youtube.com/..."
+                        [state]="lessonForm.get('videoUrl')?.invalid && lessonForm.get('videoUrl')?.touched ? 'error' : 'default'" />
+                    @if (lessonForm.get('videoUrl')?.invalid && lessonForm.get('videoUrl')?.touched) {
+                    <span class="text-xs text-red-400 mt-1 block">Video URL is required.</span>
+                    }
+                </div>
+            </div>
+
+            <div class="mt-8 flex gap-3">
+                <button app-button type="submit" [loading]="isSavingLesson()" class="flex-1">Save</button>
+                <button app-button type="button" variant="outline" color="light" (click)="closeLessonDialog()" class="flex-1">Cancel</button>
+            </div>
+        </form>
+    </aside>
+    }
+
     <!-- Topbar -->
     <app-header-page />
     <main class="relative z-10 max-w-7xl mx-auto p-6 lg:p-10">
@@ -202,6 +258,63 @@
                                     [class.border-red-500]="moduleCtrl.get('description')?.invalid && moduleCtrl.get('description')?.touched"></textarea>
                                 @if (moduleCtrl.get('description')?.invalid && moduleCtrl.get('description')?.touched) {
                                 <span class="text-xs text-red-400 mt-1 block">Description is required.</span>
+                                }
+                            </div>
+
+                            <!-- Lessons Section inside Module -->
+                            <div class="pt-4 mt-4 border-t border-white/5 space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <h4 class="text-sm font-medium text-slate-300">Lessons</h4>
+                                    <button app-button type="button" size="sm" variant="outline" color="light" [fullWidth]="false" 
+                                        [disabled]="!moduleCtrl.get('id')?.value"
+                                        (click)="openLessonDialog(moduleCtrl.get('id')?.value)"
+                                        class="!px-3 !py-1.5 !text-xs cursor-pointer">
+                                        <svg class="w-3 h-3 mr-1.5 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                                        </svg>
+                                        Add Lesson
+                                    </button>
+                                </div>
+
+                                @if (moduleCtrl.get('id')?.value && lessonsByModule()[moduleCtrl.get('id')?.value]?.length) {
+                                  <div class="space-y-2">
+                                      @for (lesson of lessonsByModule()[moduleCtrl.get('id')?.value]; track lesson.id) {
+                                        <div class="flex items-center justify-between p-3 rounded-xl bg-slate-800/50 border border-white/5 group hover:bg-slate-800 transition-colors">
+                                            <div class="flex items-center gap-3">
+                                                <div class="p-2 rounded-lg bg-indigo-500/10 text-indigo-400">
+                                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                    </svg>
+                                                </div>
+                                                <div>
+                                                    <div class="text-sm font-medium text-white">{{ lesson.title }}</div>
+                                                    <div class="text-xs text-slate-500 line-clamp-1 truncate max-w-[200px]">{{ lesson.description }}</div>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center gap-1 opacity-100 lg:opacity-0 group-hover:opacity-100 transition-opacity">
+                                                <button type="button" (click)="openLessonDialog(moduleCtrl.get('id')?.value, lesson)" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer" title="Edit Lesson">
+                                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                                    </svg>
+                                                </button>
+                                                <button type="button" (click)="deleteLesson(moduleCtrl.get('id')?.value, lesson.id)" class="p-1.5 rounded-lg text-slate-400 hover:text-red-400 hover:bg-red-400/10 transition-colors cursor-pointer" title="Delete Lesson">
+                                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                      }
+                                  </div>
+                                } @else if (!moduleCtrl.get('id')?.value) {
+                                  <div class="text-xs text-slate-500 text-center py-2 px-3 rounded-lg border border-dashed border-white/10 bg-slate-800/20">
+                                      Save or wait to auto-save this module before adding lessons.
+                                  </div>
+                                } @else {
+                                  <div class="text-xs text-slate-500 text-center py-3 rounded-lg border border-dashed border-white/10 bg-slate-800/20">
+                                      No lessons added yet.
+                                  </div>
                                 }
                             </div>
                         </div>

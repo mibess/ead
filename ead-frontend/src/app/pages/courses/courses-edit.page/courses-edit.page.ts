@@ -7,7 +7,7 @@ import { BackgroundEffectsComponent } from '../../../shared/background-effects/b
 import { HeaderPageComponent } from '../../../shared/header-page/header-page.component';
 import { CourseLevel, CourseStatus } from '../../../enums/course.enum';
 import { FormArray } from '@angular/forms';
-import { forkJoin, of } from 'rxjs';
+import { forkJoin, of, Observable } from 'rxjs';
 import { switchMap, finalize, debounceTime, filter, tap, catchError, delay } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ModuleService } from '../../../services/module.service';
@@ -15,6 +15,8 @@ import { ModuleRequest, ModuleResponse } from '../../../interfaces/modules.inter
 import { Input } from '../../../shared/input/input';
 import { ButtonComponent } from '../../../shared/button.component/button.component';
 import { ToastService } from '../../../services/toast.service';
+import { LessonService } from '../../../services/lesson.service';
+import { LessonRequest, LessonResponse } from '../../../interfaces/lessons.interface';
 
 @Component({
   selector: 'app-courses-edit',
@@ -33,6 +35,7 @@ import { ToastService } from '../../../services/toast.service';
 export class CoursesEditPage implements OnInit {
   private readonly courseService = inject(CourseService);
   private readonly moduleService = inject(ModuleService);
+  private readonly lessonService = inject(LessonService);
   private readonly fb = inject(FormBuilder);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
@@ -52,10 +55,24 @@ export class CoursesEditPage implements OnInit {
     modules: this.fb.array([]),
   });
 
+  public lessonForm: FormGroup = this.fb.group({
+    title: ['', [Validators.required]],
+    description: ['', [Validators.required]],
+    videoUrl: ['', [Validators.required]],
+  });
+
   public isSubmitting = signal(false);
   public isDeleting = signal(false);
   public isLoading = signal(true);
   public openDeleteDialog = signal(false);
+
+  // Lesson state
+  public isLessonDialogOpen = signal(false);
+  public isSavingLesson = signal(false);
+  public selectedModuleIdForLesson = signal<string | null>(null);
+  public selectedLessonId = signal<string | null>(null);
+  public lessonsByModule = signal<Record<string, LessonResponse[]>>({});
+
   private courseId: string | null = null;
   private originalModules: ModuleResponse[] = [];
 
@@ -87,6 +104,7 @@ export class CoursesEditPage implements OnInit {
               if (res && res.id) {
                 moduleGroup.get('id')?.setValue(res.id, { emitEvent: false });
                 this.originalModules.push(res);
+                this.lessonsByModule.update(lessons => ({ ...lessons, [res.id]: [] }));
               }
             }),
             catchError(() => of(null))
@@ -148,7 +166,23 @@ export class CoursesEditPage implements OnInit {
         }
 
         this.originalModules.forEach(mod => this.addModule(mod));
-        this.isLoading.set(false);
+
+        if (this.originalModules.length > 0) {
+          const lessonRequests: { [key: string]: Observable<LessonResponse[]> } = {};
+          this.originalModules.forEach(mod => {
+            lessonRequests[mod.id] = this.lessonService.getAllLessons(mod.id).pipe(catchError(() => of([])));
+          });
+          
+          forkJoin(lessonRequests).subscribe({
+            next: (lessonsDict) => {
+              this.lessonsByModule.set(lessonsDict);
+              this.isLoading.set(false);
+            },
+            error: () => this.isLoading.set(false)
+          });
+        } else {
+          this.isLoading.set(false);
+        }
       },
       error: (err) => {
         console.error('Error loading course or modules', err);
@@ -236,6 +270,90 @@ export class CoursesEditPage implements OnInit {
       },
       complete: () => {
         this.isDeleting.set(false);
+      }
+    });
+  }
+
+  // --- Lesson Management ---
+  openLessonDialog(moduleId: string, lesson?: LessonResponse) {
+    this.selectedModuleIdForLesson.set(moduleId);
+    if (lesson) {
+      this.selectedLessonId.set(lesson.id);
+      this.lessonForm.patchValue({
+        title: lesson.title,
+        description: lesson.description,
+        videoUrl: lesson.videoUrl
+      });
+    } else {
+      this.selectedLessonId.set(null);
+      this.lessonForm.reset();
+    }
+    this.isLessonDialogOpen.set(true);
+  }
+
+  closeLessonDialog() {
+    this.isLessonDialogOpen.set(false);
+    this.selectedModuleIdForLesson.set(null);
+    this.selectedLessonId.set(null);
+    this.lessonForm.reset();
+  }
+
+  saveLesson() {
+    if (this.lessonForm.invalid) {
+      this.lessonForm.markAllAsTouched();
+      return;
+    }
+    const moduleId = this.selectedModuleIdForLesson();
+    if (!moduleId) return;
+
+    this.isSavingLesson.set(true);
+    const formValue = this.lessonForm.value;
+    const req: LessonRequest = {
+      title: formValue.title,
+      description: formValue.description,
+      videoUrl: formValue.videoUrl
+    };
+
+    const lessonId = this.selectedLessonId();
+    const action$ = lessonId
+      ? this.lessonService.updateLesson(moduleId, lessonId, req)
+      : this.lessonService.createLesson(moduleId, req);
+
+    action$.subscribe({
+      next: (res) => {
+        this.toastService.showSuccess(lessonId ? 'Lesson updated' : 'Lesson created');
+        this.refreshLessonsForModule(moduleId);
+        this.closeLessonDialog();
+        this.isSavingLesson.set(false);
+      },
+      error: () => {
+        this.toastService.showError('Error saving lesson');
+        this.isSavingLesson.set(false);
+      }
+    });
+  }
+
+  deleteLesson(moduleId: string, lessonId: string) {
+    if (confirm('Are you sure you want to delete this lesson?')) {
+      this.lessonService.deleteLesson(moduleId, lessonId).subscribe({
+        next: () => {
+          this.toastService.showSuccess('Lesson deleted');
+          this.refreshLessonsForModule(moduleId);
+        },
+        error: () => {
+          this.toastService.showError('Error deleting lesson');
+        }
+      });
+    }
+  }
+
+  private refreshLessonsForModule(moduleId: string) {
+    this.lessonService.getAllLessons(moduleId).subscribe({
+      next: (lessons) => {
+        this.lessonsByModule.update(state => ({
+          ...state,
+          [moduleId]: lessons
+        }));
       }
     });
   }
