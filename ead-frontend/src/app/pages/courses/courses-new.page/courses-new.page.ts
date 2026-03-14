@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CourseRequest } from '../../../interfaces/courses.interface';
 import { CourseService } from '../../../services/course.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -59,10 +59,22 @@ export class CoursesNewPage {
         description: ['', [Validators.required]]
       })
     );
+    this.expandedModules.update(state => ({ ...state, [this.modules.length - 1]: true }));
   }
 
   removeModule(index: number) {
     this.modules.removeAt(index);
+    // Cleanup state for removed module if desired, but index shifts can make this tricky without unique IDs. 
+    // Since this is a new course, simple form arrays are generally fine to just let the state overwrite.
+  }
+
+  public expandedModules = signal<Record<number, boolean>>({});
+
+  toggleModule(index: number) {
+    this.expandedModules.update(state => ({
+      ...state,
+      [index]: !state[index]
+    }));
   }
 
   public isSubmitting = false;
