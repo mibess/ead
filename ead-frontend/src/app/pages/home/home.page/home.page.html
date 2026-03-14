@@ -2,93 +2,219 @@
   <app-header />
 
   <!-- Hero Section -->
-  <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
-    <div class="absolute inset-0 bg-slate-900">
-      <div
-        class="absolute inset-0 bg-gradient-to-br from-indigo-500/20 via-purple-500/20 to-slate-900/50 mix-blend-overlay">
-      </div>
+  <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-[#0B1021]">
+    <!-- Background / Glow effects -->
+    <div class="absolute inset-0">
+      <div class="absolute inset-0 bg-gradient-to-br from-[#7B2CBF]/20 via-indigo-900/20 to-[#0B1021]/80 mix-blend-overlay"></div>
       <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl pointer-events-none">
-        <div class="absolute top-20 left-10 w-72 h-72 bg-indigo-500/30 rounded-full blur-3xl animate-pulse"></div>
-        <div
-          class="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse delay-1000">
-        </div>
+        <div class="absolute top-20 left-10 w-96 h-96 bg-[#7B2CBF]/30 rounded-full blur-[100px] animate-pulse"></div>
+        <div class="absolute bottom-20 right-10 w-[500px] h-[500px] bg-indigo-600/20 rounded-full blur-[120px] animate-pulse delay-1000"></div>
       </div>
     </div>
 
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col-reverse lg:flex-row items-center gap-12">
-      <div class="w-full lg:w-1/2 text-center lg:text-left z-10">
-        <div
-          class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-indigo-300 text-sm font-medium mb-6 animate-fade-in-up">
+      <div class="w-full lg:w-[55%] text-center lg:text-left z-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-indigo-300 text-sm font-medium mb-6 animate-fade-in-up">
           <span class="relative flex h-2 w-2">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#7B2CBF] opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-[#7B2CBF]"></span>
           </span>
-          New courses available
+          Plataforma de Elite
         </div>
-        <h1
-          class="text-4xl lg:text-6xl font-bold text-white tracking-tight leading-tight mb-6 animate-fade-in-up delay-100">
-          Master New Skills, <br />
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">Anytime,
-            Anywhere.</span>
+        <h1 class="text-4xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight mb-6 animate-fade-in-up delay-100 font-sans">
+          Eleve sua Carreira. <br />
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-[#7B2CBF]">Domine a Tecnologia do Futuro.</span>
         </h1>
-        <p class="text-lg text-slate-300 mb-8 max-w-2xl mx-auto lg:mx-0 animate-fade-in-up delay-200">
-          Join thousands of students advancing their careers with our premium EAD platform. Expert-led courses, flexible
-          schedules, and recognized certifications.
+        <p class="text-lg text-[#A0AAB2] mb-8 max-w-2xl mx-auto lg:mx-0 animate-fade-in-up delay-200">
+          Não faça apenas cursos. Construa um portfólio real com mentores de empresas de elite. Comece hoje, avance no seu ritmo.
         </p>
-        <div
-          class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 animate-fade-in-up delay-300">
-          <a routerLink="/signup"
-            class="w-full sm:w-auto px-8 py-4 text-white bg-indigo-600 rounded-full hover:bg-indigo-700 transition-all hover:scale-105 shadow-lg shadow-indigo-500/25 font-semibold text-center">
-            Start Free Trial
-          </a>
-          <a routerLink="/courses"
-            class="w-full sm:w-auto px-8 py-4 text-white bg-white/10 backdrop-blur-md border border-white/10 rounded-full hover:bg-white/20 transition-all font-semibold text-center">
-            Explore Courses
-          </a>
-        </div>
-      </div>
-      <div class="w-full lg:w-1/2 animate-float">
-        <img src="assets/images/hero-illustration.png" alt="Future of Learning" class="w-full h-auto drop-shadow-2xl" />
-      </div>
-    </div>
-  </section>
-
-  <!-- Stats Section -->
-  <section class="py-10 bg-white border-b border-slate-100">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-        <div *ngFor="let stat of stats"
-          class="text-center group hover:-translate-y-1 transition-transform duration-300">
-          <div class="text-3xl lg:text-4xl font-bold text-slate-900 mb-1 group-hover:text-indigo-600 transition-colors">
-            {{ stat.value }}</div>
-          <div class="text-sm font-medium text-slate-500 uppercase tracking-wide">{{ stat.label }}</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Features Section -->
-  <section id="features" class="py-24 bg-slate-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center max-w-3xl mx-auto mb-16">
-        <h2 class="text-indigo-600 font-semibold uppercase tracking-wide text-sm mb-3">Why Choose Us</h2>
-        <h3 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">Reinventing Online Education</h3>
-        <p class="text-slate-600 text-lg">We provide more than just courses. We provide a complete ecosystem for your
-          professional growth.</p>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-8">
-        <div *ngFor="let feature of features"
-          class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-slate-100 group">
-          <div
-            class="w-14 h-14 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600 mb-6 group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300">
-            <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="feature.icon" />
-            </svg>
+        <div class="flex flex-col items-center lg:items-start gap-3 animate-fade-in-up delay-300">
+          <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+            <a routerLink="/signup" class="relative group overflow-hidden w-full sm:w-auto px-8 py-4 text-white bg-gradient-to-r from-[#7B2CBF] to-indigo-600 rounded-full hover:scale-105 transition-all shadow-lg shadow-[#7B2CBF]/30 font-semibold text-center">
+              <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
+              <span class="relative">Começar Teste Grátis de 14 Dias</span>
+            </a>
+            <a routerLink="/courses" class="w-full sm:w-auto px-8 py-4 text-white bg-white/5 backdrop-blur-md border border-white/10 rounded-full hover:bg-white/10 transition-all font-semibold text-center">
+              Ver Metodologia
+            </a>
           </div>
-          <h4 class="text-xl font-bold text-slate-900 mb-3">{{ feature.title }}</h4>
-          <p class="text-slate-600 leading-relaxed">{{ feature.desc }}</p>
+          <span class="text-xs text-[#A0AAB2]">Cancele a qualquer momento. Sem compromisso.</span>
         </div>
+      </div>
+      
+      <!-- Mockup Area -->
+      <div class="w-full lg:w-[45%] relative animate-float delay-200 z-10 flex justify-center">
+        <!-- Abstract Dashboard Mockup -->
+        <div class="relative w-full max-w-md aspect-square bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden group">
+            <!-- Simulated Browser Header -->
+            <div class="h-8 border-b border-white/10 flex items-center px-4 gap-2 bg-white/5">
+                <div class="w-2.5 h-2.5 rounded-full bg-red-500/80"></div>
+                <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></div>
+                <div class="w-2.5 h-2.5 rounded-full bg-green-500/80"></div>
+            </div>
+            <!-- Mockup Content -->
+            <div class="p-6 relative h-full">
+                <!-- Floating Code snippet -->
+                <div class="absolute -left-4 top-10 bg-[#0B1021]/90 backdrop-blur border border-white/10 rounded-lg p-3 text-xs font-mono text-indigo-300 shadow-xl group-hover:-translate-y-2 transition-transform duration-500">
+                    <span class="text-purple-400">const</span> success = <span class="text-blue-400">await</span> learn();
+                </div>
+                <!-- Main chart/content -->
+                <div class="w-full h-32 rounded-xl bg-gradient-to-r from-indigo-500/20 to-purple-500/20 border border-white/5 mb-4 flex items-end px-4 gap-2 pb-2 mt-4">
+                    <div class="w-1/6 bg-indigo-500/50 rounded-t-md h-[40%]"></div>
+                    <div class="w-1/6 bg-indigo-500/50 rounded-t-md h-[60%]"></div>
+                    <div class="w-1/6 bg-indigo-500/50 rounded-t-md h-[50%]"></div>
+                    <div class="w-1/6 bg-purple-500/60 rounded-t-md h-[80%]"></div>
+                    <div class="w-1/6 bg-[#7B2CBF]/80 rounded-t-md h-[100%] shadow-[0_0_15px_rgba(123,44,191,0.5)] relative">
+                        <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-white text-slate-900 text-[10px] font-bold py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">Sênior</div>
+                    </div>
+                </div>
+                <!-- Modules list -->
+                <div class="space-y-3">
+                    <div class="h-10 w-full rounded-lg bg-white/5 flex items-center px-3 border border-white/5">
+                        <div class="w-6 h-6 rounded-full bg-indigo-500/30 flex items-center justify-center mr-3"><svg class="w-3 h-3 text-indigo-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg></div>
+                        <div class="h-2 w-32 bg-white/20 rounded-full"></div>
+                    </div>
+                    <div class="h-10 w-full rounded-lg bg-white/5 flex items-center px-3 border border-white/5">
+                        <div class="w-6 h-6 rounded-full bg-purple-500/30 flex items-center justify-center mr-3"><svg class="w-3 h-3 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/></svg></div>
+                        <div class="h-2 w-24 bg-white/20 rounded-full"></div>
+                    </div>
+                </div>
+                <!-- Student Avatar -->
+                <div class="absolute -right-6 bottom-16 bg-[#0B1021]/90 backdrop-blur border border-white/10 rounded-full p-2 flex items-center gap-2 shadow-xl group-hover:-translate-y-1 transition-transform duration-500 delay-100">
+                    <img src="https://ui-avatars.com/api/?name=Alex+Silva&background=7B2CBF&color=fff" alt="Student" class="w-8 h-8 rounded-full border border-white/20" />
+                    <div class="pr-3">
+                        <div class="text-[10px] text-white font-bold">Certificado</div>
+                        <div class="text-[8px] text-indigo-300">Aprovado na Vaga</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Bar (Moved Inside Hero) -->
+    <div class="relative max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 mt-16 md:mt-24 pb-8 z-10 animate-fade-in-up delay-500">
+      <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 lg:p-8 shadow-2xl">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 divide-x divide-white/10">
+          <div *ngFor="let stat of stats" class="text-center px-4 group">
+            <div class="text-3xl lg:text-4xl font-bold font-sans text-white mb-1 group-hover:text-[#7B2CBF] transition-colors">
+              {{ stat.value }}
+            </div>
+            <div class="text-xs font-medium text-[#A0AAB2] uppercase tracking-wider">{{ stat.label }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section (Bento Box) -->
+  <section id="features" class="py-28 bg-[#F8FAFC]">
+    <div class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-20 animate-fade-in-up">
+        <h2 class="text-[#7B2CBF] font-bold uppercase tracking-widest text-sm mb-3">Uma experiência premium</h2>
+        <h3 class="text-4xl lg:text-5xl font-extrabold text-slate-900 mb-6 font-sans">Desenhada para o mercado atual</h3>
+        <p class="text-slate-600 text-lg lg:text-xl">
+          Tudo o que você precisa para ir do zero ao nível sênior em um único ecossistema focado no seu sucesso.
+        </p>
+      </div>
+
+      <!-- Bento Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[minmax(300px,auto)]">
+        
+        <!-- Main Card (Span 2 columns) -->
+        <div class="md:col-span-2 bg-white rounded-[2rem] p-8 lg:p-12 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.05)] border border-slate-100 group hover:border-[#7B2CBF]/30 transition-all duration-500 hover:-translate-y-1 relative overflow-hidden flex flex-col justify-between">
+            <div class="absolute inset-0 bg-gradient-to-br from-[#7B2CBF]/[0.02] to-transparent pointer-events-none"></div>
+            <div class="relative z-10 max-w-md">
+                <h4 class="text-2xl lg:text-3xl font-bold text-slate-900 mb-4 font-sans">Aprenda na Prática</h4>
+                <p class="text-slate-600 leading-relaxed mb-8">Abandone teorias longas. Escreva código real direto no navegador, complete desafios focados no mercado e receba feedback instantâneo.</p>
+                <a routerLink="/courses" class="inline-flex items-center text-[#7B2CBF] font-bold hover:text-indigo-700 transition-colors group-hover:translate-x-2 duration-300">
+                    Ver Metodologia 
+                    <svg class="w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                </a>
+            </div>
+            <!-- Interactive UI Mockup for this card -->
+            <div class="mt-8 lg:mt-0 lg:absolute lg:-right-8 lg:-bottom-8 w-full lg:w-[400px] bg-[#0B1021] rounded-t-2xl outline-8 outline-white shadow-2xl p-4 transform lg:rotate-[-5deg] group-hover:rotate-0 transition-transform duration-500">
+                <div class="flex gap-2 mb-3">
+                    <div class="w-2 h-2 rounded-full bg-red-500"></div><div class="w-2 h-2 rounded-full bg-yellow-500"></div><div class="w-2 h-2 rounded-full bg-green-500"></div>
+                </div>
+                <div class="space-y-2 font-mono text-[10px] text-indigo-300">
+                    <p><span class="text-purple-400">function</span> <span class="text-blue-400">buildFuture</span>() {{ '{' }}</p>
+                    <p class="pl-4">return <span class="text-green-400">"Emprego garantido"</span>;</p>
+                    <p>{{ '}' }}</p>
+                    <p class="pt-2 text-slate-500">// Terminal output</p>
+                    <p class="text-emerald-400">&gt; Sucesso! Todos os testes passaram.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mentorship Card -->
+        <div class="bg-white rounded-[2rem] p-8 lg:p-10 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.05)] border border-slate-100 group hover:border-[#7B2CBF]/30 transition-all duration-500 hover:-translate-y-1 relative overflow-hidden flex flex-col justify-between">
+            <div class="relative z-10">
+                <h4 class="text-2xl font-bold text-slate-900 mb-4 font-sans">Mentoria Elite</h4>
+                <p class="text-slate-600 leading-relaxed mb-8">Aprenda com especialistas das maiores big techs.</p>
+            </div>
+            
+            <div class="relative h-40 mt-auto w-full flex justify-center items-center">
+                <!-- Avatars floating -->
+                <div class="absolute -translate-x-12 hover:z-20 transition-all duration-300 hover:scale-110 group-hover:-translate-y-2">
+                    <img src="https://ui-avatars.com/api/?name=Lucas+M&background=0D8ABC&color=fff" class="w-14 h-14 rounded-full border-4 border-white shadow-lg" alt="Mentor" />
+                    <div class="absolute -bottom-3 -right-6 bg-white text-[9px] font-bold px-2 py-1 rounded shadow-md border border-slate-100 text-slate-800">Netflix</div>
+                </div>
+                <div class="absolute translate-x-4 -translate-y-6 z-10 hover:z-20 transition-all duration-300 hover:scale-110 group-hover:-translate-y-8">
+                    <img src="https://ui-avatars.com/api/?name=Julia+S&background=EC4899&color=fff" class="w-16 h-16 rounded-full border-4 border-white shadow-lg" alt="Mentor" />
+                    <div class="absolute -bottom-3 -left-4 bg-white text-[9px] font-bold px-2 py-1 rounded shadow-md border border-slate-100 text-slate-800">Nubank</div>
+                </div>
+                <div class="absolute translate-x-20 translate-y-4 hover:z-20 transition-all duration-300 hover:scale-110 group-hover:translate-y-2">
+                    <img src="https://ui-avatars.com/api/?name=Pedro+K&background=10B981&color=fff" class="w-12 h-12 rounded-full border-4 border-white shadow-lg" alt="Mentor" />
+                    <div class="absolute -bottom-3 -right-4 bg-white text-[9px] font-bold px-2 py-1 rounded shadow-md border border-slate-100 text-slate-800">Google</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Flexibility Card -->
+        <div class="md:col-span-3 bg-[#0B1021] rounded-[2rem] p-8 lg:p-12 shadow-2xl border border-indigo-900/50 group hover:border-[#7B2CBF]/50 transition-all duration-500 hover:-translate-y-1 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-12">
+            <div class="absolute right-0 top-0 w-1/2 h-full bg-gradient-to-l from-[#7B2CBF]/20 to-transparent pointer-events-none"></div>
+            
+            <div class="relative z-10 w-full md:w-1/2">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#7B2CBF]/20 border border-[#7B2CBF]/30 text-indigo-300 text-xs font-bold uppercase tracking-wider mb-6">
+                    Aceleração de Carreira
+                </div>
+                <h4 class="text-3xl lg:text-4xl font-bold text-white mb-4 font-sans">Flexibilidade Total de Estudo</h4>
+                <p class="text-[#A0AAB2] leading-relaxed text-lg">Mantenha seu emprego atual enquanto se prepara para o próximo nível. Nossa plataforma se adapta à sua rotina, permitindo progresso contínuo e consistente, sem ansiedade.</p>
+            </div>
+            
+            <div class="w-full md:w-1/2 relative flex justify-end items-center">
+                <!-- Progress Chart Mockup -->
+                <div class="w-full max-w-sm bg-white/5 backdrop-blur-md rounded-2xl p-6 border border-white/10 group-hover:scale-105 transition-transform duration-500 delay-100 z-10">
+                    <div class="flex justify-between items-center mb-6">
+                        <span class="text-white font-semibold flex items-center gap-2">
+                           <svg class="w-5 h-5 text-[#7B2CBF]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
+                           Progresso Semanal
+                        </span>
+                        <div class="bg-[#7B2CBF]/20 text-[#7B2CBF] text-xs font-bold px-2 py-1 rounded">+24%</div>
+                    </div>
+                    <div class="flex items-end gap-2 h-32">
+                        <div class="w-[14%] bg-white/10 rounded-t-md h-[40%] hover:bg-[#7B2CBF]/50 transition-colors cursor-pointer"></div>
+                        <div class="w-[14%] bg-white/10 rounded-t-md h-[50%] hover:bg-[#7B2CBF]/50 transition-colors cursor-pointer"></div>
+                        <div class="w-[14%] bg-white/10 rounded-t-md h-[30%] hover:bg-[#7B2CBF]/50 transition-colors cursor-pointer"></div>
+                        <div class="w-[14%] bg-white/10 rounded-t-md h-[70%] hover:bg-[#7B2CBF]/50 transition-colors cursor-pointer"></div>
+                        <div class="w-[14%] bg-[#7B2CBF] rounded-t-md h-[90%] shadow-[0_0_15px_rgba(123,44,191,0.5)] cursor-pointer relative group/bar">
+                            <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-white text-slate-900 text-[10px] font-bold py-1 px-2 rounded opacity-0 group-hover/bar:opacity-100 transition-opacity whitespace-nowrap">8h Estudadas</div>
+                        </div>
+                        <div class="w-[14%] bg-white/10 rounded-t-md h-[60%] hover:bg-[#7B2CBF]/50 transition-colors cursor-pointer"></div>
+                        <div class="w-[14%] bg-white/10 rounded-t-md h-[80%] hover:bg-[#7B2CBF]/50 transition-colors cursor-pointer"></div>
+                    </div>
+                    <div class="flex justify-between mt-3 text-[10px] text-[#A0AAB2] font-mono px-1">
+                        <span>S</span><span>T</span><span>Q</span><span>Q</span><span>S</span><span>S</span><span>D</span>
+                    </div>
+                </div>
+                
+                <!-- Decorative background elements -->
+                <div class="absolute top-1/2 border border-white/5 rounded-full w-72 h-72 -translate-y-1/2 translate-x-1/4 max-md:hidden"></div>
+                <div class="absolute top-1/2 border border-white/5 rounded-full w-96 h-96 -translate-y-1/2 translate-x-1/4 max-md:hidden"></div>
+            </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -97,69 +223,190 @@
   <app-courses-popular-card />
 
   <!-- Testimonials -->
-  <section class="py-24 bg-slate-900 text-white relative overflow-hidden">
-    <div class="absolute inset-0 opacity-10"></div>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      <div class="text-center mb-16">
-        <h2 class="text-3xl lg:text-4xl font-bold mb-6">Loved by Students</h2>
-        <p class="text-slate-400 text-lg max-w-2xl mx-auto">Don't just take our word for it. Hear what our community has
-          to say about their learning experience.</p>
+  <section class="py-32 bg-[#0B1021] text-white relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-[#7B2CBF]/10 opacity-50"></div>
+    <div class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="text-center mb-20 animate-fade-in-up">
+        <h2 class="text-[#7B2CBF] font-bold uppercase tracking-widest text-sm mb-3">Histórias reais</h2>
+        <h3 class="text-4xl lg:text-5xl font-extrabold mb-6 font-sans">Não acredite apenas em nós. <br /> Veja os resultados.</h3>
+        <p class="text-[#A0AAB2] text-lg lg:text-xl max-w-2xl mx-auto">Milhares de profissionais já transformaram suas carreiras e multiplicaram seus salários com nossa plataforma.</p>
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
         <div *ngFor="let item of testimonials"
-          class="bg-white/5 backdrop-blur-lg p-8 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
-          <div class="flex items-center gap-4 mb-6">
-            <img [src]="item.avatar" [alt]="item.name" class="w-12 h-12 rounded-full ring-2 ring-indigo-500/50" />
-            <div>
-              <h4 class="font-bold text-white">{{ item.name }}</h4>
-              <p class="text-sm text-indigo-300">{{ item.role }}</p>
-            </div>
-          </div>
-          <p class="text-slate-300 italic">"{{ item.content }}"</p>
-          <div class="flex gap-1 mt-4 text-yellow-500">
-            <svg *ngFor="let i of [1,2,3,4,5]" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-              <path
-                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          class="bg-white/5 backdrop-blur-xl p-8 rounded-[2rem] border border-white/10 hover:border-[#7B2CBF]/50 hover:-translate-y-2 transition-all duration-500 shadow-2xl flex flex-col group relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-[#7B2CBF]/10 rounded-full blur-3xl group-hover:bg-[#7B2CBF]/30 transition-colors duration-700 pointer-events-none"></div>
+          
+          <div class="flex gap-1 mb-6 text-[#7B2CBF]">
+            <svg *ngFor="let i of [1,2,3,4,5]" class="w-5 h-5 drop-shadow-[0_0_8px_rgba(123,44,191,0.8)]" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
             </svg>
           </div>
+          
+          <h4 class="text-xl font-bold text-white mb-4 leading-snug">"{{ item.quote }}"</h4>
+          <p class="text-[#A0AAB2] leading-relaxed mb-8 grow">"{{ item.content }}"</p>
+          
+          <div class="flex items-center gap-4 mt-auto pt-6 border-t border-white/10">
+            <img [src]="item.avatar" [alt]="item.name" class="w-14 h-14 rounded-full ring-2 ring-[#7B2CBF]/50 object-cover" />
+            <div>
+              <div class="font-bold text-white">{{ item.name }}</div>
+              <div class="text-xs text-indigo-300 mt-1">{{ item.role }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" class="py-24 bg-white relative overflow-hidden">
+    <!-- Decorative elements -->
+    <div class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="text-center mb-16 animate-fade-in-up">
+        <h2 class="text-[#7B2CBF] font-bold uppercase tracking-widest text-sm mb-3">Dúvidas Frequentes</h2>
+        <h3 class="text-4xl lg:text-5xl font-extrabold text-slate-900 mb-6 font-sans">Tudo que você precisa saber.</h3>
+        <p class="text-slate-600 text-lg lg:text-xl max-w-2xl mx-auto">
+          Respostas claras e diretas para as dúvidas mais comuns sobre nossa plataforma.
+        </p>
+      </div>
+
+      <div class="max-w-3xl mx-auto">
+        <div class="space-y-4">
+          <!-- FAQ Items loop -->
+          <div *ngFor="let faq of faqs; let i = index" class="border border-slate-200 rounded-2xl overflow-hidden bg-white hover:border-[#7B2CBF]/30 transition-all duration-300 shadow-sm" [ngClass]="{'border-[#7B2CBF]/50 ring-1 ring-[#7B2CBF]/10': isFaqOpen(i)}">
+            <button 
+              (click)="toggleFaq(i)"
+              class="flex justify-between items-center w-full px-6 py-5 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7B2CBF]/50 group"
+              [attr.aria-expanded]="isFaqOpen(i)">
+              <span class="text-lg font-bold text-slate-900 pr-8 group-hover:text-[#7B2CBF] transition-colors" [ngClass]="{'text-[#7B2CBF]': isFaqOpen(i)}">{{ faq.question }}</span>
+              <span class="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full transition-colors duration-300" [ngClass]="{'bg-[#7B2CBF] text-white': isFaqOpen(i), 'bg-slate-50 text-[#7B2CBF] group-hover:bg-[#7B2CBF]/10': !isFaqOpen(i)}">
+                <!-- Icon Plus if closed, Minus if open -->
+                <svg *ngIf="!isFaqOpen(i)" class="w-5 h-5 transition-transform duration-300 transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+                <svg *ngIf="isFaqOpen(i)" class="w-5 h-5 transition-transform duration-300 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
+                </svg>
+              </span>
+            </button>
+            <div 
+              [ngClass]="{'max-h-0 opacity-0': !isFaqOpen(i), 'max-h-[500px] opacity-100': isFaqOpen(i)}"
+              class="overflow-hidden transition-all duration-300 ease-in-out">
+              <div class="px-6 pb-5 pt-0 text-slate-600 leading-relaxed text-base border-t border-slate-100/50">
+                <p class="pt-3">{{ faq.answer }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-12 text-center p-8 bg-[#F8FAFC] border border-slate-200 rounded-2xl">
+          <p class="text-slate-600 mb-4 font-medium">Ainda tem dúvidas? Fale com a gente.</p>
+          <a href="#" class="inline-flex items-center text-[#7B2CBF] font-bold hover:text-indigo-700 transition-colors group">
+            Contatar Suporte
+            <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+          </a>
         </div>
       </div>
     </div>
   </section>
 
   <!-- CTA Section -->
-  <section class="py-24 bg-white">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div
-        class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-3xl p-12 text-center text-white shadow-2xl relative overflow-hidden">
-        <div class="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-white/20 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-0 left-0 -mb-10 -ml-10 w-64 h-64 bg-black/20 rounded-full blur-3xl"></div>
+  <section class="py-24 bg-[#F8FAFC]">
+    <div class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-[#0B1021] rounded-[2.5rem] p-10 lg:p-16 text-center text-white shadow-2xl relative overflow-hidden flex flex-col items-center">
+        <!-- Complex Abstract Background -->
+        <div class="absolute inset-0 z-0">
+            <div class="absolute -top-40 -right-40 w-96 h-96 bg-[#7B2CBF]/40 rounded-full blur-[100px]"></div>
+            <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-indigo-600/30 rounded-full blur-[120px]"></div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(ellipse_at_center,rgba(123,44,191,0.15)_0%,transparent_70%)] pointer-events-none"></div>
+            <!-- Grid pattern overlay -->
+            <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px); background-size: 40px 40px;"></div>
+        </div>
 
-        <h2 class="text-3xl lg:text-5xl font-bold mb-6 relative z-10">Ready to Start Learning?</h2>
-        <p class="text-indigo-100 text-xl mb-8 max-w-2xl mx-auto relative z-10">Join our community today and get
-          unlimited access to all courses with a 14-day free trial.</p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
-          <a routerLink="/signup"
-            class="px-8 py-4 bg-white text-indigo-600 font-bold rounded-full hover:bg-slate-50 transition shadow-lg hover:scale-105">Get
-            Started Now</a>
-          <a routerLink="/pricing"
-            class="px-8 py-4 bg-transparent border border-white/30 text-white font-bold rounded-full hover:bg-white/10 transition">View
-            Pricing</a>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-indigo-300 text-sm font-bold uppercase tracking-wider mb-6 relative z-10">
+          Última chance
+        </div>
+        
+        <h2 class="text-4xl lg:text-5xl font-extrabold mb-6 relative z-10 font-sans max-w-3xl leading-tight">Pronto para dar o próximo passo na sua carreira?</h2>
+        <p class="text-[#A0AAB2] text-xl mb-10 max-w-2xl mx-auto relative z-10">Junte-se à nossa comunidade de elite hoje. Experimente por 14 dias sem compromisso e sinta a diferença no seu código.</p>
+        
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10 w-full sm:w-auto">
+          <a routerLink="/signup" class="relative group overflow-hidden w-full sm:w-auto px-10 py-4 text-white bg-gradient-to-r from-[#7B2CBF] to-indigo-600 rounded-full hover:scale-105 transition-all duration-300 shadow-[0_0_30px_rgba(123,44,191,0.4)] font-bold text-center text-lg">
+            <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
+            <span class="relative">Começar Minha Jornada Agora</span>
+          </a>
+          <a routerLink="/pricing" class="w-full sm:w-auto px-10 py-4 text-white bg-transparent border-2 border-white/20 rounded-full hover:bg-white/5 transition-colors font-bold text-center text-lg">
+            Ver Planos Ativos
+          </a>
+        </div>
+        
+        <div class="flex items-center justify-center gap-3 mt-8 relative z-10 text-sm text-[#A0AAB2]">
+            <svg class="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <span class="font-medium">Garantia de 14 dias de devolução do dinheiro</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Footer (Simple) -->
-  <footer class="bg-slate-50 py-12 border-t border-slate-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-slate-500">
-      <img src="/logos/eplataform-logo.svg" alt="Logo" class="h-8 w-auto mx-auto mb-6 opacity-50 grayscale" />
-      <p class="mb-4">&copy; 2025 EAD Platform. All rights reserved.</p>
-      <div class="flex justify-center gap-6 text-sm">
-        <a href="#" class="hover:text-slate-800">Privacy Policy</a>
-        <a href="#" class="hover:text-slate-800">Terms of Service</a>
-        <a href="#" class="hover:text-slate-800">Contact Support</a>
+  <!-- Expanded Corporate Footer -->
+  <footer class="bg-white pt-20 pb-10 border-t border-slate-200">
+    <div class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8 mb-16">
+        <div class="lg:col-span-2">
+            <img src="/logos/eplataform-logo.svg" alt="Logo" class="h-8 w-auto mb-6 opacity-80" />
+            <p class="text-slate-600 text-lg max-w-xs mb-6 leading-relaxed">A principal plataforma EAD para profissionais de tecnologia que buscam excelência.</p>
+            <div class="flex gap-4">
+                <a href="#" class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-[#7B2CBF] hover:text-white transition-colors">
+                    <span class="sr-only">Twitter</span>
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-[#7B2CBF] hover:text-white transition-colors">
+                    <span class="sr-only">LinkedIn</span>
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-[#7B2CBF] hover:text-white transition-colors">
+                    <span class="sr-only">Instagram</span>
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                </a>
+            </div>
+        </div>
+        
+        <div>
+            <h4 class="font-bold text-slate-900 mb-6 tracking-wide">Produto</h4>
+            <ul class="space-y-4">
+                <li><a href="#" class="text-slate-600 hover:text-[#7B2CBF] transition-colors">Cursos e Trilhas</a></li>
+                <li><a href="#" class="text-slate-600 hover:text-[#7B2CBF] transition-colors">Planos de Assinatura</a></li>
+                <li><a href="#" class="text-slate-600 hover:text-[#7B2CBF] transition-colors">Para Empresas (B2B)</a></li>
+                <li><a href="#" class="text-slate-600 hover:text-[#7B2CBF] transition-colors">Metodologia</a></li>
+            </ul>
+        </div>
+        
+        <div>
+            <h4 class="font-bold text-slate-900 mb-6 tracking-wide">Empresa</h4>
+            <ul class="space-y-4">
+                <li><a href="#" class="text-slate-600 hover:text-[#7B2CBF] transition-colors">Sobre Nós</a></li>
+                <li><a href="#" class="text-slate-600 hover:text-[#7B2CBF] transition-colors">Carreiras</a></li>
+                <li><a href="#" class="text-slate-600 hover:text-[#7B2CBF] transition-colors">Blog</a></li>
+                <li><a href="#" class="text-slate-600 hover:text-[#7B2CBF] transition-colors">Contato</a></li>
+            </ul>
+        </div>
+        
+        <div>
+            <h4 class="font-bold text-slate-900 mb-6 tracking-wide">Legal</h4>
+            <ul class="space-y-4">
+                <li><a href="#" class="text-slate-600 hover:text-[#7B2CBF] transition-colors">Termos de Serviço</a></li>
+                <li><a href="#" class="text-slate-600 hover:text-[#7B2CBF] transition-colors">Política de Privacidade</a></li>
+                <li><a href="#" class="text-slate-600 hover:text-[#7B2CBF] transition-colors">Política de Cookies</a></li>
+                <li><a href="#" class="text-slate-600 hover:text-[#7B2CBF] transition-colors">Central de Ajuda (FAQ)</a></li>
+            </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-slate-200 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-slate-500 font-medium text-sm">&copy; 2025 EAD Platform Inc. Todos os direitos reservados.</p>
+        <div class="flex items-center gap-4 text-slate-400">
+            <span class="text-sm font-medium">Made with <span class="text-red-500">♥</span> in Brazil</span>
+        </div>
       </div>
     </div>
   </footer>
