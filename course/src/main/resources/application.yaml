@@ -9,6 +9,6 @@ spring:
     url: jdbc:postgresql://localhost:5432/ead-course?useSSL=false
     username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
-  jpa:
-    hibernate:
-      ddl-auto: update
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
