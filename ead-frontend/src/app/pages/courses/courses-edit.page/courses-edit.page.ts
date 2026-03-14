@@ -76,6 +76,9 @@ export class CoursesEditPage implements OnInit {
   private courseId: string | null = null;
   private originalModules: ModuleResponse[] = [];
 
+  // Module toggle state
+  public expandedModules = signal<Record<number, boolean>>({});
+
   get modules() {
     return this.courseForm.get('modules') as FormArray;
   }
@@ -113,6 +116,13 @@ export class CoursesEditPage implements OnInit {
       }),
       takeUntilDestroyed(this.destroyRef)
     ).subscribe();
+  }
+
+  toggleModule(index: number) {
+    this.expandedModules.update(state => ({
+      ...state,
+      [index]: !state[index]
+    }));
   }
 
   removeModule(index: number) {
