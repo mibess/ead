@@ -39,7 +39,7 @@
         <div class="space-y-5 animate-fade-in-up">
           <div>
             <label for="username" class="sr-only">Username</label>
-            <input app-input id="username" name="username" type="text" [formControl]="username" required autofocus
+            <input app-input appAutofocus id="username" name="username" type="text" [formControl]="username" required autofocus
               placeholder="Username" />
           </div>
 
@@ -58,7 +58,7 @@
         <div class="space-y-5 animate-fade-in-up">
           <div>
             <label for="fullName" class="sr-only">Full Name</label>
-            <input app-input id="fullName" name="fullName" type="text" [formControl]="fullName" required
+            <input app-input appAutofocus id="fullName" name="fullName" type="text" [formControl]="fullName" required
               placeholder="Full name" />
           </div>
           <div>
@@ -74,7 +74,7 @@
         <div class="space-y-5 animate-fade-in-up">
           <div>
             <label for="phoneNumber" class="sr-only">Phone Number</label>
-            <input app-input id="phoneNumber" name="phoneNumber" type="text" [formControl]="phoneNumber" required
+            <input app-input appAutofocus id="phoneNumber" name="phoneNumber" type="text" [formControl]="phoneNumber" required
               autofocus placeholder="(XX) XXXXX-XXXX" />
           </div>
         </div>
@@ -85,7 +85,7 @@
         <div class="space-y-5 animate-fade-in-up">
           <div>
             <label for="cpf" class="sr-only">CPF</label>
-            <input app-input id="cpf" name="cpf" type="text" [formControl]="cpf" placeholder="XXX.XXX.XXX-XX (Optional)"
+            <input app-input appAutofocus id="cpf" name="cpf" type="text" [formControl]="cpf" placeholder="XXX.XXX.XXX-XX (Optional)"
               autofocus />
             <p class="mt-2 text-xs text-slate-500 text-center">You can skip this step and add it later.</p>
           </div>
@@ -97,7 +97,7 @@
         <div class="space-y-5 animate-fade-in-up">
           <div>
             <label for="password" class="sr-only">Password</label>
-            <input app-input id="password" name="password" type="password" [formControl]="password" required autofocus
+            <input app-input appAutofocus id="password" name="password" type="password" [formControl]="password" required autofocus
               placeholder="Password" />
           </div>
           <div>

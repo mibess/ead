@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common'; // Added CommonModule for *ngIf 
 import { UserSignupRequest } from '../../../pages/users/user.interface';
 import { Input } from '../../../shared/input/input';
 import { LoginWithComponent } from "../../../shared/login-with.component/login-with.component";
+import { AutofocusDirective } from '../../../shared/directives/autofocus.directive';
 import { AlertComponent } from "../../../shared/alert.component/alert.component";
 import { ButtonComponent } from "../../../shared/button.component/button.component";
 
@@ -21,6 +22,7 @@ import { ButtonComponent } from "../../../shared/button.component/button.compone
     CommonModule,
     AlertComponent,
     ButtonComponent,
+    AutofocusDirective
   ],
   templateUrl: './signup.page.html',
   styleUrl: './signup.page.css',
