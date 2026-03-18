@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, HostListener, inject, signal, ViewChild, ElementRef } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { BackgroundEffectsComponent } from "../../../shared/background-effects/background-effects.component";
 import { Course, CourseService } from '../../../services/course.service';
@@ -44,5 +44,29 @@ export class DashboardPage {
   public logout() {
     this.userStorageService.removeUserLoggedIn();
     this.route.navigate(['/']);
+  }
+
+  public isSearchDialogOpen = signal(false);
+
+  @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
+      event.preventDefault();
+      this.openSearch();
+    }
+  }
+
+  public openSearch() {
+    this.isSearchDialogOpen.set(true);
+    // Focus input after rendering
+    setTimeout(() => {
+      this.searchInput?.nativeElement?.focus();
+    }, 100);
+  }
+
+  public closeSearch() {
+    this.isSearchDialogOpen.set(false);
   }
 }

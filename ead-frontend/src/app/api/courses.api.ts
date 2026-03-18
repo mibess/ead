@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { CourseRequest, CourseResponse } from '../interfaces/courses.interface';
+import { CourseRequest, CourseResponse, Page, CourseFilter, PageableOptions } from '../interfaces/courses.interface';
 
 
 @Injectable({
@@ -16,8 +16,23 @@ export class CoursesApi {
     return this.http.get<CourseResponse[]>(`${this.apiBaseUrl}/popular`);
   }
 
-  public getCourses(): Observable<CourseResponse[]> {
-    return this.http.get<CourseResponse[]>(`${this.apiBaseUrl}`);
+  public getCourses(filter?: CourseFilter, pageable?: PageableOptions): Observable<Page<CourseResponse>> {
+    let params = new HttpParams();
+
+    if (filter) {
+      if (filter.name) params = params.set('name', filter.name);
+      if (filter.courseLevel) params = params.set('courseLevel', filter.courseLevel.toString());
+      if (filter.courseStatus) params = params.set('courseStatus', filter.courseStatus.toString());
+    }
+
+    if (pageable) {
+      if (pageable.page !== undefined) params = params.set('page', pageable.page);
+      if (pageable.size !== undefined) params = params.set('size', pageable.size);
+      if (pageable.sort) params = params.set('sort', pageable.sort);
+      if (pageable.direction) params = params.set('direction', pageable.direction);
+    }
+
+    return this.http.get<Page<CourseResponse>>(`${this.apiBaseUrl}`, { params });
   }
 
   public createCourse(course: CourseRequest): Observable<CourseResponse> {

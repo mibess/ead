@@ -1,5 +1,6 @@
 package com.ead.course.services.impl;
 
+import com.ead.course.dto.CourseFilterDTO;
 import com.ead.course.models.CourseModel;
 import com.ead.course.models.LessonModel;
 import com.ead.course.models.ModuleModel;
@@ -7,8 +8,12 @@ import com.ead.course.repositories.CourseRepository;
 import com.ead.course.repositories.LessonRepository;
 import com.ead.course.repositories.ModuleRepository;
 import com.ead.course.services.CourseService;
+import com.ead.course.specifications.CourseSpec;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -52,8 +57,9 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<CourseModel> findAll() {
-        return courseRepository.findAll();
+    public Page<CourseModel> findAll(CourseFilterDTO courseFilterDTO, Pageable pageable) {
+        Specification<CourseModel> spec = CourseSpec.build(courseFilterDTO);
+        return courseRepository.findAll(spec, pageable);
     }
 
     @Override

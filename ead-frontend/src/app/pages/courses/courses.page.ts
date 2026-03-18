@@ -18,8 +18,8 @@ export class CoursesPage implements OnInit {
   public courses = signal<CourseResponse[]>([]);
 
   ngOnInit(): void {
-    this.courseService.getCourses().subscribe((courses) => {
-      this.courses.set(courses);
+    this.courseService.getCourses().subscribe((response) => {
+      this.courses.set(response.content);
     });
   }
 }

@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { CourseRequest, CourseResponse } from '../interfaces/courses.interface';
+import { CourseRequest, CourseResponse, Page, CourseFilter, PageableOptions } from '../interfaces/courses.interface';
 import { CoursesApi } from '../api/courses.api';
 
 export interface Course {
@@ -41,8 +41,8 @@ export class CourseService {
     return this.coursesApi.getPopularCourses();
   }
 
-  public getCourses(): Observable<CourseResponse[]> {
-    return this.coursesApi.getCourses();
+  public getCourses(filter?: CourseFilter, pageable?: PageableOptions): Observable<Page<CourseResponse>> {
+    return this.coursesApi.getCourses(filter, pageable);
   }
 
   public createCourse(course: CourseRequest): Observable<CourseResponse> {
