@@ -378,6 +378,8 @@
           type="text" 
           class="flex-1 w-full bg-transparent border-0 px-4 py-4 text-slate-200 placeholder:text-slate-500 focus:ring-0 text-lg outline-none" 
           placeholder="Search courses, modules, or lessons..." 
+          [value]="searchQuery()"
+          (input)="onSearchInput($event)"
           (keydown.escape)="closeSearch()"
         />
         <kbd class="hidden sm:inline-block px-2 py-1 rounded bg-white/5 text-xs font-medium text-slate-400 border border-white/10">ESC</kbd>
@@ -385,27 +387,79 @@
 
       <!-- Mock Results -->
       <div class="p-4 max-h-[60vh] overflow-y-auto">
-        <div class="text-center py-12 px-4">
-          <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/5 mb-4 border border-white/10">
-            <svg class="h-6 w-6 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        @if (isLoadingSearch()) {
+          <div class="flex justify-center items-center py-12">
+            <svg class="animate-spin h-8 w-8 text-indigo-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
           </div>
-          <h3 class="text-lg font-medium text-white mb-1">No results found</h3>
-          <p class="text-sm text-slate-400">We couldn't find anything matching your search. Try different keywords.</p>
-        </div>
+        } @else if (searchResults().length === 0) {
+          <div class="text-center py-12 px-4">
+            <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/5 mb-4 border border-white/10">
+              <svg class="h-6 w-6 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </div>
+            <h3 class="text-lg font-medium text-white mb-1">No results found</h3>
+            <p class="text-sm text-slate-400">We couldn't find anything matching your search. Try different keywords.</p>
+          </div>
+        } @else {
+          <ul class="space-y-2">
+            @for (course of searchResults(); track course.id; let idx = $index) {
+              <li>
+                <a routerLink="/courses" (click)="closeSearch()"
+                   (mouseenter)="selectedIndex.set(idx)"
+                   class="flex items-center gap-4 p-3 rounded-xl border transition-all cursor-pointer group"
+                   [class]="selectedIndex() === idx ? 'bg-white/10 border-white/10' : 'hover:bg-white/5 border-transparent hover:border-white/10'">
+                  <div class="h-12 w-12 rounded-lg bg-indigo-500/20 overflow-hidden shrink-0 relative">
+                     @if (course.imageUrl) {
+                       <img [src]="course.imageUrl" [alt]="course.name" class="w-full h-full object-cover">
+                     } @else {
+                       <div class="absolute inset-0 flex items-center justify-center text-indigo-400 font-bold opacity-50">
+                         {{ course.name.charAt(0) }}
+                       </div>
+                     }
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <h4 class="text-sm font-medium text-white truncate transition-colors"
+                        [class.text-indigo-400]="selectedIndex() === idx">{{ course.name }}</h4>
+                    <p class="text-xs text-slate-400 truncate mt-0.5">{{ course.description }}</p>
+                  </div>
+                  <div class="hidden sm:flex items-center gap-2 text-xs text-slate-500 px-3 py-1 rounded-md bg-white/5 border border-white/5 whitespace-nowrap">
+                    <span class="capitalize">{{ course.courseLevel.toLowerCase() }}</span>
+                  </div>
+                </a>
+              </li>
+            }
+          </ul>
+        }
       </div>
 
       <!-- Footer -->
-      <div class="bg-white/5 px-4 py-3 border-t border-white/10 text-xs text-slate-500 flex items-center justify-between">
-        <div class="flex items-center gap-4">
-          <span class="flex items-center gap-1"><kbd class="px-1.5 py-0.5 rounded bg-white/10 border border-white/10">↑</kbd> <kbd class="px-1.5 py-0.5 rounded bg-white/10 border border-white/10">↓</kbd> to navigate</span>
-          <span class="flex items-center gap-1"><kbd class="px-1.5 py-0.5 rounded bg-white/10 border border-white/10">ENTER</kbd> to select</span>
-        </div>
+      <div class="bg-white/5 px-4 py-3 border-t border-white/10 flex items-center justify-between mt-auto">
         <div class="flex items-center gap-2">
-          <span>Search powered by</span>
-          <span class="font-semibold text-slate-400">EAD</span>
+          <button 
+             (click)="prevPage()"
+             [disabled]="searchPageNumber() === 0"
+             class="p-1 rounded bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-all">
+             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+          </button>
+          <span class="text-xs text-slate-400">Page {{ searchPageNumber() + 1 }} of {{ searchTotalPages() || 1 }}</span>
+          <button 
+             (click)="nextPage()"
+             [disabled]="searchPageNumber() >= searchTotalPages() - 1 || searchTotalPages() === 0"
+             class="p-1 rounded bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-all">
+             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+          </button>
+        </div>
+        <div class="flex items-center gap-4 text-xs text-slate-500">
+           <span class="hidden sm:flex items-center gap-1"><kbd class="px-1.5 py-0.5 rounded bg-white/10 border border-white/10">ESC</kbd> to close</span>
+           <div class="flex items-center gap-2">
+             <span>Powered by</span>
+             <span class="font-semibold text-slate-400">EAD</span>
+           </div>
         </div>
       </div>
     </div>
