@@ -3,6 +3,7 @@ import { CoursesPage } from "./courses.page";
 import { CoursesNewPage } from "./courses-new.page/courses-new.page";
 
 import { CoursesEditPage } from "./courses-edit.page/courses-edit.page";
+import { CoursesViewPage } from "./courses-view.page/courses-view.page";
 
 export const COURSE_ROUTES: Routes = [
     {
@@ -16,6 +17,10 @@ export const COURSE_ROUTES: Routes = [
     {
         path: ':id/edit',
         component: CoursesEditPage
+    },
+    {
+        path: ':id',
+        component: CoursesViewPage
     }
 ];
 

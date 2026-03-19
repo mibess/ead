@@ -157,7 +157,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
           @for (course of recommendedCourses(); track course.id) {
-          <a routerLink="/courses"
+          <a [routerLink]="['/courses', course.id]"
             class="group relative flex flex-col rounded-2xl bg-white/5 border border-white/10 overflow-hidden hover:border-indigo-500/30 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 shadow-lg cursor-pointer">
             <!-- Course Image -->
             <div class="relative aspect-video overflow-hidden">
@@ -409,7 +409,7 @@
           <ul class="space-y-2">
             @for (course of searchResults(); track course.id; let idx = $index) {
               <li>
-                <a routerLink="/courses" (click)="closeSearch()"
+                <a [routerLink]="['/courses', course.id]" (click)="closeSearch()"
                    (mouseenter)="selectedIndex.set(idx)"
                    class="flex items-center gap-4 p-3 rounded-xl border transition-all cursor-pointer group"
                    [class]="selectedIndex() === idx ? 'bg-white/10 border-white/10' : 'hover:bg-white/5 border-transparent hover:border-white/10'">

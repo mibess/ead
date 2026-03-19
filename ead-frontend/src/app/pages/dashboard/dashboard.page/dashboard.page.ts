@@ -105,7 +105,7 @@ export class DashboardPage {
       const selectedCourse = this.searchResults()[currentIndex];
       // Close search and navigate
       this.closeSearch();
-      this.route.navigate(['/courses']); // or navigate to specific course if you have the route
+      this.route.navigate(['/courses', selectedCourse.id]); // navigate to specific course
     }
   }
 
