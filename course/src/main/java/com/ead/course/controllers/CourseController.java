@@ -70,7 +70,7 @@ public class CourseController {
     @GetMapping
     public ResponseEntity<Page<CourseModel>> getAllCourses(
             CourseFilterDTO courseFilterDTO,
-            @PageableDefault(page = 0, size = 5, sort = "name", direction = Sort.Direction.ASC) Pageable pageable
+            @PageableDefault(page = 0, size = 8, sort = "name", direction = Sort.Direction.ASC) Pageable pageable
             ){
         return ResponseEntity.ok().body(
                 courseService.findAll(courseFilterDTO, pageable)
