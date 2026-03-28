@@ -1,12 +1,17 @@
 package com.ead.course.controllers;
 
 import com.ead.course.dto.ModuleDTO;
+import com.ead.course.dto.ModuleFilterDTO;
 import com.ead.course.models.ModuleModel;
 import com.ead.course.services.CourseService;
 import com.ead.course.services.ModuleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,9 +28,20 @@ public class ModuleController {
     private final ModuleService moduleService;
     private final CourseService courseService;
 
-    @GetMapping
+    @GetMapping("/simple-study")
     public ResponseEntity<List<ModuleModel>> getAllModules(@PathVariable UUID courseId){
         return ResponseEntity.status(HttpStatus.OK).body(moduleService.getAll(courseId));
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<ModuleModel>> getAllModulesWithPageable(
+            @PathVariable UUID courseId,
+            ModuleFilterDTO moduleFilterDTO,
+            @PageableDefault(page = 0, size = 10, sort = "title", direction = Sort.Direction.ASC) Pageable pageable
+            ){
+        return ResponseEntity.status(HttpStatus.OK).body(
+                moduleService.getAll(courseId, moduleFilterDTO, pageable)
+        );
     }
 
     @GetMapping("{moduleId}")
@@ -35,7 +51,7 @@ public class ModuleController {
 
         var moduleModel = moduleService.findModuleIntoCourse(courseId, moduleId);
 
-        if (!moduleModel.isPresent()){
+        if (moduleModel.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Module not found!");
         }
         return ResponseEntity.status(HttpStatus.OK).body(moduleModel.get());
@@ -47,7 +63,7 @@ public class ModuleController {
             @RequestBody @Valid ModuleDTO moduleDTO){
         var course = courseService.findById(courseId);
 
-        if (!course.isPresent()){
+        if (course.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course not found!");
         }
 
@@ -67,7 +83,7 @@ public class ModuleController {
             @RequestBody @Valid ModuleDTO moduleDTO){
         var moduleModel = moduleService.findModuleIntoCourse(courseId, moduleId);
 
-        if (!moduleModel.isPresent()){
+        if (moduleModel.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Module not found for this course!");
         }
 
