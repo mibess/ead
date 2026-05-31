@@ -175,7 +175,9 @@ export class CoursesEditPage implements OnInit {
           this.modules.removeAt(0);
         }
 
-        this.originalModules.forEach(mod => this.addModule(mod));
+        if (this.originalModules.length > 0) {
+          this.originalModules.forEach(mod => this.addModule(mod));
+        }
 
         if (this.originalModules.length > 0) {
           const lessonRequests: { [key: string]: Observable<LessonResponse[]> } = {};

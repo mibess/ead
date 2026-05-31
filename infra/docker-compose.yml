@@ -1,10 +1,11 @@
-version: '3.8'
+networks:
+  ead-network:
+    driver: bridge
 
 services:
   ead-postgres:
     image: postgres:15.5
     container_name: ead-postgres
-    restart: always
     ports:
       - "5432:5432"
     environment:
@@ -16,6 +17,7 @@ services:
       - ead-postgres-data:/var/lib/postgresql/data
       # Mapeamento do script SQL para rodar na primeira inicialização do banco
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-
+    networks:
+      - ead-network
 volumes:
   ead-postgres-data:

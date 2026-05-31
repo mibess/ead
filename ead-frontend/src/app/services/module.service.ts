@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { ModulesApi } from '../api/modules.api';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { ModuleRequest, ModuleResponse } from '../interfaces/modules.interface';
 
 @Injectable({
@@ -10,7 +11,9 @@ export class ModuleService {
   private readonly modulesApi = inject(ModulesApi);
 
   public getAllModules(courseId: string): Observable<ModuleResponse[]> {
-    return this.modulesApi.getAllModules(courseId);
+    return this.modulesApi.getAllModules(courseId).pipe(
+      map(response => response.content || [])
+    );
   }
 
   public createModule(courseId: string, module: ModuleRequest): Observable<ModuleResponse> {
