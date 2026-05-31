@@ -9,15 +9,15 @@
     <main class="relative z-10 max-w-7xl mx-auto p-6 lg:p-10">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
             <div>
-                <h1 class="text-3xl font-bold tracking-tight text-white mb-2">Explore Courses</h1>
-                <p class="text-slate-400">Discover new skills and advance your career with our comprehensive curriculum.
+                <h1 class="text-3xl font-bold tracking-tight text-white mb-2">Explorar Cursos</h1>
+                <p class="text-slate-400">Descubra novas habilidades e avance na sua carreira com nosso currículo abrangente.
                 </p>
             </div>
 
             <!-- Actions -->
             <div class="flex items-center gap-4">
                 <div class="relative">
-                    <input type="text" placeholder="Search courses..."
+                    <input type="text" placeholder="Buscar cursos..."
                         class="w-full md:w-64 rounded-xl bg-white/5 px-4 py-2.5 pr-10 text-sm outline-none border border-white/10 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all placeholder:text-slate-500 text-slate-200" />
                     <svg class="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2">
@@ -29,7 +29,7 @@
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                     </svg>
-                    New Course
+                    Novo Curso
                 </button>
             </div>
         </div>
@@ -46,7 +46,7 @@
         </div>
         } @else if (courses().length === 0) {
         <div class="text-center py-20">
-            <p class="text-slate-400">No courses available.</p>
+            <p class="text-slate-400">Nenhum curso disponível.</p>
         </div>
         } @else {
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -65,14 +65,14 @@
                     <!-- Badge -->
                     <div
                         class="absolute top-3 right-3 px-2 py-1 rounded-lg bg-slate-900/60 backdrop-blur-md border border-white/10 text-xs font-medium text-white">
-                        {{ course.courseLevel }}
+                        {{ course.courseLevel === 'BEGINNER' ? 'Iniciante' : course.courseLevel === 'INTERMEDIATE' ? 'Intermediário' : course.courseLevel === 'ADVANCED' ? 'Avançado' : course.courseLevel }}
                     </div>
                 </div>
 
                 <div class="flex-1 p-5 flex flex-col">
                     <div class="flex items-center gap-2 mb-3 text-xs font-medium text-indigo-400">
                         <span class="px-2 py-0.5 rounded-full bg-indigo-500/10 border border-indigo-500/20">{{
-                            course.courseStatus === 'IN_PROGRESS' ? 'In Progress' : 'Concluded' }}</span>
+                            course.courseStatus === 'IN_PROGRESS' ? 'Em Progresso' : 'Concluído' }}</span>
                     </div>
 
                     <h3
@@ -95,7 +95,7 @@
                         
                         <button [routerLink]="['/courses', course.id, 'edit']"
                             class="p-1.5 rounded-lg text-slate-400 hover:text-indigo-400 hover:bg-indigo-500/10 transition-colors z-20 relative"
-                            title="Edit Course">
+                            title="Editar Curso">
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                             </svg>
@@ -117,7 +117,7 @@
                 </path>
             </svg>
             } @else if (!hasMore() && courses().length > 0) {
-            <p class="text-slate-500 text-sm">No more courses to load.</p>
+            <p class="text-slate-500 text-sm">Não há mais cursos para carregar.</p>
             }
         </div>
     </main>

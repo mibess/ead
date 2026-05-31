@@ -1,7 +1,7 @@
 <main class="relative min-h-screen font-sans overflow-hidden bg-slate-900 selection:bg-indigo-500/30 text-slate-100 antialiased">
-    <app-background-effects />
+    <app-background-effects></app-background-effects>
     <!-- Topbar -->
-    <app-header-page />
+    <app-header-page></app-header-page>
 
     <main class="relative z-10 max-w-7xl mx-auto p-6 lg:p-10">
         <div class="mb-8 items-center flex gap-4">
@@ -11,8 +11,8 @@
                 </svg>
             </button>
             <div>
-                <h1 class="text-3xl font-bold tracking-tight text-white mb-1">Create New Course</h1>
-                <p class="text-slate-400">Add a new course to the curriculum catalog.</p>
+                <h1 class="text-3xl font-bold tracking-tight text-white mb-1">Criar Novo Curso</h1>
+                <p class="text-slate-400">Adicione um novo curso ao catálogo do currículo.</p>
             </div>
         </div>
 
@@ -23,49 +23,49 @@
                 
                 <!-- Course Info Card -->
                 <section class="bg-white/5 border border-white/10 rounded-3xl p-6 lg:p-8 shadow-xl backdrop-blur-sm space-y-6">
-                    <h2 class="text-xl font-semibold text-white">Course Information</h2>
+                    <h2 class="text-xl font-semibold text-white">Informações do Curso</h2>
                     
                     <div class="space-y-4">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Course Name -->
                             <div class="space-y-2">
-                                <label class="text-sm font-medium text-slate-300">Course Name</label>
-                                <input app-input type="text" formControlName="name" placeholder="e.g. Master Angular 18"
+                                <label class="text-sm font-medium text-slate-300">Nome do Curso</label>
+                                <input app-input type="text" formControlName="name" placeholder="ex: Master em Angular 18"
                                     [state]="courseForm.get('name')?.invalid && courseForm.get('name')?.touched ? 'error' : 'default'" />
                                 @if (courseForm.get('name')?.invalid && courseForm.get('name')?.touched) {
-                                    <span class="text-xs text-red-400 mt-1 block">Course name is required and must be at least 3 characters.</span>
+                                    <span class="text-xs text-red-400 mt-1 block">O nome do curso é obrigatório e deve ter no mínimo 3 caracteres.</span>
                                 }
                             </div>
             
                             <!-- Instructor -->
                             <div class="space-y-2">
-                                <label class="text-sm font-medium text-slate-300">Instructor Name</label>
-                                <input app-input type="text" formControlName="userInstructor" placeholder="e.g. John Doe"
+                                <label class="text-sm font-medium text-slate-300">Nome do Instrutor</label>
+                                <input app-input type="text" formControlName="userInstructor" placeholder="ex: João Silva"
                                     [state]="courseForm.get('userInstructor')?.invalid && courseForm.get('userInstructor')?.touched ? 'error' : 'default'" />
                                 @if (courseForm.get('userInstructor')?.invalid && courseForm.get('userInstructor')?.touched) {
-                                    <span class="text-xs text-red-400 mt-1 block">Instructor name is required.</span>
+                                    <span class="text-xs text-red-400 mt-1 block">O nome do instrutor é obrigatório.</span>
                                 }
                             </div>
                         </div>
         
                         <!-- Description -->
                         <div class="space-y-2">
-                            <label class="text-sm font-medium text-slate-300">Description</label>
-                            <textarea formControlName="description" placeholder="Describe the course content..." rows="4"
+                            <label class="text-sm font-medium text-slate-300">Descrição</label>
+                            <textarea formControlName="description" placeholder="Descreva o conteúdo do curso..." rows="4"
                                 class="w-full rounded-xl bg-slate-900/50 px-4 py-3 text-sm outline-none border border-white/10 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all placeholder:text-slate-600 text-slate-200 resize-none"
                                 [class.border-red-500]="courseForm.get('description')?.invalid && courseForm.get('description')?.touched"></textarea>
                             @if (courseForm.get('description')?.invalid && courseForm.get('description')?.touched) {
-                                <span class="text-xs text-red-400 mt-1 block">Description is required and must be at least 10 characters.</span>
+                                <span class="text-xs text-red-400 mt-1 block">A descrição é obrigatória e deve ter no mínimo 10 caracteres.</span>
                             }
                         </div>
         
                         <!-- Image URL -->
                         <div class="space-y-2">
-                            <label class="text-sm font-medium text-slate-300">Image URL</label>
+                            <label class="text-sm font-medium text-slate-300">URL da Imagem</label>
                             <input app-input type="text" formControlName="imageUrl" placeholder="https://example.com/image.png"
                                 [state]="courseForm.get('imageUrl')?.invalid && courseForm.get('imageUrl')?.touched ? 'error' : 'default'" />
                             @if (courseForm.get('imageUrl')?.invalid && courseForm.get('imageUrl')?.touched) {
-                                <span class="text-xs text-red-400 mt-1 block">Image URL is required.</span>
+                                <span class="text-xs text-red-400 mt-1 block">A URL da imagem é obrigatória.</span>
                             }
                         </div>
                     </div>
@@ -75,20 +75,20 @@
                 <section class="bg-white/5 border border-white/10 rounded-3xl p-6 lg:p-8 shadow-xl backdrop-blur-sm space-y-4" formArrayName="modules">
                     <div class="flex justify-between items-center">
                         <div>
-                            <h2 class="text-xl font-semibold text-white">Modules</h2>
-                            <p class="text-sm text-slate-400">Add modules to organize your course content.</p>
+                            <h2 class="text-xl font-semibold text-white">Módulos</h2>
+                            <p class="text-sm text-slate-400">Adicione módulos para organizar o conteúdo do seu curso.</p>
                         </div>
                         <button app-button type="button" [fullWidth]="false" size="sm" (click)="addModule()">
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                             </svg>
-                            Add Module
+                            Adicionar Módulo
                         </button>
                     </div>
-
+ 
                     @if (modules.length === 0) {
                         <div class="text-center py-8 rounded-2xl border border-dashed border-white/20 bg-white/5 mt-4">
-                            <p class="text-slate-400">No modules added yet. Click "Add Module" to start adding content to your course.</p>
+                            <p class="text-slate-400">Nenhum módulo adicionado ainda. Clique em "Adicionar Módulo" para começar a adicionar conteúdo ao seu curso.</p>
                         </div>
                     }
 
@@ -105,17 +105,17 @@
                                             </svg>
                                         </div>
                                         <div>
-                                            <h3 class="text-lg font-medium text-white">Module {{ i + 1 }}</h3>
+                                            <h3 class="text-lg font-medium text-white">Módulo {{ i + 1 }}</h3>
                                             @if (moduleCtrl.get('title')?.value) {
                                                 <p class="text-sm text-slate-400 mt-0.5 line-clamp-1">{{ moduleCtrl.get('title')?.value }}</p>
                                             } @else {
-                                                <p class="text-sm text-slate-500 mt-0.5 italic">Untitled Module</p>
+                                                <p class="text-sm text-slate-500 mt-0.5 italic">Módulo Sem Título</p>
                                             }
                                         </div>
                                     </div>
                                     
                                     <div class="flex items-center gap-2">
-                                        <button type="button" (click)="removeModule(i); $event.stopPropagation()" class="p-2 text-slate-400 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-colors cursor-pointer" title="Remove Module">
+                                        <button type="button" (click)="removeModule(i); $event.stopPropagation()" class="p-2 text-slate-400 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-colors cursor-pointer" title="Remover Módulo">
                                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                             </svg>
@@ -127,21 +127,21 @@
                                 @if (expandedModules()[i]) {
                                     <div class="p-6 pt-2 border-t border-white/5 space-y-4">
                                         <div class="space-y-2">
-                                            <label class="text-sm font-medium text-slate-300">Module Title</label>
-                                            <input app-input type="text" formControlName="title" placeholder="e.g. Introduction to Angular"
+                                            <label class="text-sm font-medium text-slate-300">Título do Módulo</label>
+                                            <input app-input type="text" formControlName="title" placeholder="ex: Introdução ao Angular"
                                                 [state]="moduleCtrl.get('title')?.invalid && moduleCtrl.get('title')?.touched ? 'error' : 'default'" />
                                             @if (moduleCtrl.get('title')?.invalid && moduleCtrl.get('title')?.touched) {
-                                                <span class="text-xs text-red-400 mt-1 block">Title is required.</span>
+                                                <span class="text-xs text-red-400 mt-1 block">O título é obrigatório.</span>
                                             }
                                         </div>
-
+ 
                                         <div class="space-y-2">
-                                            <label class="text-sm font-medium text-slate-300">Module Description</label>
-                                            <textarea formControlName="description" placeholder="What will students learn in this module?" rows="3"
+                                            <label class="text-sm font-medium text-slate-300">Descrição do Módulo</label>
+                                            <textarea formControlName="description" placeholder="O que os alunos aprenderão neste módulo?" rows="3"
                                                 class="w-full rounded-xl bg-slate-900/50 px-4 py-3 text-sm outline-none border border-white/10 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all placeholder:text-slate-600 text-slate-200 resize-none"
                                                 [class.border-red-500]="moduleCtrl.get('description')?.invalid && moduleCtrl.get('description')?.touched"></textarea>
                                             @if (moduleCtrl.get('description')?.invalid && moduleCtrl.get('description')?.touched) {
-                                                <span class="text-xs text-red-400 mt-1 block">Description is required.</span>
+                                                <span class="text-xs text-red-400 mt-1 block">A descrição é obrigatória.</span>
                                             }
                                         </div>
                                     </div>
@@ -155,27 +155,27 @@
             <!-- Right column: Settings & Actions -->
             <aside class="space-y-8">
                 <section class="bg-white/5 border border-white/10 rounded-3xl p-6 shadow-xl backdrop-blur-sm space-y-6">
-                    <h2 class="text-xl font-semibold text-white">Settings</h2>
+                    <h2 class="text-xl font-semibold text-white">Configurações</h2>
                     
                     <div class="space-y-4">
                         <!-- Course Level -->
                         <div class="space-y-2">
-                            <label class="text-sm font-medium text-slate-300">Level</label>
+                            <label class="text-sm font-medium text-slate-300">Nível</label>
                             <select formControlName="courseLevel" 
                                 class="w-full rounded-xl bg-slate-900/50 px-4 py-3 text-sm outline-none border border-white/10 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all text-slate-200 appearance-none">
                                 @for (level of courseLevels; track level) {
-                                    <option [value]="level">{{ level }}</option>
+                                    <option [value]="level">{{ level === 'BEGINNER' ? 'Iniciante' : level === 'INTERMEDIATE' ? 'Intermediário' : level === 'ADVANCED' ? 'Avançado' : level }}</option>
                                 }
                             </select>
                         </div>
-
+ 
                         <!-- Course Status -->
                         <div class="space-y-2">
                             <label class="text-sm font-medium text-slate-300">Status</label>
                             <select formControlName="courseStatus" 
                                 class="w-full rounded-xl bg-slate-900/50 px-4 py-3 text-sm outline-none border border-white/10 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all text-slate-200 appearance-none">
                                 @for (status of courseStatuses; track status) {
-                                    <option [value]="status">{{ status === 'IN_PROGRESS' ? 'In Progress' : 'Concluded' }}</option>
+                                    <option [value]="status">{{ status === 'IN_PROGRESS' ? 'Em Progresso' : 'Concluído' }}</option>
                                 }
                             </select>
                         </div>
@@ -186,13 +186,13 @@
                     <div class="flex flex-col gap-4">
                         <button app-button type="submit" [loading]="isSubmitting">
                             @if (isSubmitting) {
-                                Saving...
+                                Salvando...
                             } @else {
-                                Create Course
+                                Criar Curso
                             }
                         </button>
                         <button app-button type="button" variant="outline" color="light" routerLink="/courses">
-                            Cancel
+                            Cancelar
                         </button>
                     </div>
                 </section>

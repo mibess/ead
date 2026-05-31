@@ -1,7 +1,7 @@
 <main
   class="relative min-h-screen font-sans overflow-hidden bg-slate-900 selection:bg-indigo-500/30 text-slate-100 antialiased">
 
-  <app-background-effects />
+  <app-background-effects></app-background-effects>
 
   <!-- Layout wrapper -->
   <div class="relative z-10 flex min-h-screen">
@@ -21,14 +21,14 @@
           <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
             <path d="M3 12l9-9 9 9v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9z" />
           </svg>
-          Overview
+          Visão Geral
         </a>
         <a routerLink="/courses"
           class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-white/10 border border-transparent hover:border-white/10 transition-all">
           <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
             <path d="M4 4h16v4H4zM4 10h10v10H4zM16 10h4v10h-4z" />
           </svg>
-          Courses
+          Cursos
         </a>
         <a routerLink="/users"
           class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-white/10 border border-transparent hover:border-white/10 transition-all">
@@ -36,14 +36,14 @@
             <path
               d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
           </svg>
-          Users
+          Usuários
         </a>
         <a class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-white/10 border border-transparent hover:border-white/10 transition-all"
           href="#progress">
           <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
             <path d="M3 13h4v8H3zM10 3h4v18h-4zM17 9h4v12h-4z" />
           </svg>
-          Progress
+          Progresso
         </a>
         <a class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-white/10 border border-transparent hover:border-white/10 transition-all"
           href="#settings">
@@ -51,13 +51,12 @@
             <path
               d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm70-80h79l14-106q31-8 57.5-23.5T639-327l99 41 39-68-86-65q5-14 7-29.5t2-31.5q0-16-2-31.5t-7-29.5l86-65-39-68-99 42q-22-23-48.5-38.5T533-694l-13-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 15-7 30t-2 32q0 16 2 31t7 30l-86 65 39 68 99-42q22 23 48.5 38.5T427-266l13 106Zm42-180q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Zm-2-140Z" />
           </svg>
-          Settings
+          Configurações
         </a>
       </nav>
       <div class="mt-auto">
         <button
-          class="w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 py-2.5 font-medium border border-white/10 shadow-lg hover:shadow-indigo-500/20 transition-all">New
-          Course</button>
+          class="w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 py-2.5 font-medium border border-white/10 shadow-lg hover:shadow-indigo-500/20 transition-all">Novo Curso</button>
       </div>
     </aside>
 
@@ -73,8 +72,8 @@
             </svg>
           </button>
           <div class="flex flex-col">
-            <h1 class="text-2xl font-bold tracking-tight text-white">Dashboard</h1>
-            <p class="text-sm text-slate-400">Welcome back, {{ userLoggedIn?.name }}</p>
+            <h1 class="text-2xl font-bold tracking-tight text-white">Painel</h1>
+            <p class="text-sm text-slate-400">Bem-vindo de volta, {{ userLoggedIn?.name }}</p>
           </div>
         </div>
         <div class="flex items-center gap-3">
@@ -84,7 +83,7 @@
                 <svg class="h-4 w-4 text-slate-500 group-hover:text-indigo-400 transition-colors" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M10 2a8 8 0 105.29 14.29l4.71 4.7 1.41-1.41-4.7-4.71A8 8 0 0010 2zm0 2a6 6 0 110 12A6 6 0 0110 4z" />
                 </svg>
-                Search courses...
+                Buscar cursos...
               </span>
               <kbd class="px-1.5 py-0.5 rounded bg-white/10 text-[10px] font-medium text-slate-400 border border-white/10 group-hover:border-indigo-500/30 group-hover:text-indigo-300 transition-colors">Ctrl K</kbd>
             </div>
@@ -117,32 +116,31 @@
       <!-- KPI Cards -->
       <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-8">
         <div class="rounded-2xl bg-white/5 p-5 border border-white/10 shadow-2xl backdrop-blur-md">
-          <p class="text-slate-400 text-sm font-medium">Active Courses</p>
+          <p class="text-slate-400 text-sm font-medium">Cursos Ativos</p>
           <div class="mt-2 flex items-baseline gap-2">
             <span class="text-3xl font-bold text-white">8</span>
-            <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-medium">+2 this
-              week</span>
+            <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-medium">+2 esta semana</span>
           </div>
         </div>
         <div class="rounded-2xl bg-white/5 p-5 border border-white/10 shadow-2xl backdrop-blur-md">
-          <p class="text-slate-400 text-sm font-medium">Hours Learned</p>
+          <p class="text-slate-400 text-sm font-medium">Horas Aprendidas</p>
           <div class="mt-2 flex items-baseline gap-2">
             <span class="text-3xl font-bold text-white">24.5</span>
             <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-medium">+4.1</span>
           </div>
         </div>
         <div class="rounded-2xl bg-white/5 p-5 border border-white/10 shadow-2xl backdrop-blur-md">
-          <p class="text-slate-400 text-sm font-medium">Completed</p>
+          <p class="text-slate-400 text-sm font-medium">Concluído</p>
           <div class="mt-2 flex items-baseline gap-2">
             <span class="text-3xl font-bold text-white">12</span>
-            <span class="text-xs text-slate-500 font-medium">out of 30</span>
+            <span class="text-xs text-slate-500 font-medium">de 30</span>
           </div>
         </div>
         <div class="rounded-2xl bg-white/5 p-5 border border-white/10 shadow-2xl backdrop-blur-md">
-          <p class="text-slate-400 text-sm font-medium">Streak</p>
+          <p class="text-slate-400 text-sm font-medium">Sequência</p>
           <div class="mt-2 flex items-baseline gap-2">
             <span class="text-3xl font-bold text-white">7</span>
-            <span class="text-xs px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 font-medium">days 🔥</span>
+            <span class="text-xs px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 font-medium">dias 🔥</span>
           </div>
         </div>
       </section>
@@ -150,9 +148,9 @@
       <!-- Recommended to you -->
       <section class="mb-8">
         <div class="flex items-center justify-between mb-4">
-          <h2 class="text-xl font-bold text-white">Recommended to you</h2>
+          <h2 class="text-xl font-bold text-white">Recomendado para você</h2>
           <a routerLink="/courses"
-            class="text-sm font-medium text-indigo-400 hover:text-indigo-300 transition-colors">Browse all courses</a>
+            class="text-sm font-medium text-indigo-400 hover:text-indigo-300 transition-colors">Navegar por todos os cursos</a>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
@@ -199,9 +197,8 @@
         <!-- Progress / chart placeholder -->
         <div class="xl:col-span-2 rounded-3xl bg-white/5 border border-white/10 shadow-2xl backdrop-blur-md p-6">
           <div class="flex items-center justify-between mb-6">
-            <h2 class="text-lg font-bold text-white">Weekly Learning Progress</h2>
-            <span class="text-xs text-slate-400 font-medium px-2 py-1 rounded-lg bg-white/5 border border-white/5">Last
-              7 days</span>
+            <h2 class="text-lg font-bold text-white">Progresso de Aprendizado Semanal</h2>
+            <span class="text-xs text-slate-400 font-medium px-2 py-1 rounded-lg bg-white/5 border border-white/5">Últimos 7 dias</span>
           </div>
           <!-- Simple bars (CSS only) -->
           <div class="grid grid-cols-7 gap-4 items-end h-48">
@@ -209,43 +206,43 @@
               <div
                 class="w-full rounded-xl bg-indigo-500/40 border border-indigo-500/20 group-hover:bg-indigo-500/60 transition-all"
                 style="height: 30%"></div>
-              <span class="text-xs text-center mt-2 text-slate-500">Mon</span>
+              <span class="text-xs text-center mt-2 text-slate-500">Seg</span>
             </div>
             <div class="relative group h-full flex flex-col justify-end">
               <div
                 class="w-full rounded-xl bg-indigo-500/50 border border-indigo-500/20 group-hover:bg-indigo-500/70 transition-all"
                 style="height: 55%"></div>
-              <span class="text-xs text-center mt-2 text-slate-500">Tue</span>
+              <span class="text-xs text-center mt-2 text-slate-500">Ter</span>
             </div>
             <div class="relative group h-full flex flex-col justify-end">
               <div
                 class="w-full rounded-xl bg-indigo-500/60 border border-indigo-500/20 group-hover:bg-indigo-500/80 transition-all"
                 style="height: 70%"></div>
-              <span class="text-xs text-center mt-2 text-slate-500">Wed</span>
+              <span class="text-xs text-center mt-2 text-slate-500">Qua</span>
             </div>
             <div class="relative group h-full flex flex-col justify-end">
               <div
                 class="w-full rounded-xl bg-indigo-500/70 border border-indigo-500/20 group-hover:bg-indigo-500/90 transition-all"
                 style="height: 80%"></div>
-              <span class="text-xs text-center mt-2 text-slate-500">Thu</span>
+              <span class="text-xs text-center mt-2 text-slate-500">Qui</span>
             </div>
             <div class="relative group h-full flex flex-col justify-end">
               <div
                 class="w-full rounded-xl bg-indigo-500/60 border border-indigo-500/20 group-hover:bg-indigo-500/80 transition-all"
                 style="height: 65%"></div>
-              <span class="text-xs text-center mt-2 text-slate-500">Fri</span>
+              <span class="text-xs text-center mt-2 text-slate-500">Sex</span>
             </div>
             <div class="relative group h-full flex flex-col justify-end">
               <div
                 class="w-full rounded-xl bg-indigo-500/50 border border-indigo-500/20 group-hover:bg-indigo-500/70 transition-all"
                 style="height: 45%"></div>
-              <span class="text-xs text-center mt-2 text-slate-500">Sat</span>
+              <span class="text-xs text-center mt-2 text-slate-500">Sáb</span>
             </div>
             <div class="relative group h-full flex flex-col justify-end">
               <div
                 class="w-full rounded-xl bg-indigo-500/40 border border-indigo-500/20 group-hover:bg-indigo-500/60 transition-all"
                 style="height: 35%"></div>
-              <span class="text-xs text-center mt-2 text-slate-500">Sun</span>
+              <span class="text-xs text-center mt-2 text-slate-500">Dom</span>
             </div>
           </div>
         </div>
@@ -253,44 +250,42 @@
         <!-- Upcoming lessons -->
         <div class="rounded-3xl bg-white/5 border border-white/10 shadow-2xl backdrop-blur-md p-6" id="courses">
           <div class="flex items-center justify-between mb-6">
-            <h2 class="text-lg font-bold text-white">Upcoming lessons</h2>
-            <button class="text-xs text-indigo-400 hover:text-indigo-300 transition-colors">View all</button>
+            <h2 class="text-lg font-bold text-white">Próximas aulas</h2>
+            <button class="text-xs text-indigo-400 hover:text-indigo-300 transition-colors">Ver todas</button>
           </div>
 
           <ul class="space-y-3 text-sm">
             <li
               class="group flex items-center justify-between rounded-xl bg-white/5 border border-white/5 p-4 hover:border-indigo-500/30 hover:bg-white/10 transition-all cursor-pointer">
               <div class="flex flex-col">
-                <span class="font-medium text-slate-200 group-hover:text-white transition-colors">Angular
-                  Fundamentals</span>
-                <span class="text-xs text-slate-500">Module 2 • Components</span>
+                <span class="font-medium text-slate-200 group-hover:text-white transition-colors">Angular Fundamentals</span>
+                <span class="text-xs text-slate-500">Módulo 2 • Componentes</span>
               </div>
               <div class="flex flex-col items-end">
                 <span class="text-xs font-medium text-indigo-400 bg-indigo-400/10 px-2 py-1 rounded-md">17:00</span>
-                <span class="text-[10px] text-slate-500 mt-1">Today</span>
+                <span class="text-[10px] text-slate-500 mt-1">Hoje</span>
               </div>
             </li>
             <li
               class="group flex items-center justify-between rounded-xl bg-white/5 border border-white/5 p-4 hover:border-purple-500/30 hover:bg-white/10 transition-all cursor-pointer">
               <div class="flex flex-col">
-                <span class="font-medium text-slate-200 group-hover:text-white transition-colors">Spring Boot
-                  REST</span>
-                <span class="text-xs text-slate-500">Authentication</span>
+                <span class="font-medium text-slate-200 group-hover:text-white transition-colors">Spring Boot REST</span>
+                <span class="text-xs text-slate-500">Autenticação</span>
               </div>
               <div class="flex flex-col items-end">
                 <span class="text-xs font-medium text-purple-400 bg-purple-400/10 px-2 py-1 rounded-md">19:30</span>
-                <span class="text-[10px] text-slate-500 mt-1">Wed</span>
+                <span class="text-[10px] text-slate-500 mt-1">Qua</span>
               </div>
             </li>
             <li
               class="group flex items-center justify-between rounded-xl bg-white/5 border border-white/5 p-4 hover:border-teal-500/30 hover:bg-white/10 transition-all cursor-pointer">
               <div class="flex flex-col">
                 <span class="font-medium text-slate-200 group-hover:text-white transition-colors">Database Design</span>
-                <span class="text-xs text-slate-500">PostgreSQL Indexes</span>
+                <span class="text-xs text-slate-500">Índices PostgreSQL</span>
               </div>
               <div class="flex flex-col items-end">
                 <span class="text-xs font-medium text-teal-400 bg-teal-400/10 px-2 py-1 rounded-md">09:00</span>
-                <span class="text-[10px] text-slate-500 mt-1">Fri</span>
+                <span class="text-[10px] text-slate-500 mt-1">Sex</span>
               </div>
             </li>
           </ul>
@@ -300,17 +295,17 @@
       <!-- Table -->
       <section class="rounded-3xl bg-white/5 border border-white/10 shadow-2xl backdrop-blur-md overflow-hidden">
         <div class="px-6 py-5 flex items-center justify-between border-b border-white/5">
-          <h2 class="text-lg font-bold text-white">Recent activity</h2>
-          <a class="text-sm font-medium text-indigo-400 hover:text-indigo-300 transition-colors" href="#">See all</a>
+          <h2 class="text-lg font-bold text-white">Atividade recente</h2>
+          <a class="text-sm font-medium text-indigo-400 hover:text-indigo-300 transition-colors" href="#">Ver tudo</a>
         </div>
         <div class="overflow-x-auto">
           <table class="min-w-full text-left text-sm">
             <thead class="bg-white/5 text-slate-400">
               <tr>
-                <th class="px-6 py-4 font-medium">Course</th>
-                <th class="px-6 py-4 font-medium">Module</th>
-                <th class="px-6 py-4 font-medium">Progress</th>
-                <th class="px-6 py-4 font-medium">Updated</th>
+                <th class="px-6 py-4 font-medium">Curso</th>
+                <th class="px-6 py-4 font-medium">Módulo</th>
+                <th class="px-6 py-4 font-medium">Progresso</th>
+                <th class="px-6 py-4 font-medium">Atualizado</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-white/5">
@@ -325,7 +320,7 @@
                     <span class="text-xs text-slate-400">70%</span>
                   </div>
                 </td>
-                <td class="px-6 py-4 text-slate-400">2h ago</td>
+                <td class="px-6 py-4 text-slate-400">Há 2 horas</td>
               </tr>
               <tr class="hover:bg-white/5 transition-colors">
                 <td class="px-6 py-4 font-medium text-slate-200">Spring Boot API</td>
@@ -338,7 +333,7 @@
                     <span class="text-xs text-slate-400">45%</span>
                   </div>
                 </td>
-                <td class="px-6 py-4 text-slate-400">Yesterday</td>
+                <td class="px-6 py-4 text-slate-400">Ontem</td>
               </tr>
               <tr class="hover:bg-white/5 transition-colors">
                 <td class="px-6 py-4 font-medium text-slate-200">PostgreSQL & SQL</td>
@@ -351,7 +346,7 @@
                     <span class="text-xs text-slate-400">20%</span>
                   </div>
                 </td>
-                <td class="px-6 py-4 text-slate-400">3 days ago</td>
+                <td class="px-6 py-4 text-slate-400">Há 3 dias</td>
               </tr>
             </tbody>
           </table>
@@ -377,7 +372,7 @@
           #searchInput
           type="text" 
           class="flex-1 w-full bg-transparent border-0 px-4 py-4 text-slate-200 placeholder:text-slate-500 focus:ring-0 text-lg outline-none" 
-          placeholder="Search courses, modules, or lessons..." 
+          placeholder="Buscar cursos, módulos ou aulas..." 
           [value]="searchQuery()"
           (input)="onSearchInput($event)"
           (keydown.escape)="closeSearch()"
@@ -402,8 +397,8 @@
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
               </svg>
             </div>
-            <h3 class="text-lg font-medium text-white mb-1">No results found</h3>
-            <p class="text-sm text-slate-400">We couldn't find anything matching your search. Try different keywords.</p>
+            <h3 class="text-lg font-medium text-white mb-1">Nenhum resultado encontrado</h3>
+            <p class="text-sm text-slate-400">Não conseguimos encontrar nada correspondente à sua busca. Tente palavras-chave diferentes.</p>
           </div>
         } @else {
           <ul class="space-y-2">
@@ -418,7 +413,7 @@
                        <img [src]="course.imageUrl" [alt]="course.name" class="w-full h-full object-cover">
                      } @else {
                        <div class="absolute inset-0 flex items-center justify-center text-indigo-400 font-bold opacity-50">
-                         {{ course.name.charAt(0) }}
+                          {{ course.name.charAt(0) }}
                        </div>
                      }
                   </div>
@@ -428,7 +423,7 @@
                     <p class="text-xs text-slate-400 truncate mt-0.5">{{ course.description }}</p>
                   </div>
                   <div class="hidden sm:flex items-center gap-2 text-xs text-slate-500 px-3 py-1 rounded-md bg-white/5 border border-white/5 whitespace-nowrap">
-                    <span class="capitalize">{{ course.courseLevel.toLowerCase() }}</span>
+                    <span class="capitalize">{{ course.courseLevel === 'BEGINNER' ? 'Iniciante' : course.courseLevel === 'INTERMEDIATE' ? 'Intermediário' : course.courseLevel === 'ADVANCED' ? 'Avançado' : course.courseLevel }}</span>
                   </div>
                 </a>
               </li>
@@ -446,7 +441,7 @@
              class="p-1 rounded bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-all">
              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
           </button>
-          <span class="text-xs text-slate-400">Page {{ searchPageNumber() + 1 }} of {{ searchTotalPages() || 1 }}</span>
+          <span class="text-xs text-slate-400">Página {{ searchPageNumber() + 1 }} de {{ searchTotalPages() || 1 }}</span>
           <button 
              (click)="nextPage()"
              [disabled]="searchPageNumber() >= searchTotalPages() - 1 || searchTotalPages() === 0"
@@ -455,14 +450,13 @@
           </button>
         </div>
         <div class="flex items-center gap-4 text-xs text-slate-500">
-           <span class="hidden sm:flex items-center gap-1"><kbd class="px-1.5 py-0.5 rounded bg-white/10 border border-white/10">ESC</kbd> to close</span>
+           <span class="hidden sm:flex items-center gap-1"><kbd class="px-1.5 py-0.5 rounded bg-white/10 border border-white/10">ESC</kbd> para fechar</span>
            <div class="flex items-center gap-2">
-             <span>Powered by</span>
+             <span>Desenvolvido por</span>
              <span class="font-semibold text-slate-400">EAD</span>
            </div>
-        </div>
+        </div>     </div>
       </div>
     </div>
-  </div>
   }
 </main>

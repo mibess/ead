@@ -22,8 +22,8 @@
       </div>
 
       <header class="text-center mb-8">
-        <h1 class="text-3xl font-bold text-slate-200">Welcome Back</h1>
-        <p class="mt-2 text-slate-400">Please enter your details to sign in.</p>
+        <h1 class="text-3xl font-bold text-slate-200">Bem-vindo de volta</h1>
+        <p class="mt-2 text-slate-400">Por favor, insira seus dados para entrar.</p>
       </header>
 
       <form class="space-y-5" (ngSubmit)="login()">
@@ -43,19 +43,18 @@
         @if (currentStep() === 2) {
         <div class="space-y-5 animate-fade-in-up">
           <div>
-            <label for="password" class="sr-only">Password</label>
+            <label for="password" class="sr-only">Senha</label>
             <input app-input id="password" name="password" type="password" [formControl]="password" required
-              placeholder="Password" autofocus />
+              placeholder="Senha" autofocus />
           </div>
 
           <div class="flex items-center justify-between">
             <label class="inline-flex items-center gap-2 text-sm text-slate-300 cursor-pointer">
               <input type="checkbox"
                 class="rounded border-white/20 bg-white/5 text-indigo-500 focus:ring-indigo-500/50 transition-colors" />
-              Remember me
+              Lembrar de mim
             </label>
-            <a href="#" class="text-sm text-indigo-400 hover:text-indigo-300 transition-colors hover:underline">Forgot
-              password?</a>
+            <a href="#" class="text-sm text-indigo-400 hover:text-indigo-300 transition-colors hover:underline">Esqueceu sua senha?</a>
           </div>
         </div>
         }
@@ -66,11 +65,11 @@
           @if (currentStep() === 1) {
           <button app-button type="button" icon="forward" iconPosition="end" variant="solid" color="primary"
             (click)="nextStep()">
-            <span>Next</span>
+            <span>Avançar</span>
           </button>
           } @else {
           <button app-button type="submit" variant="solid" color="secondary" [disabled]="password.invalid">
-            <span>Sign In</span>
+            <span>Entrar</span>
           </button>
           }
 
@@ -80,24 +79,23 @@
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
-            <span>Back</span>
+            <span>Voltar</span>
           </button>
           }
         </div>
 
         <div class="relative flex items-center gap-3 py-4">
           <div class="h-px flex-1 bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
-          <span class="text-xs uppercase tracking-wider text-slate-500 font-medium">Or continue with</span>
+          <span class="text-xs uppercase tracking-wider text-slate-500 font-medium">Ou continue com</span>
           <div class="h-px flex-1 bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
         </div>
 
         <app-login-with />
 
         <p class="pt-2 text-center text-sm text-slate-400 mt-8">
-          Don’t have an account?
+          Não tem uma conta?
           <a routerLink="/signup"
-            class="font-medium text-indigo-400 hover:text-indigo-300 transition-colors hover:underline decoration-indigo-500/30 underline-offset-4">Create
-            Account</a>
+            class="font-medium text-indigo-400 hover:text-indigo-300 transition-colors hover:underline decoration-indigo-500/30 underline-offset-4">Criar conta</a>
         </p>
       </form>
     </section>

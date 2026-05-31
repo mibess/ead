@@ -7,13 +7,13 @@
   <app-header-page />
 
   <main class="relative z-10 max-w-7xl mx-auto p-6 lg:p-10">
-    <h1 class="text-3xl font-bold tracking-tight text-white mb-2">User Settings</h1>
-    <p class="text-slate-400 mb-8">Manage your profile information and security preferences.</p>
+    <h1 class="text-3xl font-bold tracking-tight text-white mb-2">Configurações do Usuário</h1>
+    <p class="text-slate-400 mb-8">Gerencie as informações do seu perfil e preferências de segurança.</p>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
       <!-- Left column: profile info -->
       <section class="lg:col-span-2 rounded-3xl bg-white/5 border border-white/10 shadow-2xl backdrop-blur-xl p-8">
-        <h2 class="text-xl font-semibold text-white mb-6">Personal Information</h2>
+        <h2 class="text-xl font-semibold text-white mb-6">Informações Pessoais</h2>
 
         <form class="space-y-6" [formGroup]="userSettingsFormGroup">
           <div class="flex items-center gap-6 pb-6 border-b border-white/5">
@@ -37,14 +37,14 @@
               }
             </div>
             <div>
-              <label class="block text-sm font-medium text-slate-300 mb-2">Profile photo</label>
+              <label class="block text-sm font-medium text-slate-300 mb-2">Foto de perfil</label>
               <div class="flex items-center gap-3">
                 <label
                   class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium cursor-pointer hover:bg-indigo-500/20 transition-all">
                   <input id="avatarInput" type="file" accept="image/*" class="hidden" (change)="uploadAvatar($event)" />
-                  Upload new photo
+                  Enviar nova foto
                 </label>
-                <button type="button" class="text-sm text-slate-400 hover:text-white transition-colors">Remove</button>
+                <button type="button" class="text-sm text-slate-400 hover:text-white transition-colors">Remover</button>
               </div>
             </div>
           </div>
@@ -58,40 +58,40 @@
                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
               </path>
             </svg>
-            <p class="text-sm text-slate-400">Updating user...</p>
+            <p class="text-sm text-slate-400">Atualizando usuário...</p>
           </div>
           } @else {
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="flex flex-col gap-2">
-              <label class="text-sm font-medium text-slate-300">Full name</label>
-              <input app-input size="sm" formControlName="fullName" type="text" placeholder="Your name" />
+              <label class="text-sm font-medium text-slate-300">Nome completo</label>
+              <input app-input size="sm" formControlName="fullName" type="text" placeholder="Seu nome" />
             </div>
 
             <div class="flex flex-col gap-2">
-              <label class="text-sm font-medium text-slate-300">Username</label>
-              <input app-input size="sm" formControlName="username" type="text" placeholder="@username"
+              <label class="text-sm font-medium text-slate-300">Nome de usuário</label>
+              <input app-input size="sm" formControlName="username" type="text" placeholder="@usuario"
                 class="disabled:bg-slate-800/50 disabled:text-slate-500 disabled:cursor-not-allowed" />
             </div>
 
             <div class="flex flex-col gap-2">
-              <label class="text-sm font-medium text-slate-300">Phone number</label>
-              <input app-input size="sm" formControlName="phoneNumber" type="text" placeholder="Your phone number" />
+              <label class="text-sm font-medium text-slate-300">Telefone</label>
+              <input app-input size="sm" formControlName="phoneNumber" type="text" placeholder="Seu telefone" />
             </div>
 
             <div class="flex flex-col gap-2">
               <label class="text-sm font-medium text-slate-300">CPF</label>
-              <input app-input size="sm" formControlName="cpf" type="text" placeholder="Your CPF" />
+              <input app-input size="sm" formControlName="cpf" type="text" placeholder="Seu CPF" />
             </div>
 
             <div class="flex flex-col gap-2">
-              <label class="text-sm font-medium text-slate-300">Email address</label>
-              <input app-input size="sm" formControlName="email" type="email" placeholder="you@mail.com"
+              <label class="text-sm font-medium text-slate-300">E-mail</label>
+              <input app-input size="sm" formControlName="email" type="email" placeholder="voce@email.com"
                 class="disabled:bg-slate-800/50 disabled:text-slate-500 disabled:cursor-not-allowed" />
             </div>
           </div>
 
           <div class="flex items-center pt-6 mt-2 border-t border-white/5">
-            <button app-button (click)="saveUserSettings()">Save changes</button>
+            <button app-button (click)="saveUserSettings()">Salvar alterações</button>
           </div>
           }
 
@@ -101,7 +101,7 @@
       <!-- Right column: password + preferences -->
       <aside class="space-y-8">
         <section class="rounded-3xl bg-white/5 border border-white/10 shadow-2xl backdrop-blur-xl p-6">
-          <h2 class="text-xl font-semibold text-white mb-6">Security</h2>
+          <h2 class="text-xl font-semibold text-white mb-6">Segurança</h2>
 
           @if (usersSelectors.userUpdatePasswordState().loading) {
           <div class="grid place-items-center py-10 gap-2">
@@ -112,25 +112,25 @@
                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
               </path>
             </svg>
-            <p class="text-sm text-slate-400">Updating password...</p>
+            <p class="text-sm text-slate-400">Atualizando senha...</p>
           </div>
           } @else {
           <form class="space-y-4" [formGroup]="passwordFormGroup">
             <div class="flex flex-col gap-2">
-              <label class="text-sm font-medium text-slate-300">Current password</label>
+              <label class="text-sm font-medium text-slate-300">Senha atual</label>
               <input app-input type="password" size="sm" formControlName="oldPassword"
-                placeholder="Your Current Password" />
+                placeholder="Sua senha atual" />
             </div>
             <div class="flex flex-col gap-2">
-              <label class="text-sm font-medium text-slate-300">New password</label>
-              <input app-input type="password" size="sm" formControlName="password" placeholder="Your New Password" />
+              <label class="text-sm font-medium text-slate-300">Nova senha</label>
+              <input app-input type="password" size="sm" formControlName="password" placeholder="Sua nova senha" />
             </div>
             <div class="flex flex-col gap-2">
-              <label class="text-sm font-medium text-slate-300">Confirm new password</label>
+              <label class="text-sm font-medium text-slate-300">Confirmar nova senha</label>
               <input app-input type="password" size="sm" formControlName="confirmPassword"
-                placeholder="Confirm New Password" />
+                placeholder="Confirme sua nova senha" />
             </div>
-            <button app-button (click)="updatePassword()">Update password</button>
+            <button app-button (click)="updatePassword()">Atualizar senha</button>
           </form>
           }
 
@@ -138,17 +138,17 @@
         </section>
 
         <section class="rounded-3xl bg-white/5 border border-white/10 shadow-2xl backdrop-blur-xl p-6">
-          <h2 class="text-xl font-semibold text-white mb-6">Preferences</h2>
+          <h2 class="text-xl font-semibold text-white mb-6">Preferências</h2>
           <div class="flex flex-col gap-2">
             <label
               class="flex items-center justify-between gap-4 rounded-xl bg-white/5 border border-white/5 p-4 cursor-pointer hover:bg-white/10 transition-colors">
-              <span class="text-sm font-medium text-slate-200">Dark mode</span>
+              <span class="text-sm font-medium text-slate-200">Modo escuro</span>
               <input type="checkbox" checked
                 class="h-5 w-9 rounded-full appearance-none bg-slate-700 border border-white/10 checked:bg-indigo-500 relative transition-all cursor-pointer before:content-[''] before:absolute before:w-3 before:h-3 before:bg-white before:rounded-full before:top-1 before:left-1 checked:before:translate-x-4 before:transition-transform" />
             </label>
             <label
               class="flex items-center justify-between gap-4 rounded-xl bg-white/5 border border-white/5 p-4 cursor-pointer hover:bg-white/10 transition-colors">
-              <span class="text-sm font-medium text-slate-200">Email notifications</span>
+              <span class="text-sm font-medium text-slate-200">Notificações por e-mail</span>
               <input type="checkbox"
                 class="h-5 w-9 rounded-full appearance-none bg-slate-700 border border-white/10 checked:bg-indigo-500 relative transition-all cursor-pointer before:content-[''] before:absolute before:w-3 before:h-3 before:bg-white before:rounded-full before:top-1 before:left-1 checked:before:translate-x-4 before:transition-transform" />
             </label>
@@ -157,10 +157,9 @@
 
         <section
           class="flex flex-col gap-3 rounded-3xl bg-red-500/5 border border-red-500/10 shadow-xl backdrop-blur-xl p-6">
-          <h2 class="text-xl font-semibold text-red-400">Danger zone</h2>
-          <p class="text-sm text-slate-400 leading-relaxed">Once you delete your account, there is no going back. Please
-            be certain.</p>
-          <button app-button size="sm" color="danger">Delete account</button>
+          <h2 class="text-xl font-semibold text-red-400">Zona de Perigo</h2>
+          <p class="text-sm text-slate-400 leading-relaxed">Depois de excluir sua conta, não há caminho de volta. Por favor, tenha certeza.</p>
+          <button app-button size="sm" color="danger">Excluir conta</button>
         </section>
       </aside>
     </div>

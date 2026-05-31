@@ -23,8 +23,8 @@
       </div>
 
       <header class="text-center mb-8">
-        <h1 class="text-3xl font-bold text-slate-200">Create Account</h1>
-        <p class="mt-2 text-slate-400">Step {{ currentStep() }} of {{ totalSteps }}</p>
+        <h1 class="text-3xl font-bold text-slate-200">Criar Conta</h1>
+        <p class="mt-2 text-slate-400">Passo {{ currentStep() }} de {{ totalSteps }}</p>
       </header>
 
       <form class="space-y-5">
@@ -38,14 +38,14 @@
         @if (currentStep() === 1) {
         <div class="space-y-5 animate-fade-in-up">
           <div>
-            <label for="username" class="sr-only">Username</label>
+            <label for="username" class="sr-only">Nome de usuário</label>
             <input app-input appAutofocus id="username" name="username" type="text" [formControl]="username" required autofocus
-              placeholder="Username" />
+              placeholder="Nome de usuário" />
           </div>
 
           <div class="relative flex items-center gap-3 py-2">
             <div class="h-px flex-1 bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
-            <span class="text-xs uppercase tracking-wider text-slate-500 font-medium">Or continue with</span>
+            <span class="text-xs uppercase tracking-wider text-slate-500 font-medium">Ou continue com</span>
             <div class="h-px flex-1 bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
           </div>
 
@@ -57,14 +57,14 @@
         @if (currentStep() === 2) {
         <div class="space-y-5 animate-fade-in-up">
           <div>
-            <label for="fullName" class="sr-only">Full Name</label>
+            <label for="fullName" class="sr-only">Nome Completo</label>
             <input app-input appAutofocus id="fullName" name="fullName" type="text" [formControl]="fullName" required
-              placeholder="Full name" />
+              placeholder="Nome completo" />
           </div>
           <div>
-            <label for="email" class="sr-only">Email</label>
+            <label for="email" class="sr-only">E-mail</label>
             <input app-input id="email" name="email" type="email" [formControl]="email" required
-              placeholder="you@mail.com" />
+              placeholder="voce@email.com" />
           </div>
         </div>
         }
@@ -73,7 +73,7 @@
         @if (currentStep() === 3) {
         <div class="space-y-5 animate-fade-in-up">
           <div>
-            <label for="phoneNumber" class="sr-only">Phone Number</label>
+            <label for="phoneNumber" class="sr-only">Telefone</label>
             <input app-input appAutofocus id="phoneNumber" name="phoneNumber" type="text" [formControl]="phoneNumber" required
               autofocus placeholder="(XX) XXXXX-XXXX" />
           </div>
@@ -85,9 +85,9 @@
         <div class="space-y-5 animate-fade-in-up">
           <div>
             <label for="cpf" class="sr-only">CPF</label>
-            <input app-input appAutofocus id="cpf" name="cpf" type="text" [formControl]="cpf" placeholder="XXX.XXX.XXX-XX (Optional)"
+            <input app-input appAutofocus id="cpf" name="cpf" type="text" [formControl]="cpf" placeholder="XXX.XXX.XXX-XX (Opcional)"
               autofocus />
-            <p class="mt-2 text-xs text-slate-500 text-center">You can skip this step and add it later.</p>
+            <p class="mt-2 text-xs text-slate-500 text-center">Você pode pular este passo e adicionar mais tarde.</p>
           </div>
         </div>
         }
@@ -96,14 +96,14 @@
         @if (currentStep() === 5) {
         <div class="space-y-5 animate-fade-in-up">
           <div>
-            <label for="password" class="sr-only">Password</label>
+            <label for="password" class="sr-only">Senha</label>
             <input app-input appAutofocus id="password" name="password" type="password" [formControl]="password" required autofocus
-              placeholder="Password" />
+              placeholder="Senha" />
           </div>
           <div>
-            <label for="confirm" class="sr-only">Confirm Password</label>
+            <label for="confirm" class="sr-only">Confirmar senha</label>
             <input app-input id="confirm" name="confirmPassword" type="password" [formControl]="confirmPassword"
-              required placeholder="Confirm password" />
+              required placeholder="Confirmar senha" />
           </div>
         </div>
         }
@@ -115,16 +115,16 @@
           @if (currentStep() === 5){
           @if (authService.signalSelectors.signupState().loading){
           <button app-button variant="solid" color="secondary" icon="loading">
-            <span>Registering</span>
+            <span>Cadastrando...</span>
           </button>
           } @else {
           <button app-button (click)="nextStep()" variant="solid" color="secondary">
-            <span>Register</span>
+            <span>Cadastrar</span>
           </button>
           }
           } @else {
           <button app-button icon="forward" iconPosition="end" (click)="nextStep()" variant="solid" color="primary">
-            <span>Next</span>
+            <span>Avançar</span>
           </button>
           }
 
@@ -132,7 +132,7 @@
           @if (currentStep() === 4) {
           <button type="button" (click)="skipStep()"
             class="w-full py-2 text-sm text-slate-400 hover:text-white transition-colors">
-            Skip for now
+            Pular por enquanto
           </button>
           }
 
@@ -143,16 +143,15 @@
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
-            <span>Back</span>
+            <span>Voltar</span>
           </button>
           }
         </div>
 
         <p class="pt-2 text-center text-sm text-slate-400">
-          Already have an account?
+          Já tem uma conta?
           <a routerLink="/login"
-            class="font-medium text-indigo-400 hover:text-indigo-300 transition-colors hover:underline decoration-indigo-500/30 underline-offset-4">Log
-            In</a>
+            class="font-medium text-indigo-400 hover:text-indigo-300 transition-colors hover:underline decoration-indigo-500/30 underline-offset-4">Entrar</a>
         </p>
       </form>
     </section>

@@ -132,12 +132,12 @@ export class CoursesEditPage implements OnInit {
     if (id && this.courseId) {
       this.moduleService.deleteModule(this.courseId, id).subscribe({
         next: () => {
-          this.toastService.showSuccess('Module deleted');
+          this.toastService.showSuccess('Módulo excluído');
           this.originalModules = this.originalModules.filter(m => m.id !== id);
         },
         error: (err) => {
           console.error('Error auto-deleting module', err);
-          this.toastService.showError('Error deleting module');
+          this.toastService.showError('Erro ao excluir módulo');
         }
       });
     }
@@ -241,13 +241,13 @@ export class CoursesEditPage implements OnInit {
       })
     ).subscribe({
       next: () => {
-        this.toastService.showSuccess('Course updated successfully');
+        this.toastService.showSuccess('Curso atualizado com sucesso');
         this.router.navigate(['/courses', this.courseId, 'edit']);
         this.isSubmitting.set(false);
       },
       error: (err) => {
         console.error('Error updating course or modules', err);
-        this.toastService.showError('Error updating course. Please try again.');
+        this.toastService.showError('Erro ao atualizar curso. Por favor, tente novamente.');
         this.isSubmitting.set(false);
       },
       complete: () => {
@@ -271,13 +271,13 @@ export class CoursesEditPage implements OnInit {
     this.isDeleting.set(true);
     this.courseService.deleteCourse(this.courseId).subscribe({
       next: () => {
-        this.toastService.showSuccess('Course deleted successfully');
+        this.toastService.showSuccess('Curso excluído com sucesso');
         this.openDeleteDialog.set(false);
         this.router.navigate(['/courses']);
       },
       error: (err) => {
         console.error('Error deleting course', err);
-        this.toastService.showError('Error deleting course. Please try again.');
+        this.toastService.showError('Erro ao excluir curso. Por favor, tente novamente.');
         this.isDeleting.set(false);
       },
       complete: () => {
@@ -333,27 +333,27 @@ export class CoursesEditPage implements OnInit {
 
     action$.subscribe({
       next: (res) => {
-        this.toastService.showSuccess(lessonId ? 'Lesson updated' : 'Lesson created');
+        this.toastService.showSuccess(lessonId ? 'Aula atualizada' : 'Aula criada');
         this.refreshLessonsForModule(moduleId);
         this.closeLessonDialog();
         this.isSavingLesson.set(false);
       },
       error: () => {
-        this.toastService.showError('Error saving lesson');
+        this.toastService.showError('Erro ao salvar aula');
         this.isSavingLesson.set(false);
       }
     });
   }
 
   deleteLesson(moduleId: string, lessonId: string) {
-    if (confirm('Are you sure you want to delete this lesson?')) {
+    if (confirm('Tem certeza que deseja excluir esta aula?')) {
       this.lessonService.deleteLesson(moduleId, lessonId).subscribe({
         next: () => {
-          this.toastService.showSuccess('Lesson deleted');
+          this.toastService.showSuccess('Aula excluída');
           this.refreshLessonsForModule(moduleId);
         },
         error: () => {
-          this.toastService.showError('Error deleting lesson');
+          this.toastService.showError('Erro ao excluir aula');
         }
       });
     }

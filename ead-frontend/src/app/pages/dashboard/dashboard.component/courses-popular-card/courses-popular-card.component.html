@@ -32,7 +32,7 @@
                     </div>
                     
                     <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide z-20 shadow-lg border border-white/20 text-[#7B2CBF]">
-                        {{ course.courseLevel }}
+                        {{ course.courseLevel === 'BEGINNER' ? 'Iniciante' : course.courseLevel === 'INTERMEDIATE' ? 'Intermediário' : course.courseLevel === 'ADVANCED' ? 'Avançado' : course.courseLevel }}
                     </div>
                 </div>
                 
@@ -77,8 +77,8 @@
         </div>
 
         <div class="mt-8 text-center md:hidden">
-            <a href="#courses" class="inline-flex items-center font-medium text-indigo-600 hover:text-indigo-700">
-                View all courses
+            <a href="#courses" class="inline-flex items-center font-medium text-[#7B2CBF] hover:text-indigo-800">
+                Ver todos os cursos
                 <svg class="w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
                 </svg>

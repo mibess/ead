@@ -75,22 +75,22 @@ export class UsersSettingsPage implements OnInit {
 
       next: (userResponse) => {
         if (userResponse?.userId) {
-          this.toastService.showSuccess('User settings updated successfully!');
+          this.toastService.showSuccess('Configurações do usuário atualizadas com sucesso!');
         } else {
-          this.toastService.showError('Failed to update: Invalid response from server.');
+          this.toastService.showError('Falha ao atualizar: Resposta inválida do servidor.');
         }
       },
 
       error: (err) => {
         console.error('Update failed:', err);
-        this.toastService.showError('Failed to update user settings. Please try again later.');
+        this.toastService.showError('Falha ao atualizar as configurações do usuário. Por favor, tente novamente mais tarde.');
       }
     });
   }
 
   public updatePassword(): void {
     if (!this.passwordFormGroup.valid || !this.validPassword()) {
-      this.toastService.showError('Invalid passwords entered.');
+      this.toastService.showError('Senhas inválidas digitadas.');
       return;
     }
 
@@ -101,12 +101,12 @@ export class UsersSettingsPage implements OnInit {
 
     this.userService.updatePassword(this.usersSelectors.userSettings()?.userId || '', userUpdatePasswordRequest).subscribe({
       next: (response) => {
-        this.toastService.showSuccess('Password updated successfully!');
+        this.toastService.showSuccess('Senha atualizada com sucesso!');
       },
 
       error: (err) => {
         console.error('Update failed:', err);
-        this.toastService.showError('Failed to update password. Please try again later.');
+        this.toastService.showError('Falha ao atualizar a senha. Por favor, tente novamente mais tarde.');
       }
     });
   }
@@ -140,13 +140,13 @@ export class UsersSettingsPage implements OnInit {
         this.userSettingsFormGroup.patchValue({ imageUrl: response.imageUrl });
         this.userStorageService.setUserLoggedIn(response);
         this.updateImageLoading.set(false);
-        this.toastService.showSuccess('Avatar updated successfully!');
+        this.toastService.showSuccess('Avatar atualizado com sucesso!');
       },
 
       error: (err) => {
         console.error('Update failed:', err);
         this.updateImageLoading.set(false);
-        this.toastService.showError('Failed to update user avatar. Please try again later.');
+        this.toastService.showError('Falha ao atualizar o avatar do usuário. Por favor, tente novamente mais tarde.');
       }
     });
   }

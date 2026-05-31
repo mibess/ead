@@ -112,12 +112,12 @@ export class CoursesNewPage {
       })
     ).subscribe({
       next: ({ course }) => {
-        this.toastService.showSuccess('Course created successfully');
+        this.toastService.showSuccess('Curso criado com sucesso');
         this.router.navigate(['/courses', course.id, 'edit']);
       },
       error: (err) => {
         console.error('Error creating course or modules', err);
-        this.toastService.showError('Error creating course. Please try again.');
+        this.toastService.showError('Erro ao criar o curso. Por favor, tente novamente.');
         this.isSubmitting = false;
       },
       complete: () => {
