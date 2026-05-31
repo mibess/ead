@@ -9,6 +9,7 @@ import { LoginWithComponent } from "../../../shared/login-with.component/login-w
 import { AutofocusDirective } from '../../../shared/directives/autofocus.directive';
 import { AlertComponent } from "../../../shared/alert.component/alert.component";
 import { ButtonComponent } from "../../../shared/button.component/button.component";
+import { PhoneMaskDirective } from '../../../shared/directives/phone-mask.directive';
 
 @Component({
   selector: 'app-signup.page',
@@ -22,7 +23,8 @@ import { ButtonComponent } from "../../../shared/button.component/button.compone
     CommonModule,
     AlertComponent,
     ButtonComponent,
-    AutofocusDirective
+    AutofocusDirective,
+    PhoneMaskDirective
   ],
   templateUrl: './signup.page.html',
   styleUrl: './signup.page.css',
